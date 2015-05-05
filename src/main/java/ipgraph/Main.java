@@ -29,25 +29,28 @@ public class Main {
 
         // build graph
         DGraph dgraph = DGraph.buildDGraph(dtree);
-        System.out.println("\ndgraph = \n" + dgraph.toString(dtree));
+        System.out.println("\ndgraph = \n" + dgraph.toString());
 
         // find the path between two nodes
         int sid = 1; int tid = 6;
-        List<DefaultEdge> paths = dgraph.findShortestPath(sid, tid);
-        System.out.println("\npath between " + sid + " and " + tid + " = " + paths);
+        DNode sn = dtree.getNodeById(1);
+        DNode tn = dtree.getNodeById(6);
+        List<DefaultEdge> paths = dgraph.findShortestPath(sn, tn);
+        printPath(dgraph, paths, sn, tn);
+
 
         // build subgraph
-        Subgraph subgraph_NOUN = dgraph.getSubgraph(dtree, postagSet);
-        System.out.println("\nsubgraph_for_NOUN = \n" + DGraph.toString(subgraph_NOUN, dtree));
+        Subgraph subgraph_NOUN = dgraph.getSubgraph(postagSet);
+        System.out.println("\nsubgraph_for_NOUN = \n" + DGraph.toString(subgraph_NOUN));
     }
 
-    public static void printPath(List<DefaultEdge> paths,
-                 DTree dtree, UndirectedGraph<Integer, DefaultEdge> dgraph, int start, int end) {
-        System.out.println("\nshortest path from " + start + " to " + end + " = ");
+    public static void printPath(UndirectedGraph<DNode, DefaultEdge> dgraph,
+           List<DefaultEdge> paths, DNode sn, DNode tn) {
+        System.out.println("\nshortest path from " + sn.getId() + " to " + tn.getId() + " = ");
         for (int i = 0; i < paths.size(); i++) {
             DefaultEdge p = paths.get(i);
-            DNode s = dtree.getNodeById(dgraph.getEdgeSource(p));
-            DNode t = dtree.getNodeById(dgraph.getEdgeTarget(p));
+            DNode s = dgraph.getEdgeSource(p);
+            DNode t = dgraph.getEdgeTarget(p);
             System.out.println(s.getId() + ":" + s.getForm() + " --> " + t.getDepLabel() + " --> " + t.getId() + ":" + t.getForm());
         }
     }
