@@ -5,7 +5,6 @@ import ipgraph.datastructure.DNode;
 import ipgraph.datastructure.DTree;
 import org.jgrapht.UndirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
-import org.jgrapht.graph.Subgraph;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -31,6 +30,10 @@ public class Main {
         DGraph dgraph = DGraph.buildDGraph(dtree);
         System.out.println("\ndgraph = \n" + dgraph.toString());
 
+        // compute and add nodes' levels
+        int maxiumlevel = dgraph.addNodeLevel();
+        System.out.println("\ndgraph (add levels to nodes) <maximumlevel = " + maxiumlevel + "> = \n" + dgraph.toString());
+
         // find the path between two nodes
         int sid = 1; int tid = 6;
         DNode sn = dtree.getNodeById(1);
@@ -38,10 +41,9 @@ public class Main {
         List<DefaultEdge> paths = dgraph.findShortestPath(sn, tn);
         printPath(dgraph, paths, sn, tn);
 
-
         // build subgraph
-        Subgraph subgraph_NOUN = dgraph.getSubgraph(postagSet);
-        System.out.println("\nsubgraph_for_NOUN = \n" + DGraph.toString(subgraph_NOUN));
+        DGraph dsubgraph_NOUN = dgraph.getSubgraph(postagSet);
+        System.out.println("\nsubgraph_for_NOUN = \n" + dsubgraph_NOUN.toString());
     }
 
     public static void printPath(UndirectedGraph<DNode, DefaultEdge> dgraph,
