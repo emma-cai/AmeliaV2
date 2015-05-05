@@ -19,6 +19,18 @@ public class DGraph extends SimpleGraph<DNode, DefaultEdge> {
         super(aClass);
     }
 
+    public DGraph(Class<? extends DefaultEdge> aClass,
+                  Set<DNode> vertexSubset, Set<DefaultEdge> edgeSubset) {
+
+        super(aClass);
+
+        for (DNode v : vertexSubset)
+            this.addVertex(v);
+
+        for (DefaultEdge e : edgeSubset)
+            this.addEdge(this.getEdgeSource(e), this.getEdgeTarget(e));
+    }
+
     /** **************************************************************
      * Build an undirected graph from dependency tree
      */
@@ -45,6 +57,7 @@ public class DGraph extends SimpleGraph<DNode, DefaultEdge> {
                 }
             }
         }
+
         return dgraph;
     }
 
@@ -58,11 +71,12 @@ public class DGraph extends SimpleGraph<DNode, DefaultEdge> {
         for (DefaultEdge edge : edges) {
             DNode node = this.getEdgeTarget(edge);
 
-            builder.append(node.getId()).append("\t");
-            builder.append(node.getForm()).append("\t");
-            builder.append(node.getLemma()).append("\t");
-            builder.append(node.getPOS()).append("\t");
-            builder.append(node.getHead().getId()).append("\t");
+            builder.append(node.getId()).append("\t\t");
+            builder.append(node.getForm()).append("\t\t");
+            builder.append(node.getLemma()).append("\t\t");
+            builder.append(node.getPOS()).append("\t\t");
+            builder.append(node.getHead().getId()).append("\t\t");
+            builder.append(node.getLevel()).append("\t\t");
             builder.append(node.getDepLabel());
             builder.append(System.lineSeparator());
         }
@@ -77,11 +91,12 @@ public class DGraph extends SimpleGraph<DNode, DefaultEdge> {
         for (DefaultEdge edge : edges) {
             DNode node = (DNode) subgraph.getEdgeTarget(edge);
 
-            builder.append(node.getId()).append("\t");
-            builder.append(node.getForm()).append("\t");
-            builder.append(node.getLemma()).append("\t");
-            builder.append(node.getPOS()).append("\t");
-            builder.append(node.getHead().getId()).append("\t");
+            builder.append(node.getId()).append("\t\t");
+            builder.append(node.getForm()).append("\t\t");
+            builder.append(node.getLemma()).append("\t\t");
+            builder.append(node.getPOS()).append("\t\t");
+            builder.append(node.getHead().getId()).append("\t\t");
+            builder.append(node.getLevel()).append("\t\t");
             builder.append(node.getDepLabel());
             builder.append(System.lineSeparator());
         }
@@ -103,7 +118,10 @@ public class DGraph extends SimpleGraph<DNode, DefaultEdge> {
             return path;
         }
 
-        return DijkstraShortestPath.findPathBetween(this, from, to);
+        path = DijkstraShortestPath.findPathBetween(this, from, to);
+        if (path == null)
+            path = new ArrayList<>();
+        return path;
     }
 
 //    /** **************************************************************
@@ -131,7 +149,7 @@ public class DGraph extends SimpleGraph<DNode, DefaultEdge> {
      * Build an undirected graph from dtree, where all nodes whose POS
      * tag is NN, NNS, NNP, NNPS
      */
-    public Subgraph getSubgraph(Set<String> posTags) {
+    public DGraph getSubgraph(Set<String> posTags) {
 
         DNode root = this.getNodeById(0);
         Set edgeSubset = new HashSet<>();
@@ -150,13 +168,14 @@ public class DGraph extends SimpleGraph<DNode, DefaultEdge> {
             }
         }
         Subgraph subgraph = new Subgraph(this, vertexSubset, edgeSubset);
-        return subgraph;
+        DGraph dsubgraph = new DGraph(DefaultEdge.class, vertexSubset, edgeSubset);
+        return dsubgraph;
     }
 
     /** **************************************************************
      * In graph, return the node whose id is equal to targetId
      */
-    private DNode getNodeById(int targetID) {
+    public DNode getNodeById(int targetID) {
 
         Set<DNode> vertexSet = this.vertexSet();
         for (DNode n : vertexSet) {
@@ -164,5 +183,38 @@ public class DGraph extends SimpleGraph<DNode, DefaultEdge> {
                 return n;
         }
         return null;
+    }
+
+    /** **************************************************************
+     * In graph, return all nodes with id = targetLevel
+     */
+    public Set<DNode> getNodesByLevel(int targetLevel) {
+
+        Set<DNode> DNodeWithSpecificLevel = new HashSet<>();
+        Set<DNode> vertexSet = this.vertexSet();
+        for (DNode n : vertexSet) {
+            if (targetLevel == n.getLevel())
+                DNodeWithSpecificLevel.add(n);
+        }
+        return DNodeWithSpecificLevel;
+    }
+
+    /** **************************************************************
+     * Compute and add DNode.level (distance from each node to root;
+     * For example:
+     *   if ROOT-0 --> transported-7, then level_of_transported-7 = 1;
+     * Return the maximum level in the graph/tree;
+     */
+    public int addNodeLevel() {
+
+        int maxium = 0;
+        DNode root = getNodeById(0);
+        for (DNode n : this.vertexSet()) {
+            List<DefaultEdge> path = findShortestPath(root, n);
+            n.setLevel(path.size());
+            if (path.size() > maxium)
+                maxium = path.size();
+        }
+        return maxium;
     }
 }
