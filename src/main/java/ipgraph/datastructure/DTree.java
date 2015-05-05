@@ -103,75 +103,7 @@ public class DTree extends ArrayList<DNode> {
     }
 
     /** **************************************************************
-     * Return true if n1 and n2 are directly connected in the tree;
-     */
-    public boolean isDirectlyConnected(DNode n1, DNode n2) {
-
-        return n1.getChildren().contains(n2) || n2.getChildren().contains(n1);
-    }
-
-    public boolean isDirectlyConnected(int n1_index, int n2_index) {
-
-        DNode n1 = getNodeById(n1_index);
-        DNode n2 = getNodeById(n2_index);
-
-        return isDirectlyConnected(n1, n2);
-    }
-
-    /** **************************************************************
-     * Return true is n1 is the parent of n2; Otherwise return false;
-     */
-    public boolean isParent(DNode n1, DNode n2) {
-        return n1.getChildren().contains(n2);
-    }
-
-    /** **************************************************************
-     * TODO:
-     * Return the shortest path between n1 and n2. If n1 and n2 are not
-     * connected, return null;
-     */
-    public void getShortestPath(DNode n1, DNode n2, List<DPath> shortestPath, boolean found) {
-
-        List<DNode> children = n1.getChildren();
-        if (children.isEmpty())
-            return;
-
-        if (children.contains(n2)) {
-            shortestPath.add(new DPath(n1, n2, n2.getDepLabel()));
-            found = true;
-        } else {
-            for (DNode ntmp : children) {
-                getShortestPath(ntmp, n2, shortestPath, false);
-            }
-        }
-
-//        if (isParent(n1, n2))
-//            return new DPath(n1, n2, n1.getDepLabel());
-//        else if (isParent(n2, n1))
-//            return new DPath(n2, n1, n2.getDepLabel());
-//        else
-//            return null;    //DEBUG DEBUG
-    }
-
-
-    public void getShortestPath(int n1_index, int n2_index, List<DPath> shortestPath, boolean found) {
-
-        DNode n1 = this.getNodeById(0);
-        DNode n2 = this.getNodeById(1);
-
-        this.getShortestPath(n1, n2, shortestPath, false);
-    }
-
-    /** **************************************************************
-     * TODO: Get minimum subgraph which contains all nodes in nodeSet;
-     */
-    public DTree getMinimumSubtree(ArrayList<DNode> nodeSet) {
-        return null;
-    }
-
-
-    /**
-     *
+     * Build dependency-tree from a plain sentence
      */
     public static DTree buildTree(String s) {
         StanfordPCFGParser pcfgParser = new StanfordPCFGParser("", false);
@@ -181,7 +113,6 @@ public class DTree extends ArrayList<DNode> {
         GrammaticalStructure egs = new EnglishGrammaticalStructure(tree, string -> true, headFinder, true);
 
         String conllx = EnglishGrammaticalStructure.dependenciesToString(egs, egs.typedDependenciesCCprocessed(), tree, true, true);
-        System.out.println(conllx);
 
         DTree dtree = LangTools.getDTreeFromCoNLLXString(conllx, true);
         return dtree;
