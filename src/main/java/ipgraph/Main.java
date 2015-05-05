@@ -20,98 +20,24 @@ public class Main {
     private static Set<String> postagSet = new HashSet<>(Arrays.asList(new String[]{"NN", "NNS", "NNP", "NNPS", "WP"}));
 
     public static void main(String[] args) {
+        String sentence = "What are transported into the RER during synthesis?";
 
-        DGraph DG = new DGraph();
-
-
-        printSplitLine();
-        String sentence = "Some proteins, such as those to be incorporated in membranes (known as membrane proteins), are transported into the RER during synthesis.";
         // build tree
         DTree dtree = DTree.buildTree(sentence);
 
         // build graph
-        UndirectedGraph<Integer, DefaultEdge> dgraph = DG.buildDGraph(dtree);
-        System.out.println("\ngraph = " + dgraph);
+        DGraph dgraph = DGraph.buildDGraph(dtree);
+        System.out.println("\ngraph = \n" + dgraph.toString(dtree));
 
         // find the path between two nodes
-        int start = 0; int end = 2;
-        List<DefaultEdge> paths = DG.findShortestPath(dgraph, start, end);
-        printPath(paths, dtree, dgraph, start, end);
+        int sid = 1; int tid = 6;
+        List<DefaultEdge> paths = dgraph.findShortestPath(sid, tid);
+        System.out.println("\npath between " + sid + " and " + tid + " = " + paths);
 
-        start = 0; end = 23;
-        paths = DG.findShortestPath(dgraph, start, end);
-        printPath(paths, dtree, dgraph, start, end);
-
-        Set<Integer> VertexSet = new HashSet<>(Arrays.asList(new Integer[]{2, 15, 16, 23, 25}));
-        Subgraph subgraph = DG.getSubgraph(dgraph, VertexSet);
-        System.out.println("\nsubgraph = " + subgraph);
-
-
-        Subgraph minidgraph = DG.getSubgraph(dgraph, dtree, postagSet);
-        System.out.println("\nsubgraph_for_specific_postags = \n" + DG.toString(minidgraph, dtree));
-        printSplitLine();
-
-
-
-
-
-
-        printSplitLine();
-        sentence = "What are transported into the RER during synthesis?";
-        dtree = DTree.buildTree(sentence);
-        dgraph = DG.buildDGraph(dtree);
-        System.out.println("\ngraph = " + dgraph);
-
-        // find the path between two nodes
-        start = 0; end = 1;
-        paths = DG.findShortestPath(dgraph, start, end);
-        printPath(paths, dtree, dgraph, start, end);
-
-        start = 0; end = 6;
-        paths = DG.findShortestPath(dgraph, start, end);
-        printPath(paths, dtree, dgraph, start, end);
-
-        VertexSet = new HashSet<>(Arrays.asList(new Integer[]{1, 6, 8}));
-        subgraph = DG.getSubgraph(dgraph, VertexSet);
-        System.out.println("\nsubgraph = " + subgraph);
-
-        minidgraph = DG.getSubgraph(dgraph, dtree, postagSet);
-        System.out.println("\nsubgraph_for_specific_postags = \n" + DG.toString(minidgraph, dtree));
-        printSplitLine();
-
-
-
-
-
-        printSplitLine();
-        sentence = "Which branch of biology studies cells?";
-        dtree = DTree.buildTree(sentence);
-        dgraph = DG.buildDGraph(dtree);
-        VertexSet = new HashSet<>(Arrays.asList(new Integer[]{4, 6}));
-        subgraph = DG.getSubgraph(dgraph, VertexSet);
-        System.out.println("\nsubgraph = " + subgraph);
-
-        minidgraph = DG.getSubgraph(dgraph, dtree, postagSet);
-        System.out.println("\nsubgraph_for_specific_postags = \n" + DG.toString(minidgraph, dtree));
-        printSplitLine();
+        // build subgraph
+        Subgraph subgraph_NOUN = dgraph.getSubgraph(dtree, postagSet);
+        System.out.println("\nsubgraph_for_NOUN = \n" + DGraph.toString(subgraph_NOUN, dtree));
     }
-
-    public static void run(String sentence) {
-
-        System.out.println("===============================================================");
-
-
-
-
-//        // subgraph
-//        ConnectivityInspector ci=new ConnectivityInspector(dgraph);
-//        List<Set> ccs = ci.connectedSets();
-//        System.out.println("subgraph = \n");
-//        for (Set s : ccs)
-//            System.out.println(s);
-        System.out.println("===============================================================");
-    }
-
 
     public static void printPath(List<DefaultEdge> paths,
                  DTree dtree, UndirectedGraph<Integer, DefaultEdge> dgraph, int start, int end) {
