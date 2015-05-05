@@ -20,14 +20,16 @@ public class Main {
     private static Set<String> postagSet = new HashSet<>(Arrays.asList(new String[]{"NN", "NNS", "NNP", "NNPS", "WP"}));
 
     public static void main(String[] args) {
+
         String sentence = "What are transported into the RER during synthesis?";
 
         // build tree
         DTree dtree = DTree.buildTree(sentence);
+        System.out.println("\ndtree = \n" + dtree.toString());
 
         // build graph
         DGraph dgraph = DGraph.buildDGraph(dtree);
-        System.out.println("\ngraph = \n" + dgraph.toString(dtree));
+        System.out.println("\ndgraph = \n" + dgraph.toString(dtree));
 
         // find the path between two nodes
         int sid = 1; int tid = 6;
