@@ -17,9 +17,9 @@ import java.util.List;
 import java.util.function.Predicate;
 
 /**
- * For the Stanford parse tree.
- * Created by Maochen on 10/28/14.
- */
+* For the Stanford parse tree.
+* Created by Maochen on 10/28/14.
+*/
 
 // Should only be used in PCFG Parser.
 public class StanfordTreeBuilder {
@@ -87,7 +87,7 @@ public class StanfordTreeBuilder {
         for (int i = 0; i < tokens.size(); i++) {
             CoreLabel token = tokens.get(i);
             String cPOSTagValue = cPOSTag == null ? LangTools.getCPOSTag(token.tag()) : cPOSTag.get(i).value();
-            DNode node = new DNode(i + 1, token.originalText(), token.lemma(), cPOSTagValue, token.tag(), StringUtils.EMPTY);
+            DNode node = new DNode(i + 1, token.originalText(), token.lemma(), cPOSTagValue, token.tag(), StringUtils.EMPTY, 0);
             depTree.add(node);
             setNamedEntity(node, token);
         }

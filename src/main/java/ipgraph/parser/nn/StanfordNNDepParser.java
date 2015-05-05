@@ -22,8 +22,8 @@ import java.io.StringReader;
 import java.util.*;
 
 /**
- * Created by Maochen on 4/6/15.
- */
+* Created by Maochen on 4/6/15.
+*/
 public class StanfordNNDepParser {
 
     private static final TokenizerFactory<Word> tf = PTBTokenizer.PTBTokenizerFactory.newTokenizerFactory();
