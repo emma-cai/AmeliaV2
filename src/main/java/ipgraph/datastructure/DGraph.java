@@ -6,6 +6,7 @@ import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.SimpleGraph;
 import org.jgrapht.graph.Subgraph;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -13,15 +14,18 @@ import java.util.Set;
 /**
  * Created by qingqingcai on 5/3/15.
  */
-public class DGraph {
+public class DGraph extends SimpleGraph<Integer, DefaultEdge> {
+
+    public DGraph(Class<? extends DefaultEdge> aClass) {
+        super(aClass);
+    }
 
     /** **************************************************************
      * Build an undirected graph from dependency tree
      */
-    public static UndirectedGraph<Integer, DefaultEdge> buildDGraph(DTree dtree) {
+    public static DGraph buildDGraph(DTree dtree) {
 
-        UndirectedGraph<Integer, DefaultEdge> dgraph
-                = new SimpleGraph<>(DefaultEdge.class);
+        DGraph dgraph = new DGraph(DefaultEdge.class);
 
         // Initialize vertex set
         Set<Integer> processed = new HashSet<>();
@@ -48,6 +52,25 @@ public class DGraph {
     /** **************************************************************
      * Print Vertex and Edge set
      */
+    public String toString(DTree dtree) {
+
+        StringBuilder builder = new StringBuilder();
+        Set<DefaultEdge> edges = this.edgeSet();
+        for (DefaultEdge edge : edges) {
+            DNode node = dtree.get((Integer) this.getEdgeTarget(edge));
+
+            builder.append(node.getId()).append("\t");
+            builder.append(node.getForm()).append("\t");
+            builder.append(node.getLemma()).append("\t");
+            builder.append(node.getPOS()).append("\t");
+            builder.append(node.getHead().getId()).append("\t");
+            builder.append(node.getDepLabel());
+            builder.append(System.lineSeparator());
+        }
+
+        return builder.toString();
+    }
+
     public static String toString(Subgraph dgraph, DTree dtree) {
 
         StringBuilder builder = new StringBuilder();
@@ -68,23 +91,31 @@ public class DGraph {
     }
 
     /** **************************************************************
-     * Find the shortest path between two node "from" and "to"
+     * Find the shortest path from "from" to "to"
      */
-    public static List findShortestPath(UndirectedGraph<Integer, DefaultEdge> dgraph, int from, int to) {
+    public List findShortestPath(int from, int to) {
 
-        List path = DijkstraShortestPath.findPathBetween(dgraph, from, to);
-        return path;
+        List path = new ArrayList();
+        if (!this.vertexSet().contains(from)) {
+            System.out.println("ERROR: " + from + " is not in the graph!");
+            return path;
+        } else if (!this.vertexSet().contains(to)) {
+            System.out.println("ERROR: " + to + " is not in the graph!");
+            return path;
+        }
+
+        return DijkstraShortestPath.findPathBetween(this, from, to);
     }
 
     /** **************************************************************
      * Return the subtree/subgraph containing all nodes in containNodes
      */
-    public static Subgraph getSubgraph(UndirectedGraph<Integer, DefaultEdge> dgraph, Set<Integer> containNodes) {
+    public Subgraph getSubgraph(UndirectedGraph<Integer, DefaultEdge> dgraph, Set<Integer> containNodes) {
 
         Set edgeSubset = new HashSet<>();
         Set vertexSubset = new HashSet<>();
         for (int nid : containNodes) {
-            List<DefaultEdge> path = findShortestPath(dgraph, 0, nid);
+            List<DefaultEdge> path = findShortestPath(0, nid);
             edgeSubset.addAll(path);
             for (DefaultEdge p : path) {
                 int sid = dgraph.getEdgeSource(p);
@@ -101,26 +132,25 @@ public class DGraph {
      * Build an undirected graph from dtree, where all nodes whose POS
      * tag is NN, NNS, NNP, NNPS
      */
-    public static Subgraph getSubgraph(UndirectedGraph<Integer, DefaultEdge> dgraph,
-                                DTree dtree, Set<String> posTags) {
+    public Subgraph getSubgraph(DTree dtree, Set<String> posTags) {
 
         Set edgeSubset = new HashSet<>();
         Set vertexSubset = new HashSet<>();
-        for (Integer vid : dgraph.vertexSet()) {
+        for (Integer vid : this.vertexSet()) {
             DNode v = dtree.getNodeById(vid);
             if (posTags.contains(v.getPOS())) {
                 vertexSubset.add(v);
-                List<DefaultEdge> path = findShortestPath(dgraph, 0, vid);
+                List<DefaultEdge> path = findShortestPath(0, vid);
                 edgeSubset.addAll(path);
                 for (DefaultEdge p : path) {
-                    int sid = dgraph.getEdgeSource(p);
-                    int tid = dgraph.getEdgeTarget(p);
+                    int sid = this.getEdgeSource(p);
+                    int tid = this.getEdgeTarget(p);
                     vertexSubset.add(sid);
                     vertexSubset.add(tid);
                 }
             }
         }
-        Subgraph subgraph = new Subgraph(dgraph, vertexSubset, edgeSubset);
+        Subgraph subgraph = new Subgraph(this, vertexSubset, edgeSubset);
         return subgraph;
     }
 }
