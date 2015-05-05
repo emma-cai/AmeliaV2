@@ -42,6 +42,7 @@ public class DNode {
     private Map<String, String> feats = new HashMap<>();
     private DNode head;
     private String depLabel;
+    private int level;
     // Still considering item 9 and 10.
 
     // Key - id
@@ -59,9 +60,11 @@ public class DNode {
         pos = StringUtils.EMPTY;
         head = null;
         depLabel = StringUtils.EMPTY;
+        level = 0;
     }
 
-    public DNode(int id, String form, String lemma,String cPOSTag, String pos, String depLabel) {
+    public DNode(int id, String form, String lemma, String cPOSTag,
+                 String pos, String depLabel) {
         this();
         this.id = id;
         this.form = form;
@@ -69,6 +72,18 @@ public class DNode {
         this.cPOSTag = cPOSTag;
         this.pos = pos;
         this.depLabel = depLabel;
+    }
+
+    public DNode(int id, String form, String lemma, String cPOSTag,
+                 String pos, String depLabel, int level) {
+        this();
+        this.id = id;
+        this.form = form;
+        this.lemma = lemma;
+        this.cPOSTag = cPOSTag;
+        this.pos = pos;
+        this.depLabel = depLabel;
+        this.level = level;
     }
 
     public int getId() {
@@ -126,6 +141,10 @@ public class DNode {
     public void setHead(DNode head) {
         this.head = head;
     }
+
+    public int getLevel() { return level; };
+
+    public void setLevel(int level) { this.level = level; }
 
     public List<DNode> getChildren() {
         return children.values().stream().collect(Collectors.toList());
