@@ -1,5 +1,7 @@
-package bpn;
+package bpn.clustering;
 
+import bpn.ArrayIndexComparator;
+import bpn.preparing.FeatureExtraction;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
