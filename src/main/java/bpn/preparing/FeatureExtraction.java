@@ -1,4 +1,4 @@
-package bpn;
+package bpn.preparing;
 
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
@@ -14,7 +14,7 @@ import java.util.*;
 public class FeatureExtraction {
 
     protected StanfordCoreNLP pipeline;
-    protected static List<String> lemmaList = new ArrayList<String>();
+    public static List<String> lemmaList = new ArrayList<String>();
 
     public FeatureExtraction() {
 
