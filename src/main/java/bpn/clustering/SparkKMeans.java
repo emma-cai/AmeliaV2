@@ -1,4 +1,4 @@
-package bpn;
+package bpn.clustering;
 
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaRDD;
