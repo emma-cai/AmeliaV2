@@ -1,5 +1,11 @@
 package bpn;
 
+import bpn.clustering.SparkKMeans;
+import bpn.clustering.SparkLDA;
+import bpn.preparing.Data;
+import bpn.preparing.FeatureExtraction;
+import bpn.preparing.XMLExtraction;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -54,9 +60,9 @@ public class Main {
             for (Data data : sayList) {
                 HashMap<String, String> features = new HashMap<>();
                 if (algorithm.equals("kmeans"))
-                    features = data.KMeansFeatures;
+                    features = data.getKMeansFeatures();
                 else if (algorithm.equals("lda"))
-                    features = data.LDAFeatures;
+                    features = data.getLDAFeatures();
                 else {
                     System.err.println("Wrong Algorithm! Only support kmeans and lda!");
                     System.exit(-1);
@@ -90,7 +96,7 @@ public class Main {
             BufferedWriter textbw = new BufferedWriter(textosw);
 
              for (Data data : sayList) {
-                textbw.write(data.text);
+                textbw.write(data.getText());
                 textbw.newLine();
             }
 
@@ -117,7 +123,7 @@ public class Main {
             for (int clusterID : ClusterID_InstanceIDList.keySet()) {
                 ArrayList<Integer> InstanceIDList = ClusterID_InstanceIDList.get(clusterID);
                 for (int InstanceID : InstanceIDList) {
-                    bw.write(clusterID + "\t" + InstanceID + "\t" + sayList.get(InstanceID).text);
+                    bw.write(clusterID + "\t" + InstanceID + "\t" + sayList.get(InstanceID).getText());
                     bw.newLine();
                 }
             }
@@ -188,7 +194,7 @@ public class Main {
             for (int clusterID : TopicID_InstanceIDList.keySet()) {
                 ArrayList<Integer> InstanceIDList = TopicID_InstanceIDList.get(clusterID);
                 for (int InstanceID : InstanceIDList) {
-                    bw.write(clusterID + "\t" + InstanceID + "\t" + sayList.get(InstanceID).text);
+                    bw.write(clusterID + "\t" + InstanceID + "\t" + sayList.get(InstanceID).getText());
                     bw.newLine();
                 }
             }
