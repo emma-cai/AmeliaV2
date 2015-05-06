@@ -10,7 +10,7 @@ import java.util.Set;
  */
 public class Matching {
 
-    private static boolean debug = false;
+    private static boolean debug = true;
 
     /** **************************************************************
      * Compute similarity cost between two graphs. Higher cost indicates

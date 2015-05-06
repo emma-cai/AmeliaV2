@@ -12,12 +12,12 @@ import static ipgraph.matching.Matching.GraphSimilarityCost;
 */
 public class Main {
 
-    private static Set<String> postagSet = new HashSet<>(Arrays.asList(new String[]{"NN", "NNS", "NNP", "NNPS", "WP"}));
+    private static Set<String> postagSet = new HashSet<>(Arrays.asList(new String[]{"NN", "NNS", "NNP", "NNPS"}));
 
     public static void main(String[] args) {
 
-    //    test1();
-        test2();
+        test1();
+    //    test2();
     }
 
     public static void test1() {
@@ -41,13 +41,13 @@ public class Main {
         System.out.println("\nsubgraph3 = \n" + dsubgraph3.toString());
 
         double similarity_s1_s2 = GraphSimilarityCost(dsubgraph1, dsubgraph2);
-        double similarity_s3_s2 = GraphSimilarityCost(dsubgraph3, dsubgraph2);
+    //    double similarity_s3_s2 = GraphSimilarityCost(dsubgraph3, dsubgraph2);
 
         System.out.println("s1 = " + s1);
         System.out.println("s2 = " + s2);
         System.out.println("s3 = " + s3);
         System.out.println("similarity_s1_s2 = " + similarity_s1_s2);
-        System.out.println("similarity_s3_s2 = " + similarity_s3_s2);
+    //     System.out.println("similarity_s3_s2 = " + similarity_s3_s2);
     }
 
     public static void test2() {
