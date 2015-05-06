@@ -1,4 +1,4 @@
-package bpn;
+package bpn.preparing;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,6 +15,18 @@ public class Data {
     List<String> lemmas = new ArrayList<String>();
     HashMap<String, String> KMeansFeatures = new HashMap<String, String>();
     HashMap<String, String> LDAFeatures = new HashMap<>();
+
+    public String getText() { return text; }
+
+    public String getType() { return type; }
+
+    public String getSource() { return source; }
+
+    public List<String> getLemmas() { return lemmas; }
+
+    public HashMap<String, String> getKMeansFeatures() { return KMeansFeatures; }
+
+    public HashMap<String, String> getLDAFeatures() { return LDAFeatures; }
 
     public void print() {
         System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
