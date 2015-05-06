@@ -1,5 +1,6 @@
 package bpn;
 
+import bpn.preparing.FeatureExtraction;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
