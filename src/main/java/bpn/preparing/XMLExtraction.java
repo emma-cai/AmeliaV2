@@ -1,4 +1,4 @@
-package bpn;
+package bpn.preparing;
 
 import java.io.*;
 import java.util.ArrayList;
