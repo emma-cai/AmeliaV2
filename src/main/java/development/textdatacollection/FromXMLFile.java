@@ -1,4 +1,6 @@
-package bpn.preparing;
+package development.textdatacollection;
+
+import bpn.utils.Fun;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -6,9 +8,28 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by qingqingcai on 4/28/15.
+ * Created by qingqingcai on 5/7/15.
  */
-public class XMLExtraction {
+public class FromXMLFile {
+
+    public static void main(String[] args) {
+
+        String directory = "data/bpn/raw";
+        ArrayList<Data> dataList = new ArrayList<>();
+        run(directory, dataList);
+
+        ArrayList<String> labelTextList = new ArrayList<>();
+        ArrayList<String> processed = new ArrayList<>();
+        for (Data data : dataList) {
+            if (!processed.contains(data.getText())) {
+                String label_text = "_" + "\t" + data.getText();
+                labelTextList.add(label_text);
+                processed.add(data.getText());
+            }
+        }
+
+        Fun.saveToFile("data/bpn/text/bpn_test.txt", labelTextList);
+    }
 
     public static void readDataFromDirectory(String directoryPath, ArrayList<Data> sayList) {
 
@@ -145,71 +166,9 @@ public class XMLExtraction {
 
     public static void run(String directory, ArrayList<Data> sayList) {
 
-    //    test1();
-    //    test2();
+        //    test1();
+        //    test2();
 
         readDataFromDirectory(directory, sayList);          // read all raw data from xml
     }
-
-    /**
-     public static void readXML(String filepath, ArrayList<String> sayList) {
-
-     File file = new File(filepath);
-     DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-     try {
-     DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-     Document doc = dBuilder.parse(file);
-     doc.getDocumentElement().normalize();
-
-     //  System.out.println("root of xml file " + doc.getDocumentElement().getNodeName());
-     Node root = doc.getDocumentElement();
-     NodeList nodes = root.getChildNodes();
-     for (int i = 0; i < nodes.getLength(); i++) {
-     Node node = nodes.item(i);
-     if (node.getNodeName().equals("process")) {
-     NodeList nodes2 = node.getChildNodes();
-     for (int j = 0; j < nodes2.getLength(); j++) {
-     Node node2 = nodes2.item(j);
-     if (node2.getNodeType() == node2.ELEMENT_NODE) {
-     Element element = (Element) node2;
-     if (element != null)
-     System.out.println("value1 = " + node2.getNodeName() + "\t" + getValue("id", element));
-     }
-
-     }
-     }
-
-     }
-
-
-     //            NodeList nodes = doc.getElementsByTagName("process");
-     //            for (int i = 0; i < nodes.getLength(); i++) {
-     //                Node node = nodes.item(i);
-     //                if (node.getNodeType() == node.ELEMENT_NODE) {
-     //                    Element element = (Element) node;
-     //                    System.out.println("value1 = " + getValue("userTask", element));
-     //                }
-     //
-     //
-     //                System.out.println("node_name = " + node.getNodeName()
-     //                        + "\tnode value = " + node.getNodeValue());
-     //            }
-
-     } catch (ParserConfigurationException e) {
-     e.printStackTrace();
-     } catch (SAXException e) {
-     e.printStackTrace();
-     } catch (IOException e) {
-     e.printStackTrace();
-     }
-     }
-
-     public static String getValue(String tag, Element element) {
-     NodeList nodes = element.getElementsByTagName(tag).item(0).getChildNodes();
-     Node node = (Node) nodes.item(0);
-     if (node == null)
-     return null;
-     return node.getNodeValue();
-     }
-     **/
 }

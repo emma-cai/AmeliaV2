@@ -1,18 +1,16 @@
-package bpn;
+package bpn.clustering;
 
-import bpn.clustering.SparkKMeans;
-import bpn.clustering.SparkLDA;
-import bpn.preparing.Data;
-import bpn.preparing.FeatureExtraction;
-import bpn.preparing.XMLExtraction;
+import bpn.feature.Feature;
+import development.textdatacollection.Data;
+import development.textdatacollection.FromXMLFile;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Created by qingqingcai on 4/29/15.
- */
+* Created by qingqingcai on 4/29/15.
+*/
 public class Main {
 
     public static void main(String[] args) {
@@ -21,8 +19,8 @@ public class Main {
         ArrayList<Data> sayList = new ArrayList<Data>();
 
         // collect data and do preprocessing
-        XMLExtraction.run(directory, sayList);
-        FeatureExtraction.preprocess(sayList);
+        FromXMLFile.run(directory, sayList);
+        Feature.preprocess(sayList);
 
         /**
         // both KMeans and LDA
@@ -36,7 +34,7 @@ public class Main {
          **/
 
         // only for LDA
-        FeatureExtraction.generateLDAFeatures(sayList);
+        Feature.generateLDAFeatures(sayList);
         runLDA(sayList);
     }
 

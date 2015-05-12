@@ -1,7 +1,7 @@
 package bpn.clustering;
 
 import bpn.ArrayIndexComparator;
-import bpn.preparing.FeatureExtraction;
+import bpn.feature.Feature;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
@@ -20,8 +20,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 /**
- * Created by qingqingcai on 5/1/15.
- */
+* Created by qingqingcai on 5/1/15.
+*/
 public class SparkLDA {
 
     public static void main(String[] args) {
@@ -133,7 +133,7 @@ public class SparkLDA {
                 if (topicIndex_topics.containsKey(topicIndex)) {
                     topics = topicIndex_topics.get(topicIndex);
                 }
-                topics.add(FeatureExtraction.lemmaList.get(wordIndexArray[m]));
+                topics.add(Feature.lemmaList.get(wordIndexArray[m]));
                 topicIndex_topics.put(topicIndex, topics);
             }
         }

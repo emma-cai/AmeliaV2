@@ -1,3 +1,6 @@
 data/*
 .idea/libraries/*
 .idea/*
+target/*
+.DS_Store
+AmeliaV2.iml
