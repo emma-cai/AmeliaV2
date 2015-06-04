@@ -97,6 +97,12 @@ public class Graph extends SimpleGraph<Object, DefaultWeightedEdge> {
 //        return graph;
 //    }
 
+    public static Graph stringToGraph(String text) {
+
+        DTree dtree = DTree.buildTree(text);
+        return Graph.buildDGraph(dtree);
+    }
+
     /** **************************************************************
      * Print Vertex and Edge set
      */

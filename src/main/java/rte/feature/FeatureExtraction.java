@@ -1,4 +1,4 @@
-package rte.experiments;
+package rte.feature;
 
 import rte.datastructure.DNode;
 import rte.datastructure.DTree;

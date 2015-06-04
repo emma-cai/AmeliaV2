@@ -1,13 +1,13 @@
 package rte.experiments;
 
-import net.ipsoft.eliza.ir.rte.sf.RteMessageHandler;
-import net.ipsoft.eliza.ir.rte.sf.ipgraph.datastructure.DNode;
-import net.ipsoft.eliza.ir.rte.sf.ipgraph.datastructure.DTree;
-import net.ipsoft.eliza.ir.rte.sf.ipgraph.datastructure.Graph;
-import net.ipsoft.eliza.ir.rte.sf.ipgraph.datastructure.MatchedGraph;
-import net.ipsoft.eliza.ir.rte.sf.ipgraph.matching.DMatching;
-import net.ipsoft.eliza.ir.rte.sf.ipgraph.matching.PathSub;
-import net.ipsoft.eliza.ir.rte.sf.ipgraph.matching.similarityflooding.NodePair;
+import rte.RteMessageHandler;
+import rte.datastructure.DNode;
+import rte.datastructure.DTree;
+import rte.datastructure.Graph;
+import rte.datastructure.MatchedGraph;
+import rte.graphmatching.DMatching;
+import rte.graphmatching.PathSub;
+import rte.similarityflooding.NodePair;
 
 import java.util.HashMap;
 import java.util.List;

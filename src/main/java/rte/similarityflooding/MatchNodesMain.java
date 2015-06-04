@@ -1,11 +1,11 @@
 package rte.similarityflooding;
 
-import net.ipsoft.eliza.ir.rte.sf.ipgraph.datastructure.DNode;
-import net.ipsoft.eliza.ir.rte.sf.ipgraph.datastructure.DTree;
-import net.ipsoft.eliza.ir.rte.sf.ipgraph.datastructure.Graph;
-import net.ipsoft.eliza.ir.rte.sf.ipgraph.matching.GraphComparer;
-import net.ipsoft.eliza.ir.rte.sf.ipgraph.matching.RteConfiguration;
-import net.ipsoft.eliza.ir.rte.sf.ipgraph.matching.VertexSub;
+import rte.datastructure.DNode;
+import rte.datastructure.DTree;
+import rte.datastructure.Graph;
+import rte.graphmatching.GraphComparer;
+import rte.graphmatching.RteConfiguration;
+import rte.graphmatching.VertexSub;
 
 import java.util.Set;
 
