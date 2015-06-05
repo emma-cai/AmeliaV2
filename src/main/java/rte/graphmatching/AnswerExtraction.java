@@ -2,6 +2,7 @@ package rte.graphmatching;
 
 import rte.datastructure.DNode;
 import rte.datastructure.Graph;
+import rte.datastructure.LangLib;
 import rte.similarityflooding.NodePair;
 
 import java.util.*;
@@ -70,8 +71,13 @@ public class AnswerExtraction {
      * Extract short answers by taking the most related dnode from T,
      * which is matched to wh-node in H;
      */
-    public static String extractShortAnswers2(Graph graph_T, Graph graph_H,
-                                             HashMap<DNode, NavigableMap<Double, List<NodePair>>> node_sim_NodePairList) {
+    public static String extractShortAnswers2(
+            Graph graph_T, Graph graph_H,
+            HashMap<DNode, NavigableMap<Double, List<NodePair>>> node_sim_NodePairList) {
+
+        String QTYPE = getQType(graph_H);
+        if (QTYPE.equals("YESNO"))
+            return "yes";
 
         DNode whNode = graph_H.getFirstNodeWithPosTag(NodeComparer.WhSet);
 
@@ -121,11 +127,21 @@ public class AnswerExtraction {
         return answer;
     }
 
+    public static String getQType(Graph graph_Q) {
+
+        DNode firstNode = graph_Q.getNodeById(1);
+        if (NodeComparer.VerbSet.contains(firstNode.getPOS()))
+            return "YESNO";
+
+        return "OTHER";
+    }
+
     /** **************************************************************
      * Convert nodeH_sim_NodePairList to nodeT_sim_NodePairList, sorted
      * by the sim score in descending;
      */
-    private static HashMap<DNode, NavigableMap<Double, List<NodePair>>> toDNodeTMap(HashMap<DNode, NavigableMap<Double, List<NodePair>>> nodeH_sim_NodePairList) {
+    private static HashMap<DNode, NavigableMap<Double, List<NodePair>>> toDNodeTMap(
+            HashMap<DNode, NavigableMap<Double, List<NodePair>>> nodeH_sim_NodePairList) {
 
         HashMap<DNode, TreeMap<Double, List<NodePair>>> nodeT_sim_NodePairList = new HashMap<>();
         nodeH_sim_NodePairList.forEach((nodeH, sim_NodePairList) -> {
@@ -169,8 +185,9 @@ public class AnswerExtraction {
                     || NodeComparer.ObjSet.contains(nodeT.getDepLabel())))
             return true;
 
-        if (whnode.getForm().toLowerCase().equals("where")
-                && nodeT.getDepLabel().equals("prep"))
+        if ((whnode.getForm().toLowerCase().equals("where")
+                    || whnode.getForm().toLowerCase().equals("when"))
+                && nodeT.getPOS().equals(LangLib.POS_IN))
             return true;
 
         for (Set<String> strings : NodeComparer.equalDeplabelSet) {

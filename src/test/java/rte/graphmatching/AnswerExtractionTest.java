@@ -99,10 +99,109 @@ public class AnswerExtractionTest extends IRTestBase {
         Graph graph_Q = stringToDGraph("Where are house crickets found?");
         String actual = testAnswerExtraction(graph_T, graph_Q, config);
         assertEquals("in a variety of habitats including woodlands , suburbs , urban areas , buildings , ducts , siding , restaurants and anywhere else", actual);
+    }
 
-//        graph_Q = stringToDGraph("What is used for flying?");
-//        actual = testAnswerExtraction(graph_T, graph_Q, config);
-//        assertEquals("the back pair", actual);
+    @Test
+    public void testRunAnswerExtration5() {
+
+        DMatching.debugInComputeVertexCost = true;
+        VertexSub.debug = false;
+
+        RteConfiguration config = new RteConfiguration
+                .RteConfigurationBuilder(RteConfiguration.GraphComparerType.SIMILARITY_FLOODING_INIT, RteConfiguration.PCGraphType.COMPLETE_CROSS_PRODUCT)
+                .nbrSimFloodingIterations(10)
+                .build();
+
+        Graph graph_T = stringToDGraph("Celsius was born in Uppsala in Sweden.");
+        Graph graph_Q = stringToDGraph("Where was Celsius born");
+        String actual = testAnswerExtraction(graph_T, graph_Q, config);
+        assertEquals("in sweden", actual);
+    }
+
+    @Test
+    public void testRunAnswerExtration6() {
+
+        DMatching.debugInComputeVertexCost = true;
+        VertexSub.debug = false;
+
+        RteConfiguration config = new RteConfiguration
+                .RteConfigurationBuilder(RteConfiguration.GraphComparerType.SIMILARITY_FLOODING_INIT, RteConfiguration.PCGraphType.COMPLETE_CROSS_PRODUCT)
+                .nbrSimFloodingIterations(10)
+                .build();
+
+        Graph graph_T = stringToDGraph("He dropped John from his name upon graduating from college.");
+        Graph graph_Q = stringToDGraph("When did he drop John from his name?");
+        String actual = testAnswerExtraction(graph_T, graph_Q, config);
+        assertEquals("upon graduating from college", actual);
+    }
+
+    @Test
+    public void testRunAnswerExtration7() {
+
+        DMatching.debugInComputeVertexCost = true;
+        VertexSub.debug = false;
+
+        RteConfiguration config = new RteConfiguration
+                .RteConfigurationBuilder(RteConfiguration.GraphComparerType.SIMILARITY_FLOODING_INIT, RteConfiguration.PCGraphType.COMPLETE_CROSS_PRODUCT)
+                .nbrSimFloodingIterations(10)
+                .build();
+
+        Graph graph_T = stringToDGraph("In 1905 Coolidge met and married Grace Anna Goodhue, a local schoolteacher and fellow Vermonter.");
+        Graph graph_Q = stringToDGraph("When did Coolidge meet and marry Grace Anna Goodhue?");
+        String actual = testAnswerExtraction(graph_T, graph_Q, config);
+        assertEquals("in 1905", actual);
+    }
+
+    @Test
+    public void testRunAnswerExtration8() {
+
+        DMatching.debugInComputeVertexCost = true;
+        VertexSub.debug = false;
+
+        RteConfiguration config = new RteConfiguration
+                .RteConfigurationBuilder(RteConfiguration.GraphComparerType.SIMILARITY_FLOODING_INIT, RteConfiguration.PCGraphType.COMPLETE_CROSS_PRODUCT)
+                .nbrSimFloodingIterations(10)
+                .build();
+
+        Graph graph_T = stringToDGraph("John Calvin Coolidge Jr. was born in Plymouth, Windsor County, Vermont, on July 4 1872, the only U.S. President to be born on the fourth of July.");
+        Graph graph_Q = stringToDGraph("When was Coolidge born?");
+        String actual = testAnswerExtraction(graph_T, graph_Q, config);
+        assertEquals("in plymouth , windsor county , vermont , on july 4", actual);
+    }
+
+    @Test
+    public void testRunAnswerExtration9() {
+
+        DMatching.debugInComputeVertexCost = true;
+        VertexSub.debug = false;
+
+        RteConfiguration config = new RteConfiguration
+                .RteConfigurationBuilder(RteConfiguration.GraphComparerType.SIMILARITY_FLOODING_INIT, RteConfiguration.PCGraphType.COMPLETE_CROSS_PRODUCT)
+                .nbrSimFloodingIterations(10)
+                .build();
+
+        Graph graph_T = stringToDGraph("They had two sons; John Coolidge, born in 1906, and Calvin Jr., born in 1908.");
+        Graph graph_Q = stringToDGraph("Is Calvin Jr. older than John Coolidge?");
+        String actual = testAnswerExtraction(graph_T, graph_Q, config);
+        assertEquals("yes", actual);
+    }
+
+    @Ignore
+    @Test
+    public void testRunAnswerExtration10() {
+
+        DMatching.debugInComputeVertexCost = true;
+        VertexSub.debug = false;
+
+        RteConfiguration config = new RteConfiguration
+                .RteConfigurationBuilder(RteConfiguration.GraphComparerType.SIMILARITY_FLOODING_INIT, RteConfiguration.PCGraphType.COMPLETE_CROSS_PRODUCT)
+                .nbrSimFloodingIterations(10)
+                .build();
+
+        Graph graph_T = stringToDGraph("With his savings and a small inheritance from his grandfather, Coolidge was able to open his own law office in Northampton in 1898, where he practiced transactional law, believing that he served his clients best by staying out of court.");
+        Graph graph_Q = stringToDGraph("What year did Coolidge open his own law office?");
+        String actual = testAnswerExtraction(graph_T, graph_Q, config);
+        assertEquals("in 1898", actual);
     }
 
 
