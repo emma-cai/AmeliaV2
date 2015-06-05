@@ -30,14 +30,16 @@ public class AnswerExtractionTest extends IRTestBase {
                 .nbrSimFloodingIterations(10)
                 .build();
 
-        Graph graph_T = stringToDGraph("The adult House Cricket is about two centimeters in length.");
-
-        Graph graph_Q = stringToDGraph("What is two centimeters in length?");
-        String actual = testAnswerExtraction(graph_T, graph_Q, config);
+        String text = "The adult House Cricket is about two centimeters in length.";
+        String ques = "What is two centimeters in length?";
+        Graph graph_T = stringToDGraph(text);
+        Graph graph_Q = stringToDGraph(ques);
+        String actual = testAnswerExtraction(graph_T, graph_Q, ques, config);
         assertEquals("the adult house cricket", actual);
 
-        graph_Q = stringToDGraph("What is House cricket?");
-        actual = testAnswerExtraction(graph_T, graph_Q, config);
+        ques = "What is House cricket?";
+        graph_Q = stringToDGraph(ques);
+        actual = testAnswerExtraction(graph_T, graph_Q, ques, config);
         assertEquals("about two centimeters in length", actual);
     }
 
@@ -52,11 +54,13 @@ public class AnswerExtractionTest extends IRTestBase {
                 .nbrSimFloodingIterations(10)
                 .build();
 
-        Graph graph_T = stringToDGraph("The body is usually light brown with black markings about the head and thorax.");
+        String text = "The body is usually light brown with black markings about the head and thorax.";
+        String ques = "What is usually light brown with black markings about the head and thorax?";
+        Graph graph_T = stringToDGraph(text);
+        Graph graph_Q = stringToDGraph(ques);
 
-        Graph graph_Q = stringToDGraph("What is usually light brown with black markings about the head and thorax?");
-        String actual = testAnswerExtraction(graph_T, graph_Q, config);
-         assertEquals("the body", actual);
+        String actual = testAnswerExtraction(graph_T, graph_Q, ques, config);
+        assertEquals("the body", actual);
     }
 
     @Test
@@ -70,17 +74,22 @@ public class AnswerExtractionTest extends IRTestBase {
                 .nbrSimFloodingIterations(10)
                 .build();
 
-        Graph graph_T = stringToDGraph("House crickets have conspicuous jumping legs and have two pairs of wings, of which, only the back pair are used for flight.");
-        Graph graph_Q = stringToDGraph("What has pairs of wings?");
-        String actual = testAnswerExtraction(graph_T, graph_Q, config);
+        String text = "House crickets have conspicuous jumping legs and have two pairs of wings, of which, only the back pair are used for flight.";
+        String ques = "What has pairs of wings?";
+        Graph graph_T = stringToDGraph(text);
+        Graph graph_Q = stringToDGraph(ques);
+
+        String actual = testAnswerExtraction(graph_T, graph_Q, ques, config);
         assertEquals("house crickets", actual);
 
-        graph_Q = stringToDGraph("What has conspicuous jumping legs?");
-        actual = testAnswerExtraction(graph_T, graph_Q, config);
+        ques = "What has conspicuous jumping legs?";
+        graph_Q = stringToDGraph(ques);
+        actual = testAnswerExtraction(graph_T, graph_Q, ques, config);
         assertEquals("house crickets", actual);
 
-        graph_Q = stringToDGraph("What is used for flying?");
-        actual = testAnswerExtraction(graph_T, graph_Q, config);
+        ques = "What is used for flying?";
+        graph_Q = stringToDGraph(ques);
+        actual = testAnswerExtraction(graph_T, graph_Q, ques, config);
         assertEquals("the back pair", actual);
     }
 
@@ -95,9 +104,12 @@ public class AnswerExtractionTest extends IRTestBase {
                 .nbrSimFloodingIterations(10)
                 .build();
 
-        Graph graph_T = stringToDGraph("House Crickets can be found in a variety of habitats including woodlands, suburbs, urban areas, buildings, ducts, siding, restaurants and anywhere else there happens to be a food supply and warm air.");
-        Graph graph_Q = stringToDGraph("Where are house crickets found?");
-        String actual = testAnswerExtraction(graph_T, graph_Q, config);
+        String text = "House Crickets can be found in a variety of habitats including woodlands, suburbs, urban areas, buildings, ducts, siding, restaurants and anywhere else there happens to be a food supply and warm air.";
+        String ques = "Where are house crickets found?";
+        Graph graph_T = stringToDGraph(text);
+        Graph graph_Q = stringToDGraph(ques);
+
+        String actual = testAnswerExtraction(graph_T, graph_Q, ques, config);
         assertEquals("in a variety of habitats including woodlands , suburbs , urban areas , buildings , ducts , siding , restaurants and anywhere else", actual);
     }
 
@@ -112,9 +124,11 @@ public class AnswerExtractionTest extends IRTestBase {
                 .nbrSimFloodingIterations(10)
                 .build();
 
-        Graph graph_T = stringToDGraph("Celsius was born in Uppsala in Sweden.");
-        Graph graph_Q = stringToDGraph("Where was Celsius born");
-        String actual = testAnswerExtraction(graph_T, graph_Q, config);
+        String text = "Celsius was born in Uppsala in Sweden.";
+        String ques = "Where was Celsius born";
+        Graph graph_T = stringToDGraph(text);
+        Graph graph_Q = stringToDGraph(ques);
+        String actual = testAnswerExtraction(graph_T, graph_Q, ques, config);
         assertEquals("in sweden", actual);
     }
 
@@ -129,9 +143,12 @@ public class AnswerExtractionTest extends IRTestBase {
                 .nbrSimFloodingIterations(10)
                 .build();
 
-        Graph graph_T = stringToDGraph("He dropped John from his name upon graduating from college.");
-        Graph graph_Q = stringToDGraph("When did he drop John from his name?");
-        String actual = testAnswerExtraction(graph_T, graph_Q, config);
+        String text = "He dropped John from his name upon graduating from college.";
+        String ques = "When did he drop John from his name?";
+        Graph graph_T = stringToDGraph(text);
+        Graph graph_Q = stringToDGraph(ques);
+
+        String actual = testAnswerExtraction(graph_T, graph_Q, ques, config);
         assertEquals("upon graduating from college", actual);
     }
 
@@ -146,9 +163,12 @@ public class AnswerExtractionTest extends IRTestBase {
                 .nbrSimFloodingIterations(10)
                 .build();
 
-        Graph graph_T = stringToDGraph("In 1905 Coolidge met and married Grace Anna Goodhue, a local schoolteacher and fellow Vermonter.");
-        Graph graph_Q = stringToDGraph("When did Coolidge meet and marry Grace Anna Goodhue?");
-        String actual = testAnswerExtraction(graph_T, graph_Q, config);
+        String text = "In 1905 Coolidge met and married Grace Anna Goodhue, a local schoolteacher and fellow Vermonter.";
+        String ques = "When did Coolidge meet and marry Grace Anna Goodhue?";
+        Graph graph_T = stringToDGraph(text);
+        Graph graph_Q = stringToDGraph(ques);
+
+        String actual = testAnswerExtraction(graph_T, graph_Q, ques, config);
         assertEquals("in 1905", actual);
     }
 
@@ -163,9 +183,12 @@ public class AnswerExtractionTest extends IRTestBase {
                 .nbrSimFloodingIterations(10)
                 .build();
 
-        Graph graph_T = stringToDGraph("John Calvin Coolidge Jr. was born in Plymouth, Windsor County, Vermont, on July 4 1872, the only U.S. President to be born on the fourth of July.");
-        Graph graph_Q = stringToDGraph("When was Coolidge born?");
-        String actual = testAnswerExtraction(graph_T, graph_Q, config);
+        String text = "John Calvin Coolidge Jr. was born in Plymouth, Windsor County, Vermont, on July 4 1872, the only U.S. President to be born on the fourth of July.";
+        String ques = "When was Coolidge born?";
+        Graph graph_T = stringToDGraph(text);
+        Graph graph_Q = stringToDGraph(ques);
+
+        String actual = testAnswerExtraction(graph_T, graph_Q, ques, config);
         assertEquals("in plymouth , windsor county , vermont , on july 4", actual);
     }
 
@@ -180,9 +203,12 @@ public class AnswerExtractionTest extends IRTestBase {
                 .nbrSimFloodingIterations(10)
                 .build();
 
-        Graph graph_T = stringToDGraph("They had two sons; John Coolidge, born in 1906, and Calvin Jr., born in 1908.");
-        Graph graph_Q = stringToDGraph("Is Calvin Jr. older than John Coolidge?");
-        String actual = testAnswerExtraction(graph_T, graph_Q, config);
+        String text = "They had two sons; John Coolidge, born in 1906, and Calvin Jr., born in 1908.";
+        String ques = "Is Calvin Jr. older than John Coolidge?";
+        Graph graph_T = stringToDGraph(text);
+        Graph graph_Q = stringToDGraph(ques);
+
+        String actual = testAnswerExtraction(graph_T, graph_Q, ques, config);
         assertEquals("yes", actual);
     }
 
@@ -198,9 +224,12 @@ public class AnswerExtractionTest extends IRTestBase {
                 .nbrSimFloodingIterations(10)
                 .build();
 
-        Graph graph_T = stringToDGraph("With his savings and a small inheritance from his grandfather, Coolidge was able to open his own law office in Northampton in 1898, where he practiced transactional law, believing that he served his clients best by staying out of court.");
-        Graph graph_Q = stringToDGraph("What year did Coolidge open his own law office?");
-        String actual = testAnswerExtraction(graph_T, graph_Q, config);
+        String text = "With his savings and a small inheritance from his grandfather, Coolidge was able to open his own law office in Northampton in 1898, where he practiced transactional law, believing that he served his clients best by staying out of court.";
+        String ques = "What year did Coolidge open his own law office?";
+        Graph graph_T = stringToDGraph(text);
+        Graph graph_Q = stringToDGraph(ques);
+
+        String actual = testAnswerExtraction(graph_T, graph_Q, ques, config);
         assertEquals("in 1898", actual);
     }
 
@@ -217,27 +246,30 @@ public class AnswerExtractionTest extends IRTestBase {
                 .nbrSimFloodingIterations(10)
                 .build();
 
-        Graph graph_T = stringToDGraph("The female is told from the male by the presence of an ovipositor, a long extension attached to the end of the abdomen, used for depositing eggs in the soil.");
-
         // Cannot be answered
         // What is ovipositor?
         // What is attached to the end of the abdomen?
         // What is used for depositing eggs in the soil?
-        Graph graph_Q = stringToDGraph("What is ovipositor?");
+
+        String text = "The female is told from the male by the presence of an ovipositor, a long extension attached to the end of the abdomen, used for depositing eggs in the soil.";
+        String ques = "What is ovipositor?";
+        Graph graph_T = stringToDGraph(text);
+        Graph graph_Q = stringToDGraph(ques);
+
 
         HashMap<DNode, NavigableMap<Double, List<NodePair>>> node_SortedMapList_T_Q = initNodeMatches(graph_T, graph_Q, config);
-        String actual = testAnswerExtraction(graph_T, graph_Q, config);
+        String actual = testAnswerExtraction(graph_T, graph_Q, ques, config);
         assertEquals("the body", actual);
     }
 
 
-    private String testAnswerExtraction(Graph graph_T, Graph graph_Q, RteConfiguration config) {
+    private String testAnswerExtraction(Graph graph_T, Graph graph_Q, String ques, RteConfiguration config) {
 
         HashMap<DNode, NavigableMap<Double, List<NodePair>>> node_SortedMapList_T_Q = initNodeMatches(graph_T, graph_Q, config);
 
         DMatching.computeMatchingCost(graph_T, graph_Q, node_SortedMapList_T_Q);
 
-        String actual = AnswerExtraction.extractShortAnswers2(graph_T, graph_Q, node_SortedMapList_T_Q).trim().toLowerCase();
+        String actual = AnswerExtraction.extractShortAnswers2(graph_T, graph_Q, ques, node_SortedMapList_T_Q).trim().toLowerCase();
 
         System.out.println("answer = " + actual);
 

@@ -13,7 +13,7 @@ import java.util.*;
 public class AnswerExtraction {
 
     public static String runAnswerExtraction(Graph graph_T, Graph graph_H,
-                  HashMap<DNode, NavigableMap<Double, List<NodePair>>> node_sim_NodePairList) {
+                                             HashMap<DNode, NavigableMap<Double, List<NodePair>>> node_sim_NodePairList) {
 
         String answer = "";
         DNode bestMatchedNode = null;
@@ -72,10 +72,10 @@ public class AnswerExtraction {
      * which is matched to wh-node in H;
      */
     public static String extractShortAnswers2(
-            Graph graph_T, Graph graph_H,
+            Graph graph_T, Graph graph_H, String ques,
             HashMap<DNode, NavigableMap<Double, List<NodePair>>> node_sim_NodePairList) {
 
-        String QTYPE = getQType(graph_H);
+        String QTYPE = getQType(graph_H, ques);
         if (QTYPE.equals("YESNO"))
             return "yes";
 
@@ -91,7 +91,7 @@ public class AnswerExtraction {
             List<NodePair> reversedMatchedNodePairList = nodeT_sim_NodePairList.get(node_T).entrySet().iterator().next().getValue();
             for (NodePair reversedpair : reversedMatchedNodePairList) {
                 if (reversedpair.node2 == whNode
-                        && legalMapping((DNode) reversedpair.node1, whNode)) {
+                        && legalMapping((DNode) reversedpair.node1, whNode, QTYPE)) {
                     bestMatchedNode_whNode = node_T;
                     finish = true;
                     break;
@@ -127,11 +127,17 @@ public class AnswerExtraction {
         return answer;
     }
 
-    public static String getQType(Graph graph_Q) {
+    public static String getQType(Graph graph_Q, String ques) {
 
         DNode firstNode = graph_Q.getNodeById(1);
         if (NodeComparer.VerbSet.contains(firstNode.getPOS()))
             return "YESNO";
+
+        if (ques.matches("^(When|when|What time|what time) .*$"))
+            return "TIME";
+
+        if (ques.matches("^(Where|where) .*$"))
+            return "LOCATION";
 
         return "OTHER";
     }
@@ -175,19 +181,18 @@ public class AnswerExtraction {
     /** **************************************************************
      * Return true if node1 and node2 have equivalent dependency labels
      */
-    private static boolean legalMapping(DNode nodeT, DNode whnode) {
+    private static boolean legalMapping(DNode nodeT, DNode whnode, String QType) {
 
         if (nodeT.getDepLabel().equals(whnode.getDepLabel()))
             return true;
 
-        if (whnode.getDepLabel().equals("dep")
-                && ( NodeComparer.SubjSet.contains(nodeT.getDepLabel())
-                    || NodeComparer.ObjSet.contains(nodeT.getDepLabel())))
+        if (("LOCATION".equals(QType) || "TIME".equals(QType))
+                && nodeT.getPOS().equals(LangLib.POS_IN))
             return true;
 
-        if ((whnode.getForm().toLowerCase().equals("where")
-                    || whnode.getForm().toLowerCase().equals("when"))
-                && nodeT.getPOS().equals(LangLib.POS_IN))
+        if (whnode.getDepLabel().equals("dep")
+                && ( NodeComparer.SubjSet.contains(nodeT.getDepLabel())
+                || NodeComparer.ObjSet.contains(nodeT.getDepLabel())))
             return true;
 
         for (Set<String> strings : NodeComparer.equalDeplabelSet) {
