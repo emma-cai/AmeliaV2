@@ -7,6 +7,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
+import rte.datastructure.DNode;
 import rte.datastructure.Graph;
 
 import java.io.*;
@@ -20,11 +21,13 @@ public class DataCollection {
 
     public static void main (String[] args) {
 
-        String inputpath = "/Users/qingqingcai/Downloads/jacana-qa-naacl2013-data-results/train-less-than-40.manual-edit.xml";
-        String outputpath = "data/MIT99.xls";
+        String inputpath = "data/rte/jacana-qa-naacl2013-data-results/train-less-than-40.manual-edit.xml";
+        String outputpath = "data/rte/MIT99.xls";
         String sheetname = "MIT99-trek8";
         List<Data> dataList = readXML(inputpath);
         writeToExcel(outputpath, sheetname, dataList);
+
+        readExcel(outputpath, sheetname, null);
     }
 
     public static void readExcel(String filepath, String sheetname, List<Data> data) {
@@ -45,12 +48,30 @@ public class DataCollection {
                     String text = row.getCell(3).getStringCellValue();
                     Graph graph_Q = Graph.stringToGraph(ques);
                     Graph graph_T = Graph.stringToGraph(text);
+//
+//                    int cols = row.getPhysicalNumberOfCells();
+//                    for (int j = 0; j < cols; j++) {
+//                        cell = row.getCell(j);
+//
+//                    }
 
-                    int cols = row.getPhysicalNumberOfCells();
-                    for (int j = 0; j < cols; j++) {
-                        cell = row.getCell(j);
+                    // check root
+//                    System.out.println(ques);
+//                    System.out.println(graph_Q.getNodeById(0).getChildren());
+//
+//                    System.out.println(text);
+//                    System.out.println(graph_T.getNodeById(0).getChildren());
+//                    System.out.println();
 
+                    // check preposition
+                    System.out.println(text);
+                    for (Object node : graph_T.vertexSet()) {
+                        String form = ((DNode) node).getForm();
+                        if (form.equals("in") || form.equals("on")) {
+                            System.out.println((DNode) node);
+                        }
                     }
+                    System.out.println("----------------------\n\n");
                 }
             }
         } catch (IOException e) {

@@ -57,8 +57,7 @@ public class FeatureExtraction {
 
     public static void main(String[] args) {
 
-        List<Data> dataList = readXML("/Users/qingqingcai/Downloads/jacana-qa-naacl2013-data-results/train-less-than-40.manual-edit.xml");
-//        List<Data> dataList = readXML("/Users/qingqingcai/Downloads/jacana-qa-naacl2013-data-results/train2393.cleanup.xml");
+        List<Data> dataList = readXML("data/rte/jacana-qa-naacl2013-data-results/train-less-than-40.manual-edit.xml");
         HashMap<String, List<String>> wh_anspos_features = new HashMap<>();
         HashMap<String, List<String>> wh_ansdep_features = new HashMap<>();
         HashMap<String, List<String>> whdep_ansdep_features = new HashMap<>();
