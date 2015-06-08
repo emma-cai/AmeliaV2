@@ -1,0 +1,369 @@
+0	22	Great
+0	44	Thank you for contacting Baker Hughes Helpdesk. My name is Amelia
+0	50	Let me get a supervisor to help.
+0	56	The invoice number is ${invoice_number}. The invoice amount is ${invoice_amount}. The date is ${input2display} 
+0	69	The invoice number is ${invoice_number}. The invoice amount is ${invoice_amount}. The date is ${input2display} 
+0	74	Upon check, your invoice is paid.
+0	94	Upon checking, the payment made on ${date2display} with the clearing number ${reference_number} amounting to ${total_payment_amount_sap} ${currency_sap} was allocated to the following invoices: #nospeak#${table}#nospeakend#
+0	96	I am having trouble with your request. Let me obtain assistance from a live agent to investigate further.
+0	111	Kindly hold on for a moment and I will now look into it..
+0	116	The invoice number is ${invoice_number}. The invoice amount is ${fail_invoice_amount}. The date is ${input2display} 
+0	141	Thank you..
+0	143	For any follow up, please send your email to APServices@bakerhughes.com under Ticket Number INC000020389592..
+0	147	Thank you for the information
+0	155	Please provide bank details where payment should be made for us to investigate..
+0	159	Upon checking, the invoice number #spell#${invoice_number_sap}#spellend# amounting to ${invoice_amount_sap} ${currency} was paid on ${date2display} with clearing number ${reference_number}
+0	160	This invoice was paid as part of a total payment amounting to ${total_payment_amount} ${currency}
+0	189	Per checking the system, Invoice Number 730682 amounting to 1,040.85 GBP is currently pending with the business for coding and approval ; as soon as processed and this invoice should be paid on April 17, 2015..
+0	193	Please be advised that we have created a new ticket for this query..
+0	198	Kindly hold on for a moment and I will now look into it..
+0	204	This invoice has a due date of 03/23/2015 and the next payment run is 03/25/2015..
+0	220	we have created Incident Number INC000020405803 for this conversation.
+0	226	I couldn't find your account
+0	249	I will be happy to help you  to port a number. First let me gather the required details.
+0	266	I couldn't find your account
+0	270	I couldn't find your account
+0	281	One moment we wil get the account unlocked for you
+0	292	I will now create a port number request ticket for you; once I have created the ticket, I will give you the ticket number for your reference.
+0	308	I couldn't find your account number in our records
+0	313	I am creating a ticket for your distribution issue
+0	318	I will help you with your idm badge request
+0	330	I am gathering all the data for the automaton
+0	340	Your Ticket:${ticket_number}
+0	341	A screenshot is required, please try again when you have one
+0	346	I will now create a ticket for Workbench request for you; once I have created the ticket, I will give you the ticket number for your reference.
+0	358	I understand
+1	3	f
+1	7	The name in vendor portal is Maysun the Vendor.
+1	10	I have changed the name in Vendor portal.
+1	24	ok
+1	29	Great
+1	32	Thank you for contacting Baker Hughes Helpdesk. My name is Amelia
+1	35	hello John Doe.
+1	45	Great
+1	46	How can I help you today, ${currentUser.firstName}?
+1	57	hey
+1	60	this is the status
+1	68	Thank you for the information
+1	75	Please allow 24 hour for it to appear in portal
+1	79	The invoice number is ${invoice_number}. The invoice amount is ${invoice_amount}. The date is ${input2display} 
+1	88	hi
+1	101	Sure, ${currentUser.firstName}.  I will be glad to help you find the payment information.  I need a few more details from you.
+1	110	I see that you are looking for the status of Invoice Number 7654..
+1	126	Thank you for the information
+1	151	I can see that the payment was made more than 30 days ago
+1	169	Invoice Numbers 099293,099380,099630,099695 and 099664 have been posted for payment..
+1	172	Lastly, Invoice Numbers 095939, 097590 and 099375 are not found in the system..
+1	175	Should you need assistance, please feel free to ask Amelia or log a ticket thru Vendor Portal..
+1	177	Thank you for contacting Baker Hughes AP Helpdesk..
+1	184	Invoice Number 095781 amounting to 205.96 GBP has been posted for payment..
+1	185	Sure, I will be glad to help you find the status of your ${keyword}
+1	199	Please hold for a moment while I review your request..
+1	200	Invoice Number 101855 amounting to 138.82 GBP is now posted for payment..
+1	201	This invoice has a due date of 03/23/2015 and the next payment run is 03/25/2015..
+1	221	Invoice Number 101855 is also posted for payment.
+1	243	hello
+1	264	Remedy Ticket Number: ${ebond_number}
+1	276	You need to upload the proper file.
+1	285	I will be happy to help you with your ACSR/CSG account; first let me gather some information.
+1	286	I will be happy to help you with your ACSR/CSG account; first let me gather some information.
+1	287	I will be happy to help you with your ACSR/CSG account; first let me gather some information.
+1	289	It seems you have submitted an invalid account number.
+1	295	I will be happy to help you  to port a number; first let me gather the required details.
+1	303	I will now create a port number request ticket for you; once I have created the ticket, I will give you the ticket number for your reference.
+1	316	Ebond number: ${ebond_number}
+1	323	Remedy Ticket Number: ${ebond_number}
+1	327	I will be happy to help you with your expense issue.
+1	329	I will be happy to assist you with your NT ID request
+1	344	Remedy Ticket Number: ${ebond_number}
+1	345	Remedy Ticket number: ${ebond_number}
+1	348	Thank you for contacting Comcast Home Security.
+1	354	I'm looking up your account.
+1	362	Great I've confirmed your appointment for Thursday 2pm
+2	39	Thank you for contacting Baker Hughes Helpdesk. My name is Amelia
+2	107	I couldn't find your invoice
+2	136	I see that you are looking for the status of Invoice Number 03135310..
+2	203	Invoice Number 101927 amounting to 1,100.00 GBP is also posted for payment..
+3	2	How can I help you today, ${currentUser.firstName}?
+3	4	Thank you for contacting Baker Hughes Helpdesk. My name is Amelia
+3	8	Of course.
+3	14	Great
+3	16	It is policy for each user to have their own account.
+3	17	I have created an account.
+3	19	I 'm well.
+3	21	Thank you for contacting Baker Hughes Helpdesk. My name is Amelia
+3	23	How can I help you today, ${currentUser.firstName}?
+3	26	The account shows that you are Maysun..
+3	27	Thank you for contacting Baker Hughes Helpdesk. My name is Amelia
+3	33	Great
+3	36	I see that you have provided the the logon credentials provided by MSP are for Tim eckardt.
+3	41	How can I help you today, ${currentUser.firstName}?
+3	42	You are currently logged in through IPcenter, you must be logged in through MSP to have a conversation with me.
+3	54	I couldn't find your invoice
+3	55	Thank you for the information
+3	58	hey
+3	59	i will help you with that
+3	62	Thank you for the information
+3	64	hi
+3	65	i will help you with your invoice
+3	67	I couldn't find your invoice
+3	71	Thank you for the information
+3	72	The invoice number is ${invoice_number}. The invoice amount is ${invoice_amount}. The date is ${input2display} 
+3	77	I couldn't find your invoice
+3	78	Thank you for the information
+3	86	I am having trouble with your request. Let me obtain assistance from a live agent to investigate further.
+3	93	sorry the superviser is unavaliable.
+3	100	Upon checking, the payment made on ${date2display} with the clearing number ${reference_number} amounting to ${total_payment_amount_sap} ${currency_sap} was allocated to the following invoices: #nospeak#${table}#nospeakend#
+3	105	I couldn't find your payment
+3	108	Thank you for the information
+3	114	I couldn't find your invoice
+3	115	Thank you for the information
+3	120	I will check the ticket number.
+3	123	For your reference please refer to Service Ticket Number INC000020352042.
+3	127	The invoice number is ${invoice_number}. The invoice amount is ${fail_invoice_amount}. The date is ${input2display} 
+3	128	Thank you for contacting Baker Hughes AP Helpdesk..
+3	130	I see that you are looking for the status of Invoice Number 03144577.
+3	131	One moment while im checking to your invoice.
+3	133	Ok thank you.
+3	137	Per checking, Invoice Number 03135310 is not yet showing in the system..
+3	138	Please hold on for a moment as I will search for the status of your invoices..
+3	139	Per checking, your invoices in question are not found in the system..
+3	152	Thank you for contacting Baker Hughes AP Helpdesk..
+3	156	This invoice was paid as part of a total payment amounting to ${total_payment_amount} ${currency}
+3	158	I can see that the payment was made more than 30 days ago
+3	165	hi.
+3	168	It will be included in the next payment run..
+3	180	For any follow up, please send your email to APServices@bakerhughes.com under Ticket Number INC000020273412..
+3	182	Your patience is highly appreciated..
+3	188	Kindly hold on for a moment and I will now look into it..
+3	191	Invoice Number 729660 is also not showing in or system..
+3	205	Lastly, Invoice Number 101916 amounting to 1,699.00 GBP is now posted for payment..
+3	208	This has been documented under Reference Number INC000020405133..
+3	211	Hello.
+3	212	Thank you for contacting BHI AP Helpdesk.
+3	214	please give me a few minutes.
+3	217	The payment run date is March 25, 2015.
+3	219	the payment run date is also March 25, 2015.
+3	225	I will be happy to help you to create a ticket for DST biller.
+3	236	ello
+3	237	Hello
+3	239	I am gathering all the data for the automaton
+3	246	testing close
+3	248	I will be happy to unlock your account; first let me gather the required details. 
+3	257	It seems you have provided an incorrect account number.
+3	259	I will be happy to help you  to port a number. First let me gather the required details.
+3	261	Remedy Ticket Number: ${ebond_number}
+3	271	I will create the ticket for you with your submitted details
+3	283	I will be happy to help you with your ACSR/CSG account; first let me gather some information.
+3	291	I will be happy to help you  to port a number; first let me gather the required details.
+3	293	Remedy Ticket Number: ${ebond_number}
+3	294	It seems you have provided an invalid account number.
+3	296	I will now create a port number request ticket for you; once I have created the ticket, I will give you the ticket number for your reference.
+3	297	Remedy Ticket Number: ${ebond_number}
+3	299	I couldn't find your account number in our records
+3	302	I will be happy to help you  to port a number; first let me gather the required details.
+3	305	I will be happy to help you  to port a number; first let me gather the required details.
+3	307	Remedy Ticket Number: ${ebond_number}
+3	321	I will help you change manager for IDM
+3	322	I will create a ticket for you
+3	324	I will help you extend the date for a contractor
+3	342	A screenshot is required, please try again when you have one
+3	347	I will be happy to help you create a ticket for workbench.
+3	353	Thank you
+3	359	Let's start by checking your touchscreen interface
+3	361	I'm going to schedule a technician  to come out and check the equipment
+3	363	Lets try to arm it while I watch from here
+3	367	Test
+4	15	How can I help you today, ${currentUser.firstName}?
+4	40	Great
+4	43	Hello Maysun
+4	113	We are very glad that we have assisted you..
+4	210	Sure, I will be glad to help you find the status of your ${keyword}
+4	267	I will be happy to help you create a ticket for Rate Code Investigation; first let me gather some information
+4	275	it's good
+4	309	Remedy Ticket Number: ${ebond_number}
+4	364	For future reference your ticket number is INC4321
+5	90	There seems to be some error in your data.
+5	174	Thank you and may you have a great day!.
+5	282	I will be happy to help you with your ACSR/CSG account; first let me gather some information.
+6	0	Thank you for contacting Baker Hughes Helpdesk. My name is Amelia
+6	1	Great
+6	5	Great
+6	12	Thanks for contacting us.
+6	18	great
+6	28	great.
+6	37	one second while I transfer you.
+6	48	Great.
+6	52	hello
+6	61	I couldn't find your invoice
+6	81	Upon checking, the payment made on ${date2display} with the clearing number ${reference_number} amounting to ${total_payment_amount_sap} ${currency_sap} was allocated to the following invoices: #nospeak#${table}#nospeakend#
+6	84	Upon checking, the payment made on ${date2display} with the clearing number ${reference_number} amounting to ${total_payment_amount_sap} ${currency_sap} was allocated to the following invoices: #nospeak#${table}#nospeakend#
+6	85	Sure, ${currentUser.firstName}.  I will be glad to help you find the payment information.  I need a few more details from you.
+6	89	I see that you are inquiring about a payment of 2351916.03, made on 12-31-2013.
+6	91	please wait
+6	95	Sure, ${currentUser.firstName}.  I will be glad to help you find the payment information.  I need a few more details from you.
+6	99	I am having trouble with your request. Let me obtain assistance from a live agent to investigate further.
+6	103	The total payment is ${fail_total_payment}.   The payment date is ${wdate2display}
+6	104	Thank you for the information
+6	106	The invoice number is ${invoice_number}. The invoice amount is ${fail_invoice_amount}. The date is ${input2display} 
+6	109	Thank you for contacting Baker Hughes AP Helpdesk..
+6	118	Per checking, Invoice Number 03144577is not showing in our system..
+6	119	Thnk you for the information.
+6	121	Your invoice has been deleted in our system due missing cost center on your invoice copy..
+6	122	Pleas send your revised invoice copy via normal invoice submission to process your invoice for payment..
+6	124	I couldn't find your invoice
+6	125	Should you need assistance, please feel free to ask Amelia or log a ticket thru Vendor Portal..
+6	129	Please hold for a moment while I review your request..
+6	132	We would like to ask for the cost center number of PO number of your invoice.
+6	134	Thank you.
+6	146	I couldn't find your invoice
+6	148	The invoice number is ${invoice_number}. The invoice amount is ${fail_invoice_amount}. The date is ${input2display} 
+6	161	Please allow 3-5 business days for payment to be credited to your account
+6	162	I can see that the payment was made more than 30 days ago
+6	163	Upon checking, the invoice number #spell#${invoice_number_sap}#spellend# amounting to ${invoice_amount_sap} ${currency} was paid on ${date2display} with clearing number ${reference_number}
+6	164	Sure, I will be glad to help you find the status of your ${keyword}
+6	176	Hello Dexter!.
+6	179	Please be advised that we have created a new ticket for this query..
+6	183	Invoice Number 094495 is not showing in our system..
+6	187	I see that you are looking for the status of Invoice Number 730682..
+6	190	Per checking, Invoice Number 727252 is not showing in our system..
+6	194	For any follow up, please send your email to APServices@bakerhughes.com under Ticket Number INC000020305137..
+6	196	Sure, I will be glad to help you find the status of your ${keyword}
+6	206	This invoice has a due date of 03/23/2015 and the next payment run is 03/25/2015..
+6	218	Invoice umber 101916 is also posted for payment.
+6	227	I am gathering all the data for the automaton
+6	232	wrong account number
+6	233	Remedy Ticket Number: ${ebond_number}
+6	235	I couldn't find your account
+6	240	Aight no doubt
+6	250	I will now create a port number request ticket for you. Once I have created the ticket, I will give you the ticket number for your reference.
+6	251	Remedy Ticket Number: ${ebond_number}
+6	254	I will now create a port number request ticket for you. Once I have created the ticket, I will give you the ticket number for your reference.
+6	255	Remedy Ticket Number: ${ebond_number}
+6	256	I couldn't find your account number in our records.
+6	258	It seems you have provided an incorrect account number for AMDOCS.
+6	260	I will now create a port number request ticket for you. Once I have created the ticket, I will give you the ticket number for your reference.
+6	268	Remedy Ticket Number: ${ebond_number}
+6	269	I will now create a Rate Code Investigation request ticket for you; once I have created the ticket, I will give you the ticket number for your reference.
+6	277	The form is required, please try again when you have one
+6	280	I am looking into your records
+6	284	I will be happy to help you with your ACSR/CSG account; first let me gather some information.
+6	288	I couldn't find your account number in our records
+6	310	I am going to work on CSG Rate Code.
+6	312	I will be happy to help you with your distribution list issue.
+6	314	Remedy Ticket Number: ${ebond_number}
+6	319	I will create the ticket for you
+6	325	I will create a ticket
+6	333	Please call 1-888-570-0778 and choose NT Unlock and Reset
+6	336	Remedy Ticket Number: ${ebond_number}
+6	337	I am going to help you with your Remedy login issue.
+6	351	I’d be happy to help you 
+6	352	Let me pull up your account details
+6	356	sorry i wasn't able to verify your account
+6	360	That might be the cause of our problem
+6	365	This was a test.
+7	11	Is there any thing else you would like my assistant on
+7	13	The name in vendor portal is Tim Eckardt.
+7	20	Thank you for contacting Baker Hughes Helpdesk. My name is Amelia
+7	25	hello.
+7	38	hiiiii
+7	49	You are currently logged in through IPcenter, you must be logged in through MSP to have a conversation with me.
+7	53	okay , i will help you
+7	63	The invoice number is ${invoice_number}. The invoice amount is ${invoice_amount}. The date is ${input2display} 
+7	66	you have 4000
+7	70	I couldn't find your invoice
+7	73	Hi tim
+7	80	hello.
+7	83	I am having trouble with your request. Let me obtain assistance from a live agent to investigate further.
+7	98	Sure, ${currentUser.firstName}.  I will be glad to help you find the payment information.  I need a few more details from you.
+7	135	Thank you for contacting Baker Hughes AP Helpdesk..
+7	140	Please send the copy of invoices via your normal invoice submission process..
+7	144	Should you need assistance, please feel free to ask Amelia or log a ticket thru Vendor Portal..
+7	149	Upon checking, the invoice number #spell#${invoice_number_sap}#spellend# amounting to ${invoice_amount_sap} ${currency} was paid on ${date2display} with clearing number ${reference_number}
+7	150	Please allow 3-5 business days for payment to be credited to your account
+7	153	I see that you are looking for the status of Invoice Number 1000664895..
+7	166	It will be included in the next payment run..
+7	167	Invoice Number 095862A amounting to 67.84 GBP has been posted for payment..
+7	170	They will be included in the next payment run..
+7	171	Sure, I will be glad to help you find the status of your ${keyword}
+7	173	I am very glad to assist you..
+7	178	Please be advised that Invoice Number 094520 amounting to 30.00 GBP is currently with the business for approval..
+7	195	Thank you and may you have a great day!.
+7	202	Please hold while i check on Invoice Numbers 101927 and 101916..
+7	209	Should you need assistance, please feel free to ask Amelia or log a ticket thru Vendor Portal..
+7	213	let me pull up you account.
+7	216	the net du date is March 23, 2015.
+7	222	payment run date is March 25, 2015.
+7	223	I will be happy to help you with your Amdocs account; first let me gather the required details. 
+7	224	Remedy Ticket Number: ${ebond_number}
+7	229	I will be happy to help you to create a ticket for DST biller.
+7	230	I couldn't find your account
+7	231	I am gathering all the data for the automaton
+7	234	I will be happy to help you to create a ticket for DST biller.
+7	238	Not much.
+7	241	I will be happy to unlock your account; first let me gather the required details. 
+7	245	The speed is great
+7	247	I will be happy to unlock your account; first let me gather the required details. 
+7	262	I couldn't find your account number in our records.
+7	263	I will be happy to help you create a ticket for Rate Code Investigation; first let me gather some information
+7	265	I will now create a Rate Code Investigation request ticket for you; once I have created the ticket, I will give you the ticket number for your reference.
+7	272	I will be happy to help you with your batch; first let me gather the required details.
+7	273	I will be happy to help you with your Clarity issue.
+7	279	Remedy Ticket Number: ${ebond_number}
+7	290	Please double check the accuracy.
+7	298	I couldn't find your account number in our records
+7	301	closing the ticket
+7	315	I will help you with your Einstein problem
+7	320	Remedy Ticket Number: ${ebond_number}
+7	328	I will be happy to assist you with your Internal access request
+7	332	Status: ${message}
+7	335	I am going to create a ticket
+7	338	Remedy Ticket Number: ${ebond_number}
+7	339	I will be happy to help you with your salesforce's issue.
+7	343	I will be happy to assist you with your share drive access request.
+7	350	I can understand that can be very frustrating
+8	34	How can I help you today, ${currentUser.firstName}?
+8	51	please hold
+8	76	great
+8	82	Sure, ${currentUser.firstName}.  I will be glad to help you find the payment information.  I need a few more details from you.
+8	92	I need a superviser to look at the account.
+8	97	Upon checking, the payment made on ${date2display} with the clearing number ${reference_number} amounting to ${total_payment_amount_sap} ${currency_sap} was allocated to the following invoices: #nospeak#${table}#nospeakend#
+8	102	I am having trouble with your request. Let me obtain assistance from a live agent to investigate further.
+8	117	One moment please.
+8	154	Kindly hold on for a moment and I will now look into it..
+8	157	Please allow 3-5 business days for payment to be credited to your account
+8	181	I 'll be needing ample time to search for the invoice status..
+8	186	Thank you for contacting Baker Hughes AP Helpdesk..
+8	207	Please allow additional 3-5 business days after the given payment date for the fund to reflect on your account..
+8	215	Invoie Number 101927 is posted for payment.
+8	228	Remedy Ticket Number: ${ebond_number}
+8	242	I will be happy to unlock your account; first let me gather the required details. 
+8	252	I couldn't find your account number in our records.
+8	274	Remedy Ticket Number: ${ebond_number}
+8	278	I will be happy to assist you with your Clarity Task request
+8	306	I will now create a port number request ticket for you; once I have created the ticket, I will give you the ticket number for your reference.
+8	311	I couldn't find your account
+8	331	Ticket Number: ${radarTicketId}
+8	334	I am going to help you with your Remedy Application request
+8	349	I’m sorry to hear that
+8	355	I've found your account
+8	357	Great I've confirmed your account information Ergun Ekici
+8	366	Closing the ticket
+9	6	How can I help you today, ${currentUser.firstName}?
+9	9	Please wait while I change the record.
+9	30	good bye.
+9	31	How can I help you today, ${currentUser.firstName}?
+9	47	Hi Christophe, I see that you are logged in as Tim Eckardt.
+9	87	ge
+9	112	We are glad to inform you that Invoice Number 7654 amounting to 110.96 USD was paid on 02/19/2015 under Clearing Document Number 2004926312..
+9	142	Please be advised that we have created a new ticket for this query..
+9	145	Thank you and may you have a great day!.
+9	192	Please submit the copy of the not showing invoices via your normal invoice submission for processing..
+9	197	Thank you for contacting Baker Hughes AP Helpdesk..
+9	244	ok this test is complete.
+9	253	I will be happy to help you  to port a number. First let me gather the required details.
+9	300	This was merely a test and the dispatch is really fast
+9	304	Remedy Ticket Number: ${ebond_number}
+9	317	Ticket Number: ${ticket_number}
+9	326	Remedy Ticket Number: ${ebond_number}
+9	368	I will let you close it

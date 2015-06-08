@@ -259,7 +259,7 @@ public class ExperimentsOnWiki {
             // These calls are performed in initNodeMatches( ).
             //GraphComparer comparer = RteMessageHandler.defaultRteConfiguration.graphComparer;
             //comparer.init(graph_T, graph_H);
-            HashMap nodeH_sim_NodePairList = DMatching.initNodeMatches(Graph_T, Graph_H, RteMessageHandler.defaultRteConfiguration);
+            HashMap nodeH_sim_NodePairList = DMatching.initNodeMatches(Graph_T, Graph_H, RteMessageHandler.config);
             double graphSimilarity = DMatching.computeMatchingCost(Graph_T, Graph_H, nodeH_sim_NodePairList);
 
             if (Double.compare(graphSimilarity, minimumCost) < 0) {

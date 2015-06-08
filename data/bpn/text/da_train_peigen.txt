@@ -1,0 +1,77 @@
+CLOSING	Bye, bye.
+CLOSING	Have a nice day, bye.
+CLOSING	Thank you for calling, you have a great day, bye-bye.
+GREETING	Support center, this is Rajesh.
+CLOSING	Bye, have a good day.
+GREETING	Support center this is [indiscernible] .
+GREETING	Support center Haripriya here.
+CLOSING	You are welcome, have a good day.
+CLOSING	Welcome, bye-bye.
+CLOSING	Welcome, have a good one.
+CLOSING	You too, bye bye,
+CLOSING	Bye.
+CLOSING	You too, bye.
+CLOSING	No problem, bye, bye.
+CLOSING	Thank you, bye-bye.
+GREETING	... Support Center.
+CLOSING	No problem, goodbye.
+GREETING	This is support center.
+CLOSING	Welcome, bye, take care.
+GREETING	Support center, Haripriya here.
+CLOSING	Welcome, bye.
+CLOSING	You 're welcome sir, thank you for calling.
+CLOSING	Thank you, bye bye.
+GREETING	Support center, this is Jayesh.
+CLOSING	You too ma’am be-bye.
+CLOSING	[Indiscernible]  enjoy your day, bye.
+CLOSING	Yeah, exactly, thank you, Kevin, have a wonderful day, okay, yeah, bye bye.
+CLOSING	Yeah, bye-bye.
+CLOSING	You’re welcome.
+CLOSING	You 're welcome ma’am.
+CLOSING	Thanks, bye.
+CLOSING	Thanks and bye-bye.
+CLOSING	Thank you then, bye.
+CLOSING	Thank you, have a great day, bye.
+CLOSING	Good day, bye-bye.
+CLOSING	Have a good day.
+GREETING	Hi.
+CLOSING	You are welcome, bye bye.
+CLOSING	1, 6, okay, yeah, bye.
+CLOSING	Good day.
+CLOSING	You’re welcome, bye.
+GREETING	Support Center.
+CLOSING	Okay, so thanks for calling.
+CLOSING	Thank you, have a great day bye, bye.
+CLOSING	Thank you, bye, bye.
+CLOSING	Sure, good day.
+CLOSING	Have a great show, good bye, okay.
+CLOSING	You are welcome have a nice day.
+CLOSING	Thank you, have a great day.
+CLOSING	Alright, goodbye.
+CLOSING	Bye-bye and I 've sent you a ticket number for the conversation what we had.
+GREETING	Hello, Bharti.
+CLOSING	Bye now.
+GREETING	Hello.
+GREETING	Support center.
+GREETING	Support Center, this is Vinay.
+CLOSING	Have a great day, ma’am.
+CLOSING	Bye-bye.
+GREETING	Hey, Dennis I just sent you message.
+CLOSING	Bye bye
+CLOSING	You too, bye-bye.
+CLOSING	No, problem, bye bye.
+CLOSING	Thank you good bye.
+GREETING	Hello there.
+CLOSING	Bye bye.
+CLOSING	Bye, take care.
+CLOSING	You are welcome, bye, bye.
+CLOSING	Have a nice day.
+CLOSING	You too bye-bye.
+CLOSING	Have a great day then.
+CLOSING	You too, thank you, bye-bye.
+CLOSING	Have a wonderful day.
+GREETING	Welcome.
+CLOSING	Have a great day.
+CLOSING	Okay, thanks for calling, have a great day.
+CLOSING	Not a problem, sir, have a great day, bye bye.
+CLOSING	Okay my pleasure sir; have a good day, bye- bye.

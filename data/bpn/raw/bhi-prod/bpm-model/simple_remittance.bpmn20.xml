@@ -1,0 +1,211 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/processdef">
+  <process id="simple_remittance" name="simple_remittance" isExecutable="true">
+    <startEvent id="sid-E56B083D-EE3B-4AD7-91B1-6EDD9A17CA40"/>
+    <userTask id="sid-61447B3F-37C9-4548-A064-7DB9F7886731" name="say &quot;Upon checking, the invoice number #spell#${invoice_number_sap}#spellend# amounting to ${invoice_amount_sap} ${currency} was paid on ${date2display} with clearing number ${reference_number}&quot;"/>
+    <sequenceFlow id="sid-11428498-F4D0-418C-82DC-9F24400970A4" sourceRef="sid-E56B083D-EE3B-4AD7-91B1-6EDD9A17CA40" targetRef="sid-61447B3F-37C9-4548-A064-7DB9F7886731"/>
+    <userTask id="sid-272A692A-8474-475F-829F-EF10F7E7442D" name="say &quot;Please allow 3-5 business days for payment to be credited to your account&quot;"/>
+    <userTask id="sid-4F39C0D3-DB98-4B8C-B6D2-B8E26E230F97" name="ask whether you were able to answer the user's request"/>
+    <sequenceFlow id="sid-3473125F-9338-4F74-897B-DE20A2ED0D6E" sourceRef="sid-272A692A-8474-475F-829F-EF10F7E7442D" targetRef="sid-4F39C0D3-DB98-4B8C-B6D2-B8E26E230F97"/>
+    <userTask id="sid-BD5C1492-2E72-4DA7-86FF-C287D013591E" name="escalate because &quot;the invoice was paid more than 30 days ago, but ${currentUser.firstName} has not yet received payment. &lt;br/>&lt;br/> #nospeak# ${nopayment_table}#nospeakend# &lt;br/> Please note a ticket was created with reference number ${reference_number}&quot;"/>
+    <userTask id="sid-A6C6F83C-0BF0-48A5-873D-094C12FFDB68" name="say &quot;I can see that the payment was made more than 30 days ago&quot;"/>
+    <userTask id="sid-BA4626A8-1C7C-4D4E-8993-7F40B2ACA033" name="ask whether the user has received payment yet"/>
+    <sequenceFlow id="sid-5BFCF884-151F-41DD-8C11-3EBEF80B9BC4" sourceRef="sid-A6C6F83C-0BF0-48A5-873D-094C12FFDB68" targetRef="sid-BA4626A8-1C7C-4D4E-8993-7F40B2ACA033"/>
+    <sequenceFlow id="sid-13383094-2128-43DE-93EC-6E79ADA56244" name="yes" sourceRef="sid-BA4626A8-1C7C-4D4E-8993-7F40B2ACA033" targetRef="sid-4F39C0D3-DB98-4B8C-B6D2-B8E26E230F97"/>
+    <userTask id="sid-C8AFC616-5A66-42B7-AB16-678BEC77A488" name="set the variable xml to xml"/>
+    <userTask id="sid-32EF1CF5-4CF9-476B-AD53-3AEFE8511FC1" name="set the variable response to response"/>
+    <sequenceFlow id="sid-6911469D-5824-46B5-9636-4540B83D8B9F" sourceRef="sid-C8AFC616-5A66-42B7-AB16-678BEC77A488" targetRef="sid-32EF1CF5-4CF9-476B-AD53-3AEFE8511FC1"/>
+    <sequenceFlow id="sid-01A27154-0071-4E21-A634-DF93F2CDC4C8" name="yes" sourceRef="sid-4F39C0D3-DB98-4B8C-B6D2-B8E26E230F97" targetRef="sid-C8AFC616-5A66-42B7-AB16-678BEC77A488"/>
+    <endEvent id="sid-FFD2FB70-EE79-4FF2-98C1-A8B5E743F4DD"/>
+    <sequenceFlow id="sid-81937127-9298-4226-A9F7-AB2F75415D55" sourceRef="sid-32EF1CF5-4CF9-476B-AD53-3AEFE8511FC1" targetRef="sid-FFD2FB70-EE79-4FF2-98C1-A8B5E743F4DD"/>
+    <userTask id="sid-8B28A7E9-E9B9-4E20-A2C2-C3F084A97273" name="run the workflow wqm_invoice_remittance"/>
+    <sequenceFlow id="sid-C743DA09-1A39-4075-93CE-330908BE5E5E" sourceRef="sid-61447B3F-37C9-4548-A064-7DB9F7886731" targetRef="sid-8B28A7E9-E9B9-4E20-A2C2-C3F084A97273"/>
+    <sequenceFlow id="sid-E7BCDFAD-170C-4C9C-98D5-798DFC4A08EA" name="${difference gt 30}" sourceRef="sid-8B28A7E9-E9B9-4E20-A2C2-C3F084A97273" targetRef="sid-A6C6F83C-0BF0-48A5-873D-094C12FFDB68"/>
+    <sequenceFlow id="sid-72B2BEEA-A94E-46DB-83B3-9B17B29F8029" name="${difference gt 5 &amp;&amp; difference le 30}" sourceRef="sid-8B28A7E9-E9B9-4E20-A2C2-C3F084A97273" targetRef="sid-4F39C0D3-DB98-4B8C-B6D2-B8E26E230F97"/>
+    <sequenceFlow id="sid-24B1DD68-D670-43CB-B2BA-91D3A50D4DD4" name="${difference le 5}" sourceRef="sid-8B28A7E9-E9B9-4E20-A2C2-C3F084A97273" targetRef="sid-272A692A-8474-475F-829F-EF10F7E7442D"/>
+    <scriptTask id="sid-0FEC535C-99CF-426F-BCC4-EFD755395956" name="format nopayment_table" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>import java.text.NumberFormat
+
+def invoice_number =  execution.getVariable("invoice_number")
+def invoice_date_sap = execution.getVariable("invoice_date_sap")
+def invoice_amount_sap = execution.getVariable("invoice_amount_sap")
+def invoice_number_sap =  execution.getVariable("invoice_number_sap")
+def status =  execution.getVariable("status")
+def reference_number =  execution.getVariable("reference_number")
+def total_payment_amount =  execution.getVariable("total_payment_amount")
+def payment_date =  execution.getVariable("payment_date")
+
+
+def table = "&lt;table class='conv-basic-table'>&lt;tr>&lt;th>Invoice Number(User)&lt;/th>&lt;th>Invoice Date&lt;/th>&lt;th>Invoice Amount&lt;/th>&lt;th>Invoice Number (Vendor Portal)&lt;/th>&lt;th>Status&lt;/th>&lt;th>Clearing #&lt;/th>&lt;th>Total Payment Amount&lt;/th>&lt;th>Due Date&lt;/th>&lt;/tr>\n"
+
+    table += "&lt;tr>&lt;td>"+ invoice_number +"&lt;/td>\n"
+    table += "&lt;td>"+ invoice_date_sap +"&lt;/td>\n"
+    table += "&lt;td>"+ invoice_amount_sap +"&lt;/td>\n"
+    table += "&lt;td>"+ invoice_number_sap +"&lt;/td>\n"
+    table += "&lt;td>"+ status +"&lt;/td>\n"
+    table += "&lt;td>"+ reference_number +"&lt;/td>\n"
+    table += "&lt;td>"+ total_payment_amount +"&lt;/td>\n"
+    table += "&lt;td>"+ payment_due_date +"&lt;/td>\n&lt;/tr>\n"
+
+table += "&lt;/table>\n"
+
+execution.setVariable("nopayment_table", table)</script>
+    </scriptTask>
+    <sequenceFlow id="sid-50FCB84E-7C6D-4EA4-9288-DC7012B5095D" name="no" sourceRef="sid-BA4626A8-1C7C-4D4E-8993-7F40B2ACA033" targetRef="sid-0FEC535C-99CF-426F-BCC4-EFD755395956"/>
+    <sequenceFlow id="sid-750254CB-EF0D-4549-9E27-BF82B6A29D07" sourceRef="sid-0FEC535C-99CF-426F-BCC4-EFD755395956" targetRef="sid-BD5C1492-2E72-4DA7-86FF-C287D013591E"/>
+    <endEvent id="sid-925AB56D-E701-45DF-8394-3CAE4D65EA89"/>
+    <sequenceFlow id="sid-92779280-912C-4CF4-85F8-7A66B5D6083B" sourceRef="sid-BD5C1492-2E72-4DA7-86FF-C287D013591E" targetRef="sid-925AB56D-E701-45DF-8394-3CAE4D65EA89"/>
+    <scriptTask id="sid-C0147158-2042-4FE4-9749-2E30F31EA099" name="format nohappy_table" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>import java.text.NumberFormat
+
+def invoice_number =  execution.getVariable("invoice_number")
+def invoice_date_sap = execution.getVariable("invoice_date_sap")
+def invoice_amount_sap = execution.getVariable("invoice_amount_sap")
+def invoice_number_sap =  execution.getVariable("invoice_number_sap")
+def status =  execution.getVariable("status")
+def reference_number =  execution.getVariable("reference_number")
+def total_payment_amount =  execution.getVariable("total_payment_amount")
+def payment_date =  execution.getVariable("payment_date")
+
+
+def table = "&lt;table class='conv-basic-table'>&lt;tr>&lt;th>Invoice Number(User)&lt;/th>&lt;th>Invoice Date&lt;/th>&lt;th>Invoice Amount&lt;/th>&lt;th>Invoice Number (Vendor Portal)&lt;/th>&lt;th>Status&lt;/th>&lt;th>Clearing #&lt;/th>&lt;th>Total Payment Amount&lt;/th>&lt;th>Due Date&lt;/th>&lt;/tr>\n"
+
+    table += "&lt;tr>&lt;td>"+ invoice_number +"&lt;/td>\n"
+    table += "&lt;td>"+ invoice_date_sap +"&lt;/td>\n"
+    table += "&lt;td>"+ invoice_amount_sap +"&lt;/td>\n"
+    table += "&lt;td>"+ invoice_number_sap +"&lt;/td>\n"
+    table += "&lt;td>"+ status +"&lt;/td>\n"
+    table += "&lt;td>"+ reference_number +"&lt;/td>\n"
+    table += "&lt;td>"+ total_payment_amount +"&lt;/td>\n"
+    table += "&lt;td>"+ payment_due_date +"&lt;/td>\n&lt;/tr>\n"
+
+table += "&lt;/table>\n"
+
+execution.setVariable("nohappy_table", table)</script>
+    </scriptTask>
+    <userTask id="sid-F683667F-90C1-4638-9F5E-7AC8B517793A" name="escalate because &quot;${currentUser.firstName} said no when asked 'Was Amelia able to answer your request.' The information provided: &lt;br/>&lt;br/> #nospeak#${nohappy_table}#nospeakend# &lt;br/> Please note a ticket was created with reference number ${reference_number}&quot;"/>
+    <sequenceFlow id="sid-1618238C-AEED-4E05-9AE2-3D4669BAD68F" sourceRef="sid-C0147158-2042-4FE4-9749-2E30F31EA099" targetRef="sid-F683667F-90C1-4638-9F5E-7AC8B517793A"/>
+    <sequenceFlow id="sid-0777802F-99BF-413E-95F6-D3D94CE69309" sourceRef="sid-F683667F-90C1-4638-9F5E-7AC8B517793A" targetRef="sid-FFD2FB70-EE79-4FF2-98C1-A8B5E743F4DD"/>
+    <sequenceFlow id="sid-1ED7944A-A6D7-4CA8-80DE-A4A2B7F16DE7" name="no" sourceRef="sid-4F39C0D3-DB98-4B8C-B6D2-B8E26E230F97" targetRef="sid-C0147158-2042-4FE4-9749-2E30F31EA099"/>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_simple_remittance">
+    <bpmndi:BPMNPlane bpmnElement="simple_remittance" id="BPMNPlane_simple_remittance">
+      <bpmndi:BPMNShape bpmnElement="sid-E56B083D-EE3B-4AD7-91B1-6EDD9A17CA40" id="BPMNShape_sid-E56B083D-EE3B-4AD7-91B1-6EDD9A17CA40">
+        <omgdc:Bounds height="30.0" width="30.0" x="60.0" y="625.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-61447B3F-37C9-4548-A064-7DB9F7886731" id="BPMNShape_sid-61447B3F-37C9-4548-A064-7DB9F7886731">
+        <omgdc:Bounds height="80.0" width="100.0" x="135.0" y="600.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-272A692A-8474-475F-829F-EF10F7E7442D" id="BPMNShape_sid-272A692A-8474-475F-829F-EF10F7E7442D">
+        <omgdc:Bounds height="80.0" width="100.0" x="584.5" y="600.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-4F39C0D3-DB98-4B8C-B6D2-B8E26E230F97" id="BPMNShape_sid-4F39C0D3-DB98-4B8C-B6D2-B8E26E230F97">
+        <omgdc:Bounds height="80.0" width="100.0" x="1005.0" y="600.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-BD5C1492-2E72-4DA7-86FF-C287D013591E" id="BPMNShape_sid-BD5C1492-2E72-4DA7-86FF-C287D013591E">
+        <omgdc:Bounds height="80.0" width="100.0" x="1005.0" y="5.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-A6C6F83C-0BF0-48A5-873D-094C12FFDB68" id="BPMNShape_sid-A6C6F83C-0BF0-48A5-873D-094C12FFDB68">
+        <omgdc:Bounds height="80.0" width="100.0" x="439.5" y="5.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-BA4626A8-1C7C-4D4E-8993-7F40B2ACA033" id="BPMNShape_sid-BA4626A8-1C7C-4D4E-8993-7F40B2ACA033">
+        <omgdc:Bounds height="80.0" width="100.0" x="584.5" y="5.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-C8AFC616-5A66-42B7-AB16-678BEC77A488" id="BPMNShape_sid-C8AFC616-5A66-42B7-AB16-678BEC77A488">
+        <omgdc:Bounds height="80.0" width="100.0" x="1165.0" y="600.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-32EF1CF5-4CF9-476B-AD53-3AEFE8511FC1" id="BPMNShape_sid-32EF1CF5-4CF9-476B-AD53-3AEFE8511FC1">
+        <omgdc:Bounds height="80.0" width="100.0" x="1165.0" y="735.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-FFD2FB70-EE79-4FF2-98C1-A8B5E743F4DD" id="BPMNShape_sid-FFD2FB70-EE79-4FF2-98C1-A8B5E743F4DD">
+        <omgdc:Bounds height="28.0" width="28.0" x="1356.0" y="761.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-8B28A7E9-E9B9-4E20-A2C2-C3F084A97273" id="BPMNShape_sid-8B28A7E9-E9B9-4E20-A2C2-C3F084A97273">
+        <omgdc:Bounds height="80.0" width="100.0" x="270.0" y="600.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-0FEC535C-99CF-426F-BCC4-EFD755395956" id="BPMNShape_sid-0FEC535C-99CF-426F-BCC4-EFD755395956">
+        <omgdc:Bounds height="80.0" width="100.0" x="780.0" y="5.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-925AB56D-E701-45DF-8394-3CAE4D65EA89" id="BPMNShape_sid-925AB56D-E701-45DF-8394-3CAE4D65EA89">
+        <omgdc:Bounds height="28.0" width="28.0" x="1150.0" y="31.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-C0147158-2042-4FE4-9749-2E30F31EA099" id="BPMNShape_sid-C0147158-2042-4FE4-9749-2E30F31EA099">
+        <omgdc:Bounds height="80.0" width="100.0" x="1005.0" y="360.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-F683667F-90C1-4638-9F5E-7AC8B517793A" id="BPMNShape_sid-F683667F-90C1-4638-9F5E-7AC8B517793A">
+        <omgdc:Bounds height="80.0" width="100.0" x="1320.0" y="360.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="sid-11428498-F4D0-418C-82DC-9F24400970A4" id="BPMNEdge_sid-11428498-F4D0-418C-82DC-9F24400970A4">
+        <omgdi:waypoint x="90.0" y="640.0"/>
+        <omgdi:waypoint x="135.0" y="640.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-C743DA09-1A39-4075-93CE-330908BE5E5E" id="BPMNEdge_sid-C743DA09-1A39-4075-93CE-330908BE5E5E">
+        <omgdi:waypoint x="235.0" y="640.0"/>
+        <omgdi:waypoint x="270.0" y="640.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-5BFCF884-151F-41DD-8C11-3EBEF80B9BC4" id="BPMNEdge_sid-5BFCF884-151F-41DD-8C11-3EBEF80B9BC4">
+        <omgdi:waypoint x="539.5" y="45.0"/>
+        <omgdi:waypoint x="584.5" y="45.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-6911469D-5824-46B5-9636-4540B83D8B9F" id="BPMNEdge_sid-6911469D-5824-46B5-9636-4540B83D8B9F">
+        <omgdi:waypoint x="1215.0" y="680.0"/>
+        <omgdi:waypoint x="1215.0" y="735.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-92779280-912C-4CF4-85F8-7A66B5D6083B" id="BPMNEdge_sid-92779280-912C-4CF4-85F8-7A66B5D6083B">
+        <omgdi:waypoint x="1105.0" y="45.0"/>
+        <omgdi:waypoint x="1150.0" y="45.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-E7BCDFAD-170C-4C9C-98D5-798DFC4A08EA" id="BPMNEdge_sid-E7BCDFAD-170C-4C9C-98D5-798DFC4A08EA">
+        <omgdi:waypoint x="320.0" y="600.0"/>
+        <omgdi:waypoint x="320.0" y="45.0"/>
+        <omgdi:waypoint x="439.5" y="45.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-01A27154-0071-4E21-A634-DF93F2CDC4C8" id="BPMNEdge_sid-01A27154-0071-4E21-A634-DF93F2CDC4C8">
+        <omgdi:waypoint x="1105.0" y="640.0"/>
+        <omgdi:waypoint x="1165.0" y="640.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-50FCB84E-7C6D-4EA4-9288-DC7012B5095D" id="BPMNEdge_sid-50FCB84E-7C6D-4EA4-9288-DC7012B5095D">
+        <omgdi:waypoint x="684.5" y="45.0"/>
+        <omgdi:waypoint x="780.0" y="45.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-24B1DD68-D670-43CB-B2BA-91D3A50D4DD4" id="BPMNEdge_sid-24B1DD68-D670-43CB-B2BA-91D3A50D4DD4">
+        <omgdi:waypoint x="370.0" y="640.0"/>
+        <omgdi:waypoint x="584.5" y="640.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-13383094-2128-43DE-93EC-6E79ADA56244" id="BPMNEdge_sid-13383094-2128-43DE-93EC-6E79ADA56244">
+        <omgdi:waypoint x="634.5" y="85.0"/>
+        <omgdi:waypoint x="634.5" y="130.0"/>
+        <omgdi:waypoint x="1022.0196078431372" y="600.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-72B2BEEA-A94E-46DB-83B3-9B17B29F8029" id="BPMNEdge_sid-72B2BEEA-A94E-46DB-83B3-9B17B29F8029">
+        <omgdi:waypoint x="370.0" y="664.4897959183673"/>
+        <omgdi:waypoint x="1055.0" y="1000.0"/>
+        <omgdi:waypoint x="1055.0" y="680.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-3473125F-9338-4F74-897B-DE20A2ED0D6E" id="BPMNEdge_sid-3473125F-9338-4F74-897B-DE20A2ED0D6E">
+        <omgdi:waypoint x="684.5" y="640.0"/>
+        <omgdi:waypoint x="1005.0" y="640.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-1ED7944A-A6D7-4CA8-80DE-A4A2B7F16DE7" id="BPMNEdge_sid-1ED7944A-A6D7-4CA8-80DE-A4A2B7F16DE7">
+        <omgdi:waypoint x="1055.0" y="600.0"/>
+        <omgdi:waypoint x="1055.0" y="440.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-1618238C-AEED-4E05-9AE2-3D4669BAD68F" id="BPMNEdge_sid-1618238C-AEED-4E05-9AE2-3D4669BAD68F">
+        <omgdi:waypoint x="1105.0" y="400.0"/>
+        <omgdi:waypoint x="1320.0" y="400.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-81937127-9298-4226-A9F7-AB2F75415D55" id="BPMNEdge_sid-81937127-9298-4226-A9F7-AB2F75415D55">
+        <omgdi:waypoint x="1265.0" y="775.0"/>
+        <omgdi:waypoint x="1356.0" y="775.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-750254CB-EF0D-4549-9E27-BF82B6A29D07" id="BPMNEdge_sid-750254CB-EF0D-4549-9E27-BF82B6A29D07">
+        <omgdi:waypoint x="880.0" y="45.0"/>
+        <omgdi:waypoint x="1005.0" y="45.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-0777802F-99BF-413E-95F6-D3D94CE69309" id="BPMNEdge_sid-0777802F-99BF-413E-95F6-D3D94CE69309">
+        <omgdi:waypoint x="1370.0" y="440.0"/>
+        <omgdi:waypoint x="1370.0" y="761.0"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

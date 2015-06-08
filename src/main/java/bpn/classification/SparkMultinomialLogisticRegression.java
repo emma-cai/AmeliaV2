@@ -2,6 +2,7 @@ package bpn.classification;
 
 import bpn.feature.Feature;
 import bpn.utils.Buckets;
+import development.textdatacollection.Performance;
 import org.apache.spark.SparkConf;
 import org.apache.spark.SparkContext;
 import org.apache.spark.api.java.JavaRDD;
@@ -21,6 +22,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static bpn.utils.Fun.saveToFile;
+
 /**
  * Created by qingqingcai on 5/7/15.
  */
@@ -39,6 +42,7 @@ public class SparkMultinomialLogisticRegression {
     public static void main(String[] args) {
 
         String modelpath = "data/bpn/logisticregression/MultinomialLogisticRegress.model";
+        String resultpath = "data/bpn/result/libSVM/bpn_test_libsvm.res";
         String traintextpath = "data/bpn/text/da_train.txt";
         String trainfeapath = "data/bpn/feature/da_train.fea";
         String testtextpath = "data/bpn/text/bpn_test.txt";
@@ -59,7 +63,9 @@ public class SparkMultinomialLogisticRegression {
         }
         Feature.runFeatureExtraction(traintextpath, trainfeapath, testtextpath, testfeapath);   // extract features
         runMultinomialLogisticRegression(trainfeapath, testfeapath, modelpath, false);          // run classifier
-        printResults(testfeapath, testtextpath);
+        printResults(testfeapath, testtextpath, resultpath);                                    // save classification result
+        double precision = Performance.computePerformance(testtextpath, resultpath);            // compute performance (precision)
+        System.out.println("Performance (precision) = " + precision);
     }
 
     /** **************************************************************
@@ -74,7 +80,9 @@ public class SparkMultinomialLogisticRegression {
     public static void runMultinomialLogisticRegression(String trainpath, String testpath, String modelpath, boolean saveModel) {
 
         // Prepare configuration and data
-        SparkConf conf = new SparkConf().setAppName("Multinomial Logistic Regression").setMaster("local[2]");
+        //
+        SparkConf conf = new SparkConf().setAppName("Multinomial Logistic Regression")
+                .setMaster("local[4]");
         SparkContext sc = new SparkContext(conf);
         JavaRDD<LabeledPoint> training = MLUtils.loadLibSVMFile(sc, trainpath).toJavaRDD().cache();
         JavaRDD<LabeledPoint> testing = MLUtils.loadLibSVMFile(sc, testpath).toJavaRDD().cache();
@@ -133,8 +141,9 @@ public class SparkMultinomialLogisticRegression {
      * Print out the predicated labels for each test instance
      * @param testfeapath Path to test features
      * @param testtextpath Path to original test text
+     * @param resultpath Path to classification result
      */
-    public static void printResults(String testfeapath, String testtextpath) {
+    public static void printResults(String testfeapath, String testtextpath, String resultpath) {
         System.out.println("\n\n\nFINAL RESULTS!");
         try {
             final int[] lineIndex = {0};
@@ -156,6 +165,7 @@ public class SparkMultinomialLogisticRegression {
         }
 
         // Print out labeling details
+        ArrayList<String> resultList = new ArrayList<>();
         try {
             List<String> tmp = (List<String>) Files.readAllLines(Paths.get(testtextpath), StandardCharsets.UTF_8);
             List<String> lines = new ArrayList<>();
@@ -168,22 +178,34 @@ public class SparkMultinomialLogisticRegression {
 
             for (int lineIndex : lineIndex_label.keySet()) {
                 int labelIndex = (int) Math.round(lineIndex_label.get(lineIndex));
-                System.out.println(lines.get(lineIndex) + "\t" + /**labelIndex + "\t" + **/Buckets.FOCUSED_ON.get(labelIndex));
+            //    System.out.println(lines.get(lineIndex) + "\t" + /**labelIndex + "\t" + **/Buckets.FOCUSED_ON.get(labelIndex));
+                String predictedLabel = Buckets.FOCUSED_ON.get(labelIndex);
+                String predictedInstance = lines.get(lineIndex);
+                String predictedSentence = predictedInstance.substring(predictedInstance.indexOf("\t")+1, predictedInstance.length());
+                String result = predictedLabel + "\t" + predictedSentence;
+                System.out.println(result);
+                if (!resultList.contains(result)) {
+                    resultList.add(result);
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        // save classification result
+        saveToFile(resultpath, resultList);
     }
 
     public static void testByReadingFeatureFiles(String[] args) {
 
         String modelpath = "data/bpn/logisticregression/MultinomialLogisticRegress.model";
+        String resultpath = "data/bpn/result/bpn_test_libsvm.res";
         String trainpath = "data/bpn/feature/da_train.fea";
         String testpath = "data/bpn/feature/bpn_test.fea";
         String text_testpath = "data/bpn/text/bpn_test.txt";
 
         runMultinomialLogisticRegression(trainpath, testpath, modelpath, false);
 
-        printResults(testpath, text_testpath);
+        printResults(testpath, text_testpath, resultpath);
     }
 }

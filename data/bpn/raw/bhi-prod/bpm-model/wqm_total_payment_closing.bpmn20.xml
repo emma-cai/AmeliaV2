@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/processdef">
+  <process id="wqm_total_payment_closing" name="wqm_total_payment_closing" isExecutable="true">
+    <startEvent id="sid-561F31C5-61FD-489B-B672-67950793502F"/>
+    <userTask id="sid-21209066-B87F-4A24-B946-B73D9D3EF74D" name="set the variable resolution to &quot;Upon checking, the payment made on ${date2display} with the Payment Reference ${reference_number} amounting to ${total_payment_amount_sap} ${currency_sap}&quot;"/>
+    <sequenceFlow id="sid-B805F49F-8F1D-47F1-A273-CEDE1BB63EB5" sourceRef="sid-561F31C5-61FD-489B-B672-67950793502F" targetRef="sid-21209066-B87F-4A24-B946-B73D9D3EF74D"/>
+    <userTask id="sid-E60E9F52-EE67-4E7B-8FE9-4D3C2BE01370" name="execute the automaton Close_Ticket_WQM"/>
+    <endEvent id="sid-91D7AA84-0D5E-44C8-976C-D6403DFCC99E"/>
+    <sequenceFlow id="sid-A78B0415-5ED8-4019-886A-60BED0AA7A68" sourceRef="sid-E60E9F52-EE67-4E7B-8FE9-4D3C2BE01370" targetRef="sid-91D7AA84-0D5E-44C8-976C-D6403DFCC99E"/>
+    <userTask id="sid-8342D76D-73AE-4D24-ABA2-1180686314DB" name="set the variable transcript to transcript"/>
+    <sequenceFlow id="sid-9AC95916-754B-4B66-A761-D328F3157130" sourceRef="sid-21209066-B87F-4A24-B946-B73D9D3EF74D" targetRef="sid-8342D76D-73AE-4D24-ABA2-1180686314DB"/>
+    <sequenceFlow id="sid-3CA4F83B-7406-44F3-84B7-3A07D624C2EE" sourceRef="sid-8342D76D-73AE-4D24-ABA2-1180686314DB" targetRef="sid-E60E9F52-EE67-4E7B-8FE9-4D3C2BE01370"/>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_wqm_total_payment_closing">
+    <bpmndi:BPMNPlane bpmnElement="wqm_total_payment_closing" id="BPMNPlane_wqm_total_payment_closing">
+      <bpmndi:BPMNShape bpmnElement="sid-561F31C5-61FD-489B-B672-67950793502F" id="BPMNShape_sid-561F31C5-61FD-489B-B672-67950793502F">
+        <omgdc:Bounds height="30.0" width="30.0" x="47.5" y="98.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-21209066-B87F-4A24-B946-B73D9D3EF74D" id="BPMNShape_sid-21209066-B87F-4A24-B946-B73D9D3EF74D">
+        <omgdc:Bounds height="80.0" width="100.0" x="122.5" y="73.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-E60E9F52-EE67-4E7B-8FE9-4D3C2BE01370" id="BPMNShape_sid-E60E9F52-EE67-4E7B-8FE9-4D3C2BE01370">
+        <omgdc:Bounds height="80.0" width="100.0" x="267.5" y="73.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-91D7AA84-0D5E-44C8-976C-D6403DFCC99E" id="BPMNShape_sid-91D7AA84-0D5E-44C8-976C-D6403DFCC99E">
+        <omgdc:Bounds height="28.0" width="28.0" x="412.5" y="99.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-8342D76D-73AE-4D24-ABA2-1180686314DB" id="BPMNShape_sid-8342D76D-73AE-4D24-ABA2-1180686314DB">
+        <omgdc:Bounds height="80.0" width="100.0" x="122.5" y="270.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="sid-9AC95916-754B-4B66-A761-D328F3157130" id="BPMNEdge_sid-9AC95916-754B-4B66-A761-D328F3157130">
+        <omgdi:waypoint x="172.5" y="153.0"/>
+        <omgdi:waypoint x="172.5" y="270.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-3CA4F83B-7406-44F3-84B7-3A07D624C2EE" id="BPMNEdge_sid-3CA4F83B-7406-44F3-84B7-3A07D624C2EE">
+        <omgdi:waypoint x="222.5" y="310.0"/>
+        <omgdi:waypoint x="317.5" y="310.0"/>
+        <omgdi:waypoint x="317.5" y="153.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-B805F49F-8F1D-47F1-A273-CEDE1BB63EB5" id="BPMNEdge_sid-B805F49F-8F1D-47F1-A273-CEDE1BB63EB5">
+        <omgdi:waypoint x="77.5" y="113.0"/>
+        <omgdi:waypoint x="122.5" y="113.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-A78B0415-5ED8-4019-886A-60BED0AA7A68" id="BPMNEdge_sid-A78B0415-5ED8-4019-886A-60BED0AA7A68">
+        <omgdi:waypoint x="367.5" y="113.0"/>
+        <omgdi:waypoint x="412.5" y="113.0"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

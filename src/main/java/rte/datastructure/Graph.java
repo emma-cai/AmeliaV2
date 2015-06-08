@@ -1,5 +1,9 @@
 package rte.datastructure;
 
+import edu.stanford.nlp.trees.EnglishGrammaticalStructure;
+import edu.stanford.nlp.trees.GrammaticalStructure;
+import edu.stanford.nlp.trees.SemanticHeadFinder;
+import edu.stanford.nlp.trees.Tree;
 import rte.graphmatching.NodeComparer;
 import rte.similarityflooding.Edge;
 import org.jgrapht.alg.DijkstraShortestPath;
@@ -7,6 +11,7 @@ import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.SimpleGraph;
 import org.jgrapht.graph.Subgraph;
+import rte.utils.LangTools;
 
 import java.util.*;
 
@@ -100,6 +105,25 @@ public class Graph extends SimpleGraph<Object, DefaultWeightedEdge> {
     public static Graph stringToGraph(String text) {
 
         DTree dtree = DTree.buildTree(text);
+        return Graph.buildDGraph(dtree);
+    }
+
+    public static String textToConllx(String text) {
+
+        Tree tree = DTree.pcfgParser.getLexicalizedParser().parse(text);
+        SemanticHeadFinder headFinder = new SemanticHeadFinder(false); // keep copula verbs as head
+        GrammaticalStructure egs = new EnglishGrammaticalStructure(tree, string -> true, headFinder, true);
+
+        // notes: typedDependencies() is suggested
+        String conllx = null;
+        conllx = EnglishGrammaticalStructure.dependenciesToString(egs, egs.typedDependencies(), tree, true, true);
+
+        return conllx;
+    }
+
+    public static Graph conllxToGraph(String conllx) {
+
+        DTree dtree = LangTools.getDTreeFromCoNLLXString(conllx, true);
         return Graph.buildDGraph(dtree);
     }
 

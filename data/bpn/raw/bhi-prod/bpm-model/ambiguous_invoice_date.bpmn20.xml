@@ -1,0 +1,134 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/processdef">
+  <process id="ambiguous_invoice_date" name="ambiguous_invoice_date" isExecutable="true">
+    <startEvent id="sid-32EC8F3C-B015-49EC-BDC1-E535AD9C5EB5"/>
+    <userTask id="sid-F7975620-5929-4DE2-8038-E8043BE30D96" name="ask what is the invoice date"/>
+    <sequenceFlow id="sid-1A50B0B1-FFB1-4C27-BC43-575BAFC1243F" sourceRef="sid-32EC8F3C-B015-49EC-BDC1-E535AD9C5EB5" targetRef="sid-F7975620-5929-4DE2-8038-E8043BE30D96"/>
+    <scriptTask id="sid-74D8C4B6-CA68-4260-A8A4-1D0C712EA1AC" name="verify ambiguous date" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.regex.Matcher
+import java.util.regex.Pattern
+
+def userInput = execution.getVariable("taskResponse")
+def dateFieldName = execution.getVariable("invoice_date_input")
+
+def numdate = 0
+
+Pattern p = Pattern.compile(".*(((\\d{2}|\\d{1})/(\\d{2}|\\d{1})/(\\d{4}))|((\\d{4})-(\\d{2})-(\\d{2}))).*");
+Matcher m = p.matcher(userInput);
+if (m.find()) {
+ numdate = 1
+}
+else{
+     numdate = 0
+}
+
+
+Date parsedDate = Date.parse( 'yyyyMMdd', dateFieldName)
+
+Calendar cal = Calendar.getInstance()
+cal.setTime(parsedDate)
+def month = cal.get(Calendar.MONTH) + 1
+def dayOfMonth = cal.get(Calendar. DAY_OF_MONTH)
+def year = cal.get(Calendar.YEAR)
+
+def sdf1 = new SimpleDateFormat("yyyyMMdd")
+
+if (month &lt;= 12 &amp;&amp; dayOfMonth &lt;= 12 &amp;&amp; month != dayOfMonth &amp;&amp; numdate == 1) {
+    execution.setVariable("isDateAmbiguous", "is not valid")
+    def monthName = new java.text.DateFormatSymbols().months[month - 1]
+    execution.setVariable("dateName", monthName +" "+ dayOfMonth +" "+ year)
+    execution.setVariable("invoice_date", sdf1.format(parsedDate))
+} else {
+    execution.setVariable("isDateAmbiguous", "is valid")
+    execution.setVariable("invoice_date", sdf1.format(parsedDate))
+}</script>
+    </scriptTask>
+    <userTask id="sid-6F20A4AB-B82E-43DC-BF09-EBF7A322D893" name="ask whether the date is ${dateName}"/>
+    <userTask id="sid-150C3720-B697-4230-8F1D-9C4E66C2C9F9" name="verify that ${isDateAmbiguous}."/>
+    <sequenceFlow id="sid-1B8D9B96-057A-4175-8208-D1DFA79D20B7" sourceRef="sid-74D8C4B6-CA68-4260-A8A4-1D0C712EA1AC" targetRef="sid-150C3720-B697-4230-8F1D-9C4E66C2C9F9"/>
+    <scriptTask id="sid-5E34FDB2-C510-47D3-B235-0DBF2075BE88" name="flip date" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>import java.text.SimpleDateFormat
+
+def dateFieldName = execution.getVariable("invoice_date_input")
+Date flippedDate = Date.parse('yyyyddMM', dateFieldName)
+
+System.out.println("Flipped date==>" + flippedDate)
+
+def sdf2 = new SimpleDateFormat("yyyyMMdd")
+def dateString = sdf2.format(flippedDate);
+
+/* Innefective for now, since the variable resolver overwrites the value */
+execution.setVariable(dateFieldName, dateString)
+execution.setVariable("invoice_date", dateString)
+System.out.println("INVOICE date==>" + invoice_date)</script>
+    </scriptTask>
+    <sequenceFlow id="sid-6161FE26-2793-42D0-9EF3-7368C8927C0F" name="yes" sourceRef="sid-150C3720-B697-4230-8F1D-9C4E66C2C9F9" targetRef="sid-6F20A4AB-B82E-43DC-BF09-EBF7A322D893"/>
+    <endEvent id="sid-0B97BDF5-F9A8-4F83-B870-15E52375AE70"/>
+    <sequenceFlow id="sid-BB85F937-C827-4E14-AC66-FF25E52125F8" sourceRef="sid-F7975620-5929-4DE2-8038-E8043BE30D96" targetRef="sid-74D8C4B6-CA68-4260-A8A4-1D0C712EA1AC"/>
+    <sequenceFlow id="sid-58DEA948-4B94-43F1-9446-3ED336FAAA38" name="no" sourceRef="sid-6F20A4AB-B82E-43DC-BF09-EBF7A322D893" targetRef="sid-5E34FDB2-C510-47D3-B235-0DBF2075BE88"/>
+    <sequenceFlow id="sid-C0148419-7C4C-4D8E-88DB-403E4F5E09D6" sourceRef="sid-5E34FDB2-C510-47D3-B235-0DBF2075BE88" targetRef="sid-0B97BDF5-F9A8-4F83-B870-15E52375AE70"/>
+    <sequenceFlow id="sid-7793656E-0B8D-4316-90B7-C0010E5ADA14" name="yes" sourceRef="sid-6F20A4AB-B82E-43DC-BF09-EBF7A322D893" targetRef="sid-0B97BDF5-F9A8-4F83-B870-15E52375AE70"/>
+    <sequenceFlow id="sid-8B959055-D3F7-440A-80CB-B60E793F85EA" name="no" sourceRef="sid-150C3720-B697-4230-8F1D-9C4E66C2C9F9" targetRef="sid-0B97BDF5-F9A8-4F83-B870-15E52375AE70"/>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_ambiguous_invoice_date">
+    <bpmndi:BPMNPlane bpmnElement="ambiguous_invoice_date" id="BPMNPlane_ambiguous_invoice_date">
+      <bpmndi:BPMNShape bpmnElement="sid-32EC8F3C-B015-49EC-BDC1-E535AD9C5EB5" id="BPMNShape_sid-32EC8F3C-B015-49EC-BDC1-E535AD9C5EB5">
+        <omgdc:Bounds height="30.0" width="30.0" x="178.0" y="103.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-F7975620-5929-4DE2-8038-E8043BE30D96" id="BPMNShape_sid-F7975620-5929-4DE2-8038-E8043BE30D96">
+        <omgdc:Bounds height="80.0" width="100.0" x="253.0" y="78.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-74D8C4B6-CA68-4260-A8A4-1D0C712EA1AC" id="BPMNShape_sid-74D8C4B6-CA68-4260-A8A4-1D0C712EA1AC">
+        <omgdc:Bounds height="80.0" width="100.0" x="510.0" y="78.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-6F20A4AB-B82E-43DC-BF09-EBF7A322D893" id="BPMNShape_sid-6F20A4AB-B82E-43DC-BF09-EBF7A322D893">
+        <omgdc:Bounds height="80.0" width="100.0" x="781.0" y="253.5"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-150C3720-B697-4230-8F1D-9C4E66C2C9F9" id="BPMNShape_sid-150C3720-B697-4230-8F1D-9C4E66C2C9F9">
+        <omgdc:Bounds height="80.0" width="100.0" x="781.0" y="78.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-5E34FDB2-C510-47D3-B235-0DBF2075BE88" id="BPMNShape_sid-5E34FDB2-C510-47D3-B235-0DBF2075BE88">
+        <omgdc:Bounds height="80.0" width="100.0" x="781.0" y="433.5"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-0B97BDF5-F9A8-4F83-B870-15E52375AE70" id="BPMNShape_sid-0B97BDF5-F9A8-4F83-B870-15E52375AE70">
+        <omgdc:Bounds height="28.0" width="28.0" x="1050.0" y="279.5"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="sid-58DEA948-4B94-43F1-9446-3ED336FAAA38" id="BPMNEdge_sid-58DEA948-4B94-43F1-9446-3ED336FAAA38">
+        <omgdi:waypoint x="831.0" y="333.5"/>
+        <omgdi:waypoint x="831.0" y="433.5"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-1B8D9B96-057A-4175-8208-D1DFA79D20B7" id="BPMNEdge_sid-1B8D9B96-057A-4175-8208-D1DFA79D20B7">
+        <omgdi:waypoint x="610.0" y="118.0"/>
+        <omgdi:waypoint x="781.0" y="118.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-1A50B0B1-FFB1-4C27-BC43-575BAFC1243F" id="BPMNEdge_sid-1A50B0B1-FFB1-4C27-BC43-575BAFC1243F">
+        <omgdi:waypoint x="208.0" y="118.0"/>
+        <omgdi:waypoint x="253.0" y="118.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-7793656E-0B8D-4316-90B7-C0010E5ADA14" id="BPMNEdge_sid-7793656E-0B8D-4316-90B7-C0010E5ADA14">
+        <omgdi:waypoint x="881.0" y="293.5"/>
+        <omgdi:waypoint x="1050.0" y="293.5"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-6161FE26-2793-42D0-9EF3-7368C8927C0F" id="BPMNEdge_sid-6161FE26-2793-42D0-9EF3-7368C8927C0F">
+        <omgdi:waypoint x="831.0" y="158.0"/>
+        <omgdi:waypoint x="831.0" y="253.5"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-8B959055-D3F7-440A-80CB-B60E793F85EA" id="BPMNEdge_sid-8B959055-D3F7-440A-80CB-B60E793F85EA">
+        <omgdi:waypoint x="881.0" y="118.0"/>
+        <omgdi:waypoint x="1064.0" y="118.0"/>
+        <omgdi:waypoint x="1064.0" y="279.5"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-BB85F937-C827-4E14-AC66-FF25E52125F8" id="BPMNEdge_sid-BB85F937-C827-4E14-AC66-FF25E52125F8">
+        <omgdi:waypoint x="353.0" y="118.0"/>
+        <omgdi:waypoint x="510.0" y="118.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-C0148419-7C4C-4D8E-88DB-403E4F5E09D6" id="BPMNEdge_sid-C0148419-7C4C-4D8E-88DB-403E4F5E09D6">
+        <omgdi:waypoint x="881.0" y="473.39270386266094"/>
+        <omgdi:waypoint x="1064.0" y="473.0"/>
+        <omgdi:waypoint x="1064.0" y="307.5"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

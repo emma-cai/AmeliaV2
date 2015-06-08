@@ -1,0 +1,369 @@
+0	7	The name in vendor portal is Maysun the Vendor.
+0	10	I have changed the name in Vendor portal.
+0	13	The name in vendor portal is Tim Eckardt.
+0	26	The account shows that you are Maysun..
+0	75	Please allow 24 hour for it to appear in portal
+0	90	There seems to be some error in your data.
+0	92	I need a superviser to look at the account.
+0	103	The total payment is ${fail_total_payment}.   The payment date is ${wdate2display}
+0	109	Thank you for contacting Baker Hughes AP Helpdesk..
+0	113	We are very glad that we have assisted you..
+0	128	Thank you for contacting Baker Hughes AP Helpdesk..
+0	131	One moment while im checking to your invoice.
+0	135	Thank you for contacting Baker Hughes AP Helpdesk..
+0	152	Thank you for contacting Baker Hughes AP Helpdesk..
+0	166	It will be included in the next payment run..
+0	168	It will be included in the next payment run..
+0	170	They will be included in the next payment run..
+0	173	I am very glad to assist you..
+0	177	Thank you for contacting Baker Hughes AP Helpdesk..
+0	183	Invoice Number 094495 is not showing in our system..
+0	186	Thank you for contacting Baker Hughes AP Helpdesk..
+0	197	Thank you for contacting Baker Hughes AP Helpdesk..
+0	208	This has been documented under Reference Number INC000020405133..
+0	216	the net du date is March 23, 2015.
+0	217	The payment run date is March 25, 2015.
+0	218	Invoice umber 101916 is also posted for payment.
+0	219	the payment run date is also March 25, 2015.
+0	220	we have created Incident Number INC000020405803 for this conversation.
+0	221	Invoice Number 101855 is also posted for payment.
+0	222	payment run date is March 25, 2015.
+0	227	I am gathering all the data for the automaton
+0	231	I am gathering all the data for the automaton
+0	239	I am gathering all the data for the automaton
+0	252	I couldn't find your account number in our records.
+0	256	I couldn't find your account number in our records.
+0	257	It seems you have provided an incorrect account number.
+0	262	I couldn't find your account number in our records.
+0	271	I will create the ticket for you with your submitted details
+0	281	One moment we wil get the account unlocked for you
+0	288	I couldn't find your account number in our records
+0	289	It seems you have submitted an invalid account number.
+0	294	It seems you have provided an invalid account number.
+0	298	I couldn't find your account number in our records
+0	299	I couldn't find your account number in our records
+0	308	I couldn't find your account number in our records
+0	310	I am going to work on CSG Rate Code.
+0	324	I will help you extend the date for a contractor
+0	330	I am gathering all the data for the automaton
+0	356	sorry i wasn't able to verify your account
+0	363	Lets try to arm it while I watch from here
+1	1	Great
+1	3	f
+1	5	Great
+1	8	Of course.
+1	14	Great
+1	18	great
+1	22	Great
+1	24	ok
+1	25	hello.
+1	28	great.
+1	29	Great
+1	30	good bye.
+1	33	Great
+1	38	hiiiii
+1	40	Great
+1	43	Hello Maysun
+1	45	Great
+1	48	Great.
+1	51	please hold
+1	52	hello
+1	57	hey
+1	58	hey
+1	64	hi
+1	66	you have 4000
+1	73	Hi tim
+1	76	great
+1	80	hello.
+1	87	ge
+1	88	hi
+1	91	please wait
+1	134	Thank you.
+1	165	hi.
+1	211	Hello.
+1	232	wrong account number
+1	236	ello
+1	237	Hello
+1	238	Not much.
+1	240	Aight no doubt
+1	243	hello
+1	246	testing close
+1	275	it's good
+1	301	closing the ticket
+1	332	Status: ${message}
+1	353	Thank you
+1	358	I understand
+1	366	Closing the ticket
+1	367	Test
+2	12	Thanks for contacting us.
+2	17	I have created an account.
+2	19	I 'm well.
+2	35	hello John Doe.
+2	53	okay , i will help you
+2	54	I couldn't find your invoice
+2	55	Thank you for the information
+2	59	i will help you with that
+2	60	this is the status
+2	61	I couldn't find your invoice
+2	62	Thank you for the information
+2	67	I couldn't find your invoice
+2	68	Thank you for the information
+2	70	I couldn't find your invoice
+2	71	Thank you for the information
+2	77	I couldn't find your invoice
+2	78	Thank you for the information
+2	93	sorry the superviser is unavaliable.
+2	104	Thank you for the information
+2	105	I couldn't find your payment
+2	107	I couldn't find your invoice
+2	108	Thank you for the information
+2	114	I couldn't find your invoice
+2	115	Thank you for the information
+2	117	One moment please.
+2	119	Thnk you for the information.
+2	124	I couldn't find your invoice
+2	126	Thank you for the information
+2	133	Ok thank you.
+2	141	Thank you..
+2	146	I couldn't find your invoice
+2	147	Thank you for the information
+2	176	Hello Dexter!.
+2	224	Remedy Ticket Number: ${ebond_number}
+2	226	I couldn't find your account
+2	228	Remedy Ticket Number: ${ebond_number}
+2	230	I couldn't find your account
+2	233	Remedy Ticket Number: ${ebond_number}
+2	235	I couldn't find your account
+2	244	ok this test is complete.
+2	245	The speed is great
+2	251	Remedy Ticket Number: ${ebond_number}
+2	255	Remedy Ticket Number: ${ebond_number}
+2	261	Remedy Ticket Number: ${ebond_number}
+2	264	Remedy Ticket Number: ${ebond_number}
+2	266	I couldn't find your account
+2	268	Remedy Ticket Number: ${ebond_number}
+2	270	I couldn't find your account
+2	274	Remedy Ticket Number: ${ebond_number}
+2	279	Remedy Ticket Number: ${ebond_number}
+2	280	I am looking into your records
+2	290	Please double check the accuracy.
+2	293	Remedy Ticket Number: ${ebond_number}
+2	297	Remedy Ticket Number: ${ebond_number}
+2	304	Remedy Ticket Number: ${ebond_number}
+2	307	Remedy Ticket Number: ${ebond_number}
+2	309	Remedy Ticket Number: ${ebond_number}
+2	311	I couldn't find your account
+2	314	Remedy Ticket Number: ${ebond_number}
+2	316	Ebond number: ${ebond_number}
+2	317	Ticket Number: ${ticket_number}
+2	320	Remedy Ticket Number: ${ebond_number}
+2	323	Remedy Ticket Number: ${ebond_number}
+2	325	I will create a ticket
+2	326	Remedy Ticket Number: ${ebond_number}
+2	331	Ticket Number: ${radarTicketId}
+2	336	Remedy Ticket Number: ${ebond_number}
+2	338	Remedy Ticket Number: ${ebond_number}
+2	340	Your Ticket:${ticket_number}
+2	344	Remedy Ticket Number: ${ebond_number}
+2	345	Remedy Ticket number: ${ebond_number}
+2	349	I’m sorry to hear that
+2	355	I've found your account
+2	365	This was a test.
+2	368	I will let you close it
+3	36	I see that you have provided the the logon credentials provided by MSP are for Tim eckardt.
+3	56	The invoice number is ${invoice_number}. The invoice amount is ${invoice_amount}. The date is ${input2display} 
+3	63	The invoice number is ${invoice_number}. The invoice amount is ${invoice_amount}. The date is ${input2display} 
+3	69	The invoice number is ${invoice_number}. The invoice amount is ${invoice_amount}. The date is ${input2display} 
+3	72	The invoice number is ${invoice_number}. The invoice amount is ${invoice_amount}. The date is ${input2display} 
+3	79	The invoice number is ${invoice_number}. The invoice amount is ${invoice_amount}. The date is ${input2display} 
+3	106	The invoice number is ${invoice_number}. The invoice amount is ${fail_invoice_amount}. The date is ${input2display} 
+3	116	The invoice number is ${invoice_number}. The invoice amount is ${fail_invoice_amount}. The date is ${input2display} 
+3	121	Your invoice has been deleted in our system due missing cost center on your invoice copy..
+3	122	Pleas send your revised invoice copy via normal invoice submission to process your invoice for payment..
+3	127	The invoice number is ${invoice_number}. The invoice amount is ${fail_invoice_amount}. The date is ${input2display} 
+3	132	We would like to ask for the cost center number of PO number of your invoice.
+3	138	Please hold on for a moment as I will search for the status of your invoices..
+3	143	For any follow up, please send your email to APServices@bakerhughes.com under Ticket Number INC000020389592..
+3	148	The invoice number is ${invoice_number}. The invoice amount is ${fail_invoice_amount}. The date is ${input2display} 
+3	172	Lastly, Invoice Numbers 095939, 097590 and 099375 are not found in the system..
+3	180	For any follow up, please send your email to APServices@bakerhughes.com under Ticket Number INC000020273412..
+3	192	Please submit the copy of the not showing invoices via your normal invoice submission for processing..
+3	194	For any follow up, please send your email to APServices@bakerhughes.com under Ticket Number INC000020305137..
+3	201	This invoice has a due date of 03/23/2015 and the next payment run is 03/25/2015..
+3	204	This invoice has a due date of 03/23/2015 and the next payment run is 03/25/2015..
+3	205	Lastly, Invoice Number 101916 amounting to 1,699.00 GBP is now posted for payment..
+3	206	This invoice has a due date of 03/23/2015 and the next payment run is 03/25/2015..
+3	241	I will be happy to unlock your account; first let me gather the required details. 
+3	242	I will be happy to unlock your account; first let me gather the required details. 
+3	247	I will be happy to unlock your account; first let me gather the required details. 
+3	248	I will be happy to unlock your account; first let me gather the required details. 
+4	2	How can I help you today, ${currentUser.firstName}?
+4	6	How can I help you today, ${currentUser.firstName}?
+4	9	Please wait while I change the record.
+4	15	How can I help you today, ${currentUser.firstName}?
+4	23	How can I help you today, ${currentUser.firstName}?
+4	31	How can I help you today, ${currentUser.firstName}?
+4	34	How can I help you today, ${currentUser.firstName}?
+4	37	one second while I transfer you.
+4	41	How can I help you today, ${currentUser.firstName}?
+4	46	How can I help you today, ${currentUser.firstName}?
+4	50	Let me get a supervisor to help.
+4	65	i will help you with your invoice
+4	74	Upon check, your invoice is paid.
+4	120	I will check the ticket number.
+4	182	Your patience is highly appreciated..
+4	212	Thank you for contacting BHI AP Helpdesk.
+4	213	let me pull up you account.
+4	214	please give me a few minutes.
+4	215	Invoie Number 101927 is posted for payment.
+4	276	You need to upload the proper file.
+4	313	I am creating a ticket for your distribution issue
+4	315	I will help you with your Einstein problem
+4	318	I will help you with your idm badge request
+4	319	I will create the ticket for you
+4	321	I will help you change manager for IDM
+4	322	I will create a ticket for you
+4	335	I am going to create a ticket
+4	348	Thank you for contacting Comcast Home Security.
+4	350	I can understand that can be very frustrating
+4	351	I’d be happy to help you 
+4	352	Let me pull up your account details
+4	354	I'm looking up your account.
+4	357	Great I've confirmed your account information Ergun Ekici
+4	359	Let's start by checking your touchscreen interface
+4	360	That might be the cause of our problem
+4	362	Great I've confirmed your appointment for Thursday 2pm
+4	364	For future reference your ticket number is INC4321
+5	81	Upon checking, the payment made on ${date2display} with the clearing number ${reference_number} amounting to ${total_payment_amount_sap} ${currency_sap} was allocated to the following invoices: #nospeak#${table}#nospeakend#
+5	84	Upon checking, the payment made on ${date2display} with the clearing number ${reference_number} amounting to ${total_payment_amount_sap} ${currency_sap} was allocated to the following invoices: #nospeak#${table}#nospeakend#
+5	94	Upon checking, the payment made on ${date2display} with the clearing number ${reference_number} amounting to ${total_payment_amount_sap} ${currency_sap} was allocated to the following invoices: #nospeak#${table}#nospeakend#
+5	97	Upon checking, the payment made on ${date2display} with the clearing number ${reference_number} amounting to ${total_payment_amount_sap} ${currency_sap} was allocated to the following invoices: #nospeak#${table}#nospeakend#
+5	100	Upon checking, the payment made on ${date2display} with the clearing number ${reference_number} amounting to ${total_payment_amount_sap} ${currency_sap} was allocated to the following invoices: #nospeak#${table}#nospeakend#
+5	189	Per checking the system, Invoice Number 730682 amounting to 1,040.85 GBP is currently pending with the business for coding and approval ; as soon as processed and this invoice should be paid on April 17, 2015..
+5	250	I will now create a port number request ticket for you. Once I have created the ticket, I will give you the ticket number for your reference.
+5	254	I will now create a port number request ticket for you. Once I have created the ticket, I will give you the ticket number for your reference.
+5	260	I will now create a port number request ticket for you. Once I have created the ticket, I will give you the ticket number for your reference.
+5	265	I will now create a Rate Code Investigation request ticket for you; once I have created the ticket, I will give you the ticket number for your reference.
+5	269	I will now create a Rate Code Investigation request ticket for you; once I have created the ticket, I will give you the ticket number for your reference.
+5	292	I will now create a port number request ticket for you; once I have created the ticket, I will give you the ticket number for your reference.
+5	296	I will now create a port number request ticket for you; once I have created the ticket, I will give you the ticket number for your reference.
+5	303	I will now create a port number request ticket for you; once I have created the ticket, I will give you the ticket number for your reference.
+5	306	I will now create a port number request ticket for you; once I have created the ticket, I will give you the ticket number for your reference.
+5	346	I will now create a ticket for Workbench request for you; once I have created the ticket, I will give you the ticket number for your reference.
+6	42	You are currently logged in through IPcenter, you must be logged in through MSP to have a conversation with me.
+6	49	You are currently logged in through IPcenter, you must be logged in through MSP to have a conversation with me.
+6	82	Sure, ${currentUser.firstName}.  I will be glad to help you find the payment information.  I need a few more details from you.
+6	83	I am having trouble with your request. Let me obtain assistance from a live agent to investigate further.
+6	85	Sure, ${currentUser.firstName}.  I will be glad to help you find the payment information.  I need a few more details from you.
+6	86	I am having trouble with your request. Let me obtain assistance from a live agent to investigate further.
+6	95	Sure, ${currentUser.firstName}.  I will be glad to help you find the payment information.  I need a few more details from you.
+6	96	I am having trouble with your request. Let me obtain assistance from a live agent to investigate further.
+6	98	Sure, ${currentUser.firstName}.  I will be glad to help you find the payment information.  I need a few more details from you.
+6	99	I am having trouble with your request. Let me obtain assistance from a live agent to investigate further.
+6	101	Sure, ${currentUser.firstName}.  I will be glad to help you find the payment information.  I need a few more details from you.
+6	102	I am having trouble with your request. Let me obtain assistance from a live agent to investigate further.
+6	112	We are glad to inform you that Invoice Number 7654 amounting to 110.96 USD was paid on 02/19/2015 under Clearing Document Number 2004926312..
+6	125	Should you need assistance, please feel free to ask Amelia or log a ticket thru Vendor Portal..
+6	144	Should you need assistance, please feel free to ask Amelia or log a ticket thru Vendor Portal..
+6	149	Upon checking, the invoice number #spell#${invoice_number_sap}#spellend# amounting to ${invoice_amount_sap} ${currency} was paid on ${date2display} with clearing number ${reference_number}
+6	159	Upon checking, the invoice number #spell#${invoice_number_sap}#spellend# amounting to ${invoice_amount_sap} ${currency} was paid on ${date2display} with clearing number ${reference_number}
+6	163	Upon checking, the invoice number #spell#${invoice_number_sap}#spellend# amounting to ${invoice_amount_sap} ${currency} was paid on ${date2display} with clearing number ${reference_number}
+6	175	Should you need assistance, please feel free to ask Amelia or log a ticket thru Vendor Portal..
+6	178	Please be advised that Invoice Number 094520 amounting to 30.00 GBP is currently with the business for approval..
+6	207	Please allow additional 3-5 business days after the given payment date for the fund to reflect on your account..
+6	209	Should you need assistance, please feel free to ask Amelia or log a ticket thru Vendor Portal..
+6	223	I will be happy to help you with your Amdocs account; first let me gather the required details. 
+6	249	I will be happy to help you  to port a number. First let me gather the required details.
+6	253	I will be happy to help you  to port a number. First let me gather the required details.
+6	259	I will be happy to help you  to port a number. First let me gather the required details.
+6	263	I will be happy to help you create a ticket for Rate Code Investigation; first let me gather some information
+6	267	I will be happy to help you create a ticket for Rate Code Investigation; first let me gather some information
+6	272	I will be happy to help you with your batch; first let me gather the required details.
+6	282	I will be happy to help you with your ACSR/CSG account; first let me gather some information.
+6	283	I will be happy to help you with your ACSR/CSG account; first let me gather some information.
+6	284	I will be happy to help you with your ACSR/CSG account; first let me gather some information.
+6	285	I will be happy to help you with your ACSR/CSG account; first let me gather some information.
+6	286	I will be happy to help you with your ACSR/CSG account; first let me gather some information.
+6	287	I will be happy to help you with your ACSR/CSG account; first let me gather some information.
+6	291	I will be happy to help you  to port a number; first let me gather the required details.
+6	295	I will be happy to help you  to port a number; first let me gather the required details.
+6	302	I will be happy to help you  to port a number; first let me gather the required details.
+6	305	I will be happy to help you  to port a number; first let me gather the required details.
+7	300	This was merely a test and the dispatch is really fast
+7	333	Please call 1-888-570-0778 and choose NT Unlock and Reset
+8	47	Hi Christophe, I see that you are logged in as Tim Eckardt.
+8	89	I see that you are inquiring about a payment of 2351916.03, made on 12-31-2013.
+8	110	I see that you are looking for the status of Invoice Number 7654..
+8	111	Kindly hold on for a moment and I will now look into it..
+8	130	I see that you are looking for the status of Invoice Number 03144577.
+8	136	I see that you are looking for the status of Invoice Number 03135310..
+8	137	Per checking, Invoice Number 03135310 is not yet showing in the system..
+8	139	Per checking, your invoices in question are not found in the system..
+8	140	Please send the copy of invoices via your normal invoice submission process..
+8	142	Please be advised that we have created a new ticket for this query..
+8	151	I can see that the payment was made more than 30 days ago
+8	153	I see that you are looking for the status of Invoice Number 1000664895..
+8	154	Kindly hold on for a moment and I will now look into it..
+8	155	Please provide bank details where payment should be made for us to investigate..
+8	156	This invoice was paid as part of a total payment amounting to ${total_payment_amount} ${currency}
+8	158	I can see that the payment was made more than 30 days ago
+8	160	This invoice was paid as part of a total payment amounting to ${total_payment_amount} ${currency}
+8	162	I can see that the payment was made more than 30 days ago
+8	164	Sure, I will be glad to help you find the status of your ${keyword}
+8	167	Invoice Number 095862A amounting to 67.84 GBP has been posted for payment..
+8	171	Sure, I will be glad to help you find the status of your ${keyword}
+8	179	Please be advised that we have created a new ticket for this query..
+8	181	I 'll be needing ample time to search for the invoice status..
+8	184	Invoice Number 095781 amounting to 205.96 GBP has been posted for payment..
+8	185	Sure, I will be glad to help you find the status of your ${keyword}
+8	187	I see that you are looking for the status of Invoice Number 730682..
+8	188	Kindly hold on for a moment and I will now look into it..
+8	190	Per checking, Invoice Number 727252 is not showing in our system..
+8	193	Please be advised that we have created a new ticket for this query..
+8	196	Sure, I will be glad to help you find the status of your ${keyword}
+8	198	Kindly hold on for a moment and I will now look into it..
+8	200	Invoice Number 101855 amounting to 138.82 GBP is now posted for payment..
+8	203	Invoice Number 101927 amounting to 1,100.00 GBP is also posted for payment..
+8	210	Sure, I will be glad to help you find the status of your ${keyword}
+8	225	I will be happy to help you to create a ticket for DST biller.
+8	229	I will be happy to help you to create a ticket for DST biller.
+8	234	I will be happy to help you to create a ticket for DST biller.
+8	343	I will be happy to assist you with your share drive access request.
+8	361	I'm going to schedule a technician  to come out and check the equipment
+9	0	Thank you for contacting Baker Hughes Helpdesk. My name is Amelia
+9	4	Thank you for contacting Baker Hughes Helpdesk. My name is Amelia
+9	11	Is there any thing else you would like my assistant on
+9	16	It is policy for each user to have their own account.
+9	20	Thank you for contacting Baker Hughes Helpdesk. My name is Amelia
+9	21	Thank you for contacting Baker Hughes Helpdesk. My name is Amelia
+9	27	Thank you for contacting Baker Hughes Helpdesk. My name is Amelia
+9	32	Thank you for contacting Baker Hughes Helpdesk. My name is Amelia
+9	39	Thank you for contacting Baker Hughes Helpdesk. My name is Amelia
+9	44	Thank you for contacting Baker Hughes Helpdesk. My name is Amelia
+9	118	Per checking, Invoice Number 03144577is not showing in our system..
+9	123	For your reference please refer to Service Ticket Number INC000020352042.
+9	129	Please hold for a moment while I review your request..
+9	145	Thank you and may you have a great day!.
+9	150	Please allow 3-5 business days for payment to be credited to your account
+9	157	Please allow 3-5 business days for payment to be credited to your account
+9	161	Please allow 3-5 business days for payment to be credited to your account
+9	169	Invoice Numbers 099293,099380,099630,099695 and 099664 have been posted for payment..
+9	174	Thank you and may you have a great day!.
+9	191	Invoice Number 729660 is also not showing in or system..
+9	195	Thank you and may you have a great day!.
+9	199	Please hold for a moment while I review your request..
+9	202	Please hold while i check on Invoice Numbers 101927 and 101916..
+9	258	It seems you have provided an incorrect account number for AMDOCS.
+9	273	I will be happy to help you with your Clarity issue.
+9	277	The form is required, please try again when you have one
+9	278	I will be happy to assist you with your Clarity Task request
+9	312	I will be happy to help you with your distribution list issue.
+9	327	I will be happy to help you with your expense issue.
+9	328	I will be happy to assist you with your Internal access request
+9	329	I will be happy to assist you with your NT ID request
+9	334	I am going to help you with your Remedy Application request
+9	337	I am going to help you with your Remedy login issue.
+9	339	I will be happy to help you with your salesforce's issue.
+9	341	A screenshot is required, please try again when you have one
+9	342	A screenshot is required, please try again when you have one
+9	347	I will be happy to help you create a ticket for workbench.

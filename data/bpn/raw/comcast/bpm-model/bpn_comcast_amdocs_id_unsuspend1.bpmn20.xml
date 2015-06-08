@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/processdef">
+  <process id="bpn_comcast_amdocs_id_unsuspend1" name="bpn_comcast_amdocs_id_unsuspend1" isExecutable="true">
+    <startEvent id="sid-DC337A07-B731-4205-AF3A-0E77913A5276"/>
+    <userTask id="sid-ACABF207-EFDE-478F-87C7-7BD75E83C648" name="ask the user what is the Login ID" activiti:exclusive="false"/>
+    <userTask id="sid-6F573CD2-5D22-4402-A170-4572D4D23E95" name="ask the user what is the Corp Number" activiti:exclusive="false"/>
+    <userTask id="sid-AD4C523B-6BF2-43D1-9B6E-B1ED27988E92" name="escalate because &quot;all the user details have been gathered&quot;" activiti:exclusive="false"/>
+    <endEvent id="sid-21528094-5F6B-47A4-832A-560CA9E76131"/>
+    <sequenceFlow id="sid-1F31F043-CEA4-4EDB-9234-FC6066990AE0" sourceRef="sid-ACABF207-EFDE-478F-87C7-7BD75E83C648" targetRef="sid-6F573CD2-5D22-4402-A170-4572D4D23E95"/>
+    <userTask id="sid-39E1DC2E-6954-453E-B0F2-D9357D7EF10C" name="say I will be happy to unlock your account; first let me gather the required details. " activiti:exclusive="false"/>
+    <sequenceFlow id="sid-036F2286-9384-4968-BF82-7DAD567C5657" sourceRef="sid-DC337A07-B731-4205-AF3A-0E77913A5276" targetRef="sid-39E1DC2E-6954-453E-B0F2-D9357D7EF10C"/>
+    <sequenceFlow id="sid-D1C47A5D-458E-4B95-B7A6-1DED1BDFD62B" sourceRef="sid-AD4C523B-6BF2-43D1-9B6E-B1ED27988E92" targetRef="sid-21528094-5F6B-47A4-832A-560CA9E76131"/>
+    <sequenceFlow id="sid-E1D6D60D-A723-405B-A50E-AAE0C09CF592" sourceRef="sid-39E1DC2E-6954-453E-B0F2-D9357D7EF10C" targetRef="sid-ACABF207-EFDE-478F-87C7-7BD75E83C648"/>
+    <sequenceFlow id="sid-76FCB1AA-B57B-4083-83F6-FEBD67A5F008" sourceRef="sid-6F573CD2-5D22-4402-A170-4572D4D23E95" targetRef="sid-AD4C523B-6BF2-43D1-9B6E-B1ED27988E92"/>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_bpn_comcast_amdocs_id_unsuspend1">
+    <bpmndi:BPMNPlane bpmnElement="bpn_comcast_amdocs_id_unsuspend1" id="BPMNPlane_bpn_comcast_amdocs_id_unsuspend1">
+      <bpmndi:BPMNShape bpmnElement="sid-DC337A07-B731-4205-AF3A-0E77913A5276" id="BPMNShape_sid-DC337A07-B731-4205-AF3A-0E77913A5276">
+        <omgdc:Bounds height="30.0" width="30.0" x="150.0" y="62.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-ACABF207-EFDE-478F-87C7-7BD75E83C648" id="BPMNShape_sid-ACABF207-EFDE-478F-87C7-7BD75E83C648">
+        <omgdc:Bounds height="80.0" width="100.0" x="420.0" y="37.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-6F573CD2-5D22-4402-A170-4572D4D23E95" id="BPMNShape_sid-6F573CD2-5D22-4402-A170-4572D4D23E95">
+        <omgdc:Bounds height="80.0" width="100.0" x="565.0" y="37.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-AD4C523B-6BF2-43D1-9B6E-B1ED27988E92" id="BPMNShape_sid-AD4C523B-6BF2-43D1-9B6E-B1ED27988E92">
+        <omgdc:Bounds height="80.0" width="100.0" x="720.0" y="37.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-21528094-5F6B-47A4-832A-560CA9E76131" id="BPMNShape_sid-21528094-5F6B-47A4-832A-560CA9E76131">
+        <omgdc:Bounds height="28.0" width="28.0" x="885.0" y="63.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-39E1DC2E-6954-453E-B0F2-D9357D7EF10C" id="BPMNShape_sid-39E1DC2E-6954-453E-B0F2-D9357D7EF10C">
+        <omgdc:Bounds height="80.0" width="100.0" x="255.0" y="37.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="sid-76FCB1AA-B57B-4083-83F6-FEBD67A5F008" id="BPMNEdge_sid-76FCB1AA-B57B-4083-83F6-FEBD67A5F008">
+        <omgdi:waypoint x="665.0" y="77.0"/>
+        <omgdi:waypoint x="720.0" y="77.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-E1D6D60D-A723-405B-A50E-AAE0C09CF592" id="BPMNEdge_sid-E1D6D60D-A723-405B-A50E-AAE0C09CF592">
+        <omgdi:waypoint x="355.0" y="77.0"/>
+        <omgdi:waypoint x="420.0" y="77.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-036F2286-9384-4968-BF82-7DAD567C5657" id="BPMNEdge_sid-036F2286-9384-4968-BF82-7DAD567C5657">
+        <omgdi:waypoint x="180.0" y="77.0"/>
+        <omgdi:waypoint x="255.0" y="77.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-D1C47A5D-458E-4B95-B7A6-1DED1BDFD62B" id="BPMNEdge_sid-D1C47A5D-458E-4B95-B7A6-1DED1BDFD62B">
+        <omgdi:waypoint x="820.0" y="77.0"/>
+        <omgdi:waypoint x="885.0" y="77.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-1F31F043-CEA4-4EDB-9234-FC6066990AE0" id="BPMNEdge_sid-1F31F043-CEA4-4EDB-9234-FC6066990AE0">
+        <omgdi:waypoint x="520.0" y="77.0"/>
+        <omgdi:waypoint x="565.0" y="77.0"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

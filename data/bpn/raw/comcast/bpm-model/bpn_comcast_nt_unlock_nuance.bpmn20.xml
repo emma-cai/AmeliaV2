@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/processdef">
+  <process id="bpn_comcast_nt_unlock_nuance" name="bpn_comcast_nt_unlock_nuance" isExecutable="true">
+    <startEvent id="sid-B12ABCC0-5C52-4316-8CBA-B3DA257F2273"/>
+    <userTask id="sid-5B9EBA62-287C-4885-BF47-366BDDCBBF1C" name="ask the user whether if the user tried to use Nuance" activiti:exclusive="false"/>
+    <sequenceFlow id="sid-83DDFC5F-0094-468F-AFB1-C55425BDDAF4" sourceRef="sid-B12ABCC0-5C52-4316-8CBA-B3DA257F2273" targetRef="sid-5B9EBA62-287C-4885-BF47-366BDDCBBF1C"/>
+    <sequenceFlow id="sid-A72F483C-7A67-4DEC-82A6-811163B65284" name="yes" sourceRef="sid-5B9EBA62-287C-4885-BF47-366BDDCBBF1C" targetRef="sid-F1832F81-6043-4A87-B791-14F4B609370F"/>
+    <userTask id="sid-EE31D9DF-0D5D-4BEA-93F7-D0E6CFBE0136" name="say &quot;Please call 1-888-570-0778 and choose NT Unlock and Reset&quot;" activiti:exclusive="false"/>
+    <sequenceFlow id="sid-F545F91E-76E8-4445-B2AC-C26ECB2E7919" name="no" sourceRef="sid-5B9EBA62-287C-4885-BF47-366BDDCBBF1C" targetRef="sid-EE31D9DF-0D5D-4BEA-93F7-D0E6CFBE0136"/>
+    <userTask id="sid-F1832F81-6043-4A87-B791-14F4B609370F" name="escalate" activiti:exclusive="false"/>
+    <userTask id="sid-7A18E97F-2EFE-48F9-A32E-B615DCDA951F" name="ask the user whether the user succeed with the call" activiti:exclusive="false"/>
+    <sequenceFlow id="sid-9B6BD080-7130-45E8-81D9-F83AC25073B5" name="no" sourceRef="sid-7A18E97F-2EFE-48F9-A32E-B615DCDA951F" targetRef="sid-F1832F81-6043-4A87-B791-14F4B609370F"/>
+    <endEvent id="sid-7EC2D3E9-53A4-484E-B566-55D2AF8D8981"/>
+    <sequenceFlow id="sid-60B98E80-A4B0-4689-9834-853C4A6F9260" name="yes" sourceRef="sid-7A18E97F-2EFE-48F9-A32E-B615DCDA951F" targetRef="sid-7EC2D3E9-53A4-484E-B566-55D2AF8D8981"/>
+    <sequenceFlow id="sid-119F0481-D371-4671-B09C-ED1AA631B54D" sourceRef="sid-F1832F81-6043-4A87-B791-14F4B609370F" targetRef="sid-7EC2D3E9-53A4-484E-B566-55D2AF8D8981"/>
+    <sequenceFlow id="sid-6B861B41-F13C-46A1-AB00-D535D687564A" sourceRef="sid-EE31D9DF-0D5D-4BEA-93F7-D0E6CFBE0136" targetRef="sid-7A18E97F-2EFE-48F9-A32E-B615DCDA951F"/>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_bpn_comcast_nt_unlock_nuance">
+    <bpmndi:BPMNPlane bpmnElement="bpn_comcast_nt_unlock_nuance" id="BPMNPlane_bpn_comcast_nt_unlock_nuance">
+      <bpmndi:BPMNShape bpmnElement="sid-B12ABCC0-5C52-4316-8CBA-B3DA257F2273" id="BPMNShape_sid-B12ABCC0-5C52-4316-8CBA-B3DA257F2273">
+        <omgdc:Bounds height="30.0" width="30.0" x="34.0" y="97.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-5B9EBA62-287C-4885-BF47-366BDDCBBF1C" id="BPMNShape_sid-5B9EBA62-287C-4885-BF47-366BDDCBBF1C">
+        <omgdc:Bounds height="80.0" width="100.0" x="109.0" y="72.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-EE31D9DF-0D5D-4BEA-93F7-D0E6CFBE0136" id="BPMNShape_sid-EE31D9DF-0D5D-4BEA-93F7-D0E6CFBE0136">
+        <omgdc:Bounds height="80.0" width="100.0" x="330.0" y="186.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-F1832F81-6043-4A87-B791-14F4B609370F" id="BPMNShape_sid-F1832F81-6043-4A87-B791-14F4B609370F">
+        <omgdc:Bounds height="80.0" width="100.0" x="660.0" y="72.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-7A18E97F-2EFE-48F9-A32E-B615DCDA951F" id="BPMNShape_sid-7A18E97F-2EFE-48F9-A32E-B615DCDA951F">
+        <omgdc:Bounds height="80.0" width="100.0" x="660.0" y="186.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-7EC2D3E9-53A4-484E-B566-55D2AF8D8981" id="BPMNShape_sid-7EC2D3E9-53A4-484E-B566-55D2AF8D8981">
+        <omgdc:Bounds height="28.0" width="28.0" x="935.0" y="212.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="sid-A72F483C-7A67-4DEC-82A6-811163B65284" id="BPMNEdge_sid-A72F483C-7A67-4DEC-82A6-811163B65284">
+        <omgdi:waypoint x="209.0" y="112.0"/>
+        <omgdi:waypoint x="660.0" y="112.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-9B6BD080-7130-45E8-81D9-F83AC25073B5" id="BPMNEdge_sid-9B6BD080-7130-45E8-81D9-F83AC25073B5">
+        <omgdi:waypoint x="710.0" y="186.0"/>
+        <omgdi:waypoint x="710.0" y="152.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-119F0481-D371-4671-B09C-ED1AA631B54D" id="BPMNEdge_sid-119F0481-D371-4671-B09C-ED1AA631B54D">
+        <omgdi:waypoint x="760.0" y="112.0"/>
+        <omgdi:waypoint x="949.0" y="112.0"/>
+        <omgdi:waypoint x="949.0" y="212.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-F545F91E-76E8-4445-B2AC-C26ECB2E7919" id="BPMNEdge_sid-F545F91E-76E8-4445-B2AC-C26ECB2E7919">
+        <omgdi:waypoint x="159.0" y="152.0"/>
+        <omgdi:waypoint x="159.0" y="226.0"/>
+        <omgdi:waypoint x="330.0" y="226.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-83DDFC5F-0094-468F-AFB1-C55425BDDAF4" id="BPMNEdge_sid-83DDFC5F-0094-468F-AFB1-C55425BDDAF4">
+        <omgdi:waypoint x="64.0" y="112.0"/>
+        <omgdi:waypoint x="109.0" y="112.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-60B98E80-A4B0-4689-9834-853C4A6F9260" id="BPMNEdge_sid-60B98E80-A4B0-4689-9834-853C4A6F9260">
+        <omgdi:waypoint x="760.0" y="226.0"/>
+        <omgdi:waypoint x="935.0" y="226.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-6B861B41-F13C-46A1-AB00-D535D687564A" id="BPMNEdge_sid-6B861B41-F13C-46A1-AB00-D535D687564A">
+        <omgdi:waypoint x="430.0" y="226.0"/>
+        <omgdi:waypoint x="660.0" y="226.0"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

@@ -1,0 +1,185 @@
+STATEMENT:Great
+GREETING:How can I help you today, ${currentUser.firstName}?
+ACCEPT:Of course.
+WAIT:Please wait while I change the record.
+STATEMENT:I have changed the name in Vendor portal.
+THANKING:Thanks for contacting us.
+STATEMENT:The name in vendor portal is Tim Eckardt.
+STATEMENT:It is policy for each user to have their own account.
+STATEMENT:I have created an account.
+STATEMENT:great
+STATEMENT:I 'm well.
+ACCEPT:ok
+GREETING:hello.
+STATEMENT:The account shows that you are Maysun..
+ACKNOWLEDGE:great.
+ACKNOWLEDGE:good bye.
+GREETING:hello John Doe.
+STATEMENT:I see that you have provided the the logon credentials provided by MSP are for Tim eckardt.
+WAIT:one second while I transfer you.
+STATEMENT:hiiiii
+STATEMENT:You are currently logged in through IPcenter, you must be logged in through MSP to have a conversation with me.
+GREETING:Hello Maysun
+GREETING:Hi Christophe, I see that you are logged in as Tim Eckardt.
+ACKNOWLEDGE:Great.
+STATEMENT:Let me get a supervisor to help.
+WAIT:please hold
+GREETING:hello
+THANKING_REPLY:okay , i will help you
+STATEMENT:I couldn't find your invoice
+THANKING:Thank you for the information
+STATEMENT:The invoice number is ${invoice_number}. The invoice amount is ${invoice_amount}. The date is ${input2display} 
+GREETING:hey
+STATEMENT:this is the status
+GREETING:hi
+STATEMENT:you have 4000
+GREETING:Hi tim
+STATEMENT:Upon check, your invoice is paid.
+STATEMENT:Please allow 24 hour for it to appear in portal
+STATEMENT:Upon checking, the payment made on ${date2display} with the clearing number ${reference_number} amounting to ${total_payment_amount_sap} ${currency_sap} was allocated to the following invoices: #nospeak#${table}#nospeakend#
+STATEMENT:Sure, ${currentUser.firstName}.  I will be glad to help you find the payment information.  I need a few more details from you.
+STATEMENT:I am having trouble with your request. Let me obtain assistance from a live agent to investigate further.
+STATEMENT:I see that you are inquiring about a payment of 2351916.03, made on 12-31-2013.
+STATEMENT:There seems to be some error in your data.
+WAIT:please wait
+STATEMENT:I need a superviser to look at the account.
+STATEMENT:The total payment is ${fail_total_payment}.   The payment date is ${wdate2display}
+STATEMENT:I couldn't find your payment
+STATEMENT:The invoice number is ${invoice_number}. The invoice amount is ${fail_invoice_amount}. The date is ${input2display} 
+STATEMENT:Thank you for contacting Baker Hughes AP Helpdesk..
+STATEMENT:I see that you are looking for the status of Invoice Number 7654..
+WAIT:Kindly hold on for a moment and I will now look into it..
+STATEMENT:We are glad to inform you that Invoice Number 7654 amounting to 110.96 USD was paid on 02/19/2015 under Clearing Document Number 2004926312..
+STATEMENT:We are very glad that we have assisted you..
+WAIT:One moment please.
+STATEMENT:Per checking, Invoice Number 03144577is not showing in our system..
+STATEMENT:Thnk you for the information.
+STATEMENT:I will check the ticket number.
+STATEMENT:Your invoice has been deleted in our system due missing cost center on your invoice copy..
+STATEMENT:Pleas send your revised invoice copy via normal invoice submission to process your invoice for payment..
+STATEMENT:For your reference please refer to Service Ticket Number INC000020352042.
+YES_OR_NO_QUESTION:Should you need assistance, please feel free to ask Amelia or log a ticket thru Vendor Portal..
+WAIT:Please hold for a moment while I review your request..
+STATEMENT:I see that you are looking for the status of Invoice Number 03144577.
+STATEMENT:One moment while im checking to your invoice.
+STATEMENT:We would like to ask for the cost center number of PO number of your invoice.
+STATEMENT:Ok thank you.
+THANKING:Thank you.
+STATEMENT:I see that you are looking for the status of Invoice Number 03135310..
+STATEMENT:Per checking, Invoice Number 03135310 is not yet showing in the system..
+WAIT:Please hold on for a moment as I will search for the status of your invoices..
+STATEMENT:Per checking, your invoices in question are not found in the system..
+STATEMENT:Please send the copy of invoices via your normal invoice submission process..
+THANKING:Thank you..
+STATEMENT:Please be advised that we have created a new ticket for this query..
+STATEMENT:For any follow up, please send your email to APServices@bakerhughes.com under Ticket Number INC000020389592..
+OPEN_QUESTION:Upon checking, the invoice number #spell#${invoice_number_sap}#spellend# amounting to ${invoice_amount_sap} ${currency} was paid on ${date2display} with clearing number ${reference_number}
+STATEMENT:Please allow 3-5 business days for payment to be credited to your account
+STATEMENT:I can see that the payment was made more than 30 days ago
+STATEMENT:I see that you are looking for the status of Invoice Number 1000664895..
+OPEN_QUESTION:Please provide bank details where payment should be made for us to investigate..
+STATEMENT:This invoice was paid as part of a total payment amounting to ${total_payment_amount} ${currency}
+THANKING_REPLY:Sure, I will be glad to help you find the status of your ${keyword}
+GREETING:hi.
+STATEMENT:It will be included in the next payment run..
+STATEMENT:Invoice Number 095862A amounting to 67.84 GBP has been posted for payment..
+STATEMENT:Invoice Numbers 099293,099380,099630,099695 and 099664 have been posted for payment..
+STATEMENT:They will be included in the next payment run..
+STATEMENT:Lastly, Invoice Numbers 095939, 097590 and 099375 are not found in the system..
+STATEMENT:I am very glad to assist you..
+GREETING:Hello Dexter!.
+YES_OR_NO_QUESTION:Please be advised that Invoice Number 094520 amounting to 30.00 GBP is currently with the business for approval..
+STATEMENT:For any follow up, please send your email to APServices@bakerhughes.com under Ticket Number INC000020273412..
+STATEMENT:I 'll be needing ample time to search for the invoice status..
+STATEMENT:Invoice Number 094495 is not showing in our system..
+STATEMENT:Invoice Number 095781 amounting to 205.96 GBP has been posted for payment..
+STATEMENT:I see that you are looking for the status of Invoice Number 730682..
+STATEMENT:Per checking the system, Invoice Number 730682 amounting to 1,040.85 GBP is currently pending with the business for coding and approval ; as soon as processed and this invoice should be paid on April 17, 2015..
+STATEMENT:Per checking, Invoice Number 727252 is not showing in our system..
+STATEMENT:Invoice Number 729660 is also not showing in or system..
+STATEMENT:Please submit the copy of the not showing invoices via your normal invoice submission for processing..
+STATEMENT:For any follow up, please send your email to APServices@bakerhughes.com under Ticket Number INC000020305137..
+STATEMENT:Invoice Number 101855 amounting to 138.82 GBP is now posted for payment..
+STATEMENT:This invoice has a due date of 03/23/2015 and the next payment run is 03/25/2015..
+STATEMENT:Please hold while i check on Invoice Numbers 101927 and 101916..
+STATEMENT:Invoice Number 101927 amounting to 1,100.00 GBP is also posted for payment..
+STATEMENT:Lastly, Invoice Number 101916 amounting to 1,699.00 GBP is now posted for payment..
+STATEMENT:Please allow additional 3-5 business days after the given payment date for the fund to reflect on your account..
+STATEMENT:This has been documented under Reference Number INC000020405133..
+GREETING:Hello.
+STATEMENT:Thank you for contacting BHI AP Helpdesk.
+STATEMENT:let me pull up you account.
+WAIT:please give me a few minutes.
+STATEMENT:Invoie Number 101927 is posted for payment.
+STATEMENT:the net du date is March 23, 2015.
+STATEMENT:The payment run date is March 25, 2015.
+STATEMENT:Invoice umber 101916 is also posted for payment.
+STATEMENT:the payment run date is also March 25, 2015.
+STATEMENT:we have created Incident Number INC000020405803 for this conversation.
+STATEMENT:Invoice Number 101855 is also posted for payment.
+OPEN_QUESTION:payment run date is March 25, 2015.
+STATEMENT:I will be happy to help you with your Amdocs account; first let me gather the required details. 
+STATEMENT:Remedy Ticket Number: ${ebond_number}
+STATEMENT:I will be happy to help you to create a ticket for DST biller.
+STATEMENT:I couldn't find your account
+STATEMENT:I am gathering all the data for the automaton
+REJECT:wrong account number
+STATEMENT:ello
+GREETING:Hello
+STATEMENT:Not much.
+STATEMENT:Aight no doubt
+STATEMENT:I will be happy to unlock your account; first let me gather the required details. 
+STATEMENT:ok this test is complete.
+STATEMENT:The speed is great
+STATEMENT:testing close
+STATEMENT:I will be happy to help you  to port a number. First let me gather the required details.
+STATEMENT:I will now create a port number request ticket for you. Once I have created the ticket, I will give you the ticket number for your reference.
+STATEMENT:I couldn't find your account number in our records.
+STATEMENT:It seems you have provided an incorrect account number.
+STATEMENT:It seems you have provided an incorrect account number for AMDOCS.
+STATEMENT:I will be happy to help you create a ticket for Rate Code Investigation; first let me gather some information
+STATEMENT:I will now create a Rate Code Investigation request ticket for you; once I have created the ticket, I will give you the ticket number for your reference.
+STATEMENT:I will create the ticket for you with your submitted details
+STATEMENT:I will be happy to help you with your batch; first let me gather the required details.
+STATEMENT:I will be happy to help you with your Clarity issue.
+APOLOGY_REPLY:it's good
+STATEMENT:You need to upload the proper file.
+STATEMENT:The form is required, please try again when you have one
+STATEMENT:I am looking into your records
+STATEMENT:One moment we wil get the account unlocked for you
+STATEMENT:It seems you have provided an invalid account number.
+CLOSING:closing the ticket
+STATEMENT:I am creating a ticket for your distribution issue
+STATEMENT:Ebond number: ${ebond_number}
+STATEMENT:Ticket Number: ${ticket_number}
+STATEMENT:I will create a ticket
+STATEMENT:Ticket Number: ${radarTicketId}
+STATEMENT:Status: ${message}
+STATEMENT:Please call 1-888-570-0778 and choose NT Unlock and Reset
+STATEMENT:Your Ticket:${ticket_number}
+STATEMENT:A screenshot is required, please try again when you have one
+STATEMENT:I will be happy to assist you with your share drive access request.
+STATEMENT:Remedy Ticket number: ${ebond_number}
+STATEMENT:I will now create a ticket for Workbench request for you; once I have created the ticket, I will give you the ticket number for your reference.
+STATEMENT:I will be happy to help you create a ticket for workbench.
+STATEMENT:Thank you for contacting Comcast Home Security.
+APOLOGY:I’m sorry to hear that
+STATEMENT:I can understand that can be very frustrating
+THANKING_REPLY:I’d be happy to help you 
+STATEMENT:Let me pull up your account details
+THANKING:Thank you
+STATEMENT:I'm looking up your account.
+STATEMENT:I've found your account
+APOLOGY:sorry i wasn't able to verify your account
+STATEMENT:Great I've confirmed your account information Ergun Ekici
+ACKNOWLEDGE:I understand
+STATEMENT:Let's start by checking your touchscreen interface
+STATEMENT:That might be the cause of our problem
+STATEMENT:I'm going to schedule a technician  to come out and check the equipment
+STATEMENT:Great I've confirmed your appointment for Thursday 2pm
+STATEMENT:Lets try to arm it while I watch from here
+STATEMENT:For future reference your ticket number is INC4321
+STATEMENT:This was a test.
+CLOSING:Closing the ticket
+STATEMENT:Test
+STATEMENT:I will let you close it

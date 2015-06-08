@@ -40,7 +40,7 @@ public class DTree extends ArrayList<DNode> {
     private DNode padding;
     private String sentenceType = StringUtils.EMPTY;
     private String originalSentence = StringUtils.EMPTY;
-    private static StanfordPCFGParser pcfgParser = new StanfordPCFGParser("", false);
+    public static StanfordPCFGParser pcfgParser = new StanfordPCFGParser("", false);
 
 
     @Override

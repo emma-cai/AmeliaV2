@@ -36,7 +36,7 @@ public class PathSubMain {
         // These calls are performed in initNodeMatches( ).
         //GraphComparer comparer = RteMessageHandler.defaultRteConfiguration.graphComparer;
         //comparer.init(graph_T, graph_H);
-        HashMap<DNode, NavigableMap<Double, List<NodePair>>> nodeMatches = DMatching.initNodeMatches(graph_T, graph_Q, RteMessageHandler.defaultRteConfiguration);
+        HashMap<DNode, NavigableMap<Double, List<NodePair>>> nodeMatches = DMatching.initNodeMatches(graph_T, graph_Q, RteMessageHandler.config);
 
         // Select bestMatchedGraphList by computing VertexCost
         List<MatchedGraph> bestMatchedGraphListByVertexCost = DMatching.computeVertexCost(graph_T, graph_Q, nodeMatches, null);

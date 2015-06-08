@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/processdef">
+  <process id="bpn_comcast_csg_account_unlock" name="bpn_comcast_csg_account_unlock" isExecutable="true">
+    <startEvent id="sid-397D1BA9-56AC-414D-9BC7-6BA5160F7BDB"/>
+    <userTask id="sid-3A3F03CD-ABFD-4423-92C0-C2ECDA583718" name="ask the user what is the user's CSG login"/>
+    <sequenceFlow id="sid-241854F4-62FB-432D-95CC-0A5399178CF3" sourceRef="sid-3A3F03CD-ABFD-4423-92C0-C2ECDA583718" targetRef="sid-2524E64A-46D4-4A9E-82B5-2B35DC82551C"/>
+    <userTask id="sid-9732A288-49C6-4862-9991-80E5421C9245" name="say I will be happy to help you with your ACSR/CSG account; first let me gather some information."/>
+    <sequenceFlow id="sid-D40FF3F5-1B11-484F-9227-74CAFA384A15" sourceRef="sid-397D1BA9-56AC-414D-9BC7-6BA5160F7BDB" targetRef="sid-9732A288-49C6-4862-9991-80E5421C9245"/>
+    <sequenceFlow id="sid-1D12C468-2AA6-45D3-A508-C158D13576C4" sourceRef="sid-9732A288-49C6-4862-9991-80E5421C9245" targetRef="sid-3A3F03CD-ABFD-4423-92C0-C2ECDA583718"/>
+    <endEvent id="sid-29145A73-7EDA-41C5-B496-B99689C689CD"/>
+    <sequenceFlow id="sid-1C1830FB-2FE6-4DA4-BA62-011E3562766B" sourceRef="sid-2524E64A-46D4-4A9E-82B5-2B35DC82551C" targetRef="sid-29145A73-7EDA-41C5-B496-B99689C689CD"/>
+    <userTask id="sid-2524E64A-46D4-4A9E-82B5-2B35DC82551C" name="escalate because &quot;all the user's details have been gathered&quot;"/>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_bpn_comcast_csg_account_unlock">
+    <bpmndi:BPMNPlane bpmnElement="bpn_comcast_csg_account_unlock" id="BPMNPlane_bpn_comcast_csg_account_unlock">
+      <bpmndi:BPMNShape bpmnElement="sid-397D1BA9-56AC-414D-9BC7-6BA5160F7BDB" id="BPMNShape_sid-397D1BA9-56AC-414D-9BC7-6BA5160F7BDB">
+        <omgdc:Bounds height="30.0" width="30.0" x="45.0" y="154.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-3A3F03CD-ABFD-4423-92C0-C2ECDA583718" id="BPMNShape_sid-3A3F03CD-ABFD-4423-92C0-C2ECDA583718">
+        <omgdc:Bounds height="80.0" width="100.0" x="510.0" y="129.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-9732A288-49C6-4862-9991-80E5421C9245" id="BPMNShape_sid-9732A288-49C6-4862-9991-80E5421C9245">
+        <omgdc:Bounds height="80.0" width="100.0" x="165.0" y="129.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-29145A73-7EDA-41C5-B496-B99689C689CD" id="BPMNShape_sid-29145A73-7EDA-41C5-B496-B99689C689CD">
+        <omgdc:Bounds height="28.0" width="28.0" x="1185.0" y="155.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-2524E64A-46D4-4A9E-82B5-2B35DC82551C" id="BPMNShape_sid-2524E64A-46D4-4A9E-82B5-2B35DC82551C">
+        <omgdc:Bounds height="80.0" width="100.0" x="840.0" y="129.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="sid-1C1830FB-2FE6-4DA4-BA62-011E3562766B" id="BPMNEdge_sid-1C1830FB-2FE6-4DA4-BA62-011E3562766B">
+        <omgdi:waypoint x="940.0" y="169.0"/>
+        <omgdi:waypoint x="1185.0" y="169.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-1D12C468-2AA6-45D3-A508-C158D13576C4" id="BPMNEdge_sid-1D12C468-2AA6-45D3-A508-C158D13576C4">
+        <omgdi:waypoint x="265.0" y="169.0"/>
+        <omgdi:waypoint x="510.0" y="169.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-D40FF3F5-1B11-484F-9227-74CAFA384A15" id="BPMNEdge_sid-D40FF3F5-1B11-484F-9227-74CAFA384A15">
+        <omgdi:waypoint x="75.0" y="169.0"/>
+        <omgdi:waypoint x="165.0" y="169.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-241854F4-62FB-432D-95CC-0A5399178CF3" id="BPMNEdge_sid-241854F4-62FB-432D-95CC-0A5399178CF3">
+        <omgdi:waypoint x="610.0" y="169.0"/>
+        <omgdi:waypoint x="840.0" y="169.0"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
