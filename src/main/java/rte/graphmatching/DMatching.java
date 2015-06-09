@@ -239,44 +239,6 @@ public class DMatching {
 
             List<NodePair> matchedNodePairList = mg.getMatchedNodes();
 
-            for (NodePair pair : matchedNodePairList) {
-                DNode dnode_T = (DNode) pair.node1;
-                List<NodePair> pairedByDNodeT = mg.getNodePair(dnode_T, false);
-                if (pairedByDNodeT.size() > 0) {
-
-                }
-            }
-
-            int size = matchedNodePairList.size();
-            for (int i = 0; i < size; i++) {
-                NodePair pair_1 = matchedNodePairList.get(i);
-                DNode T_1 = (DNode) pair_1.node1;
-                DNode H_1 = (DNode) pair_1.node2;
-                for (int j = i+1; j < size; j++) {
-                    NodePair pair_2 = matchedNodePairList.get(j);
-                    DNode T_2 = (DNode) pair_2.node1;
-                    DNode H_2 = (DNode) pair_2.node2;
-
-                    System.out.println("\n***********************");
-                    System.out.println("T1 = " + T_1);
-                    System.out.println("H1 = " + H_1);
-                    System.out.println("T2 = " + T_2);
-                    System.out.println("H2 = " + H_2);
-                    // path between H_1 and H_2
-                    List<DefaultWeightedEdge> shortestPath_H1_H2 = graph_H.findShortestPath(H_1, H_2);
-                    for (DefaultWeightedEdge edge : shortestPath_H1_H2)
-                        System.out.println(edge);
-                    System.out.println("~~~~~~~~~~~~\n");
-                    // path between T_1 and T_2
-                    List<DefaultWeightedEdge> shortestPath_T1_T2 = graph_T.findShortestPath(T_1, T_2);
-                    for (DefaultWeightedEdge edge : shortestPath_T1_T2)
-                        System.out.println(edge);
-                    System.out.println("-----------\n");
-
-
-                }
-            }
-
             for (DefaultWeightedEdge edge_H : graph_H.edgeSet()) {
                 double edge_weight = 1.0;
                 normalizationConstant += PathSub.Importance(edge_H);

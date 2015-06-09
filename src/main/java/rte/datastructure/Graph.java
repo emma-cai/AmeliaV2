@@ -238,7 +238,7 @@ public class Graph extends SimpleGraph<Object, DefaultWeightedEdge> {
         return null;
     }
 
-    /**
+    /** **************************************************************
      * Return -1 if A is not the direct ancestor of C; otherwise return
      * the generation level; e.g. if A is the parent of C, then generation
      * level = 1; if A is exactly the same C, then generation level = 0;
@@ -256,7 +256,8 @@ public class Graph extends SimpleGraph<Object, DefaultWeightedEdge> {
             DNode T = queue.remove();
             if (T == null) {
                 generation++;
-                T = queue.remove();
+                if (!queue.isEmpty())
+                    T = queue.remove();
             }
             if (queue.isEmpty())
                 break;
@@ -266,7 +267,7 @@ public class Graph extends SimpleGraph<Object, DefaultWeightedEdge> {
                     return generation;
                 queue.add(C);
             }
-            if (children.isEmpty())
+            if (!children.isEmpty())
                 queue.add(null);
         }
 

@@ -13,7 +13,8 @@ import java.util.*;
  */
 public class PathSub {
 
-    public boolean PathSubDebug = false;
+    public boolean PathSubDebug = true;
+    public Double[] PathSubWeights = {0.3, 0.2, 0.2, 0.3};
 
     /** **************************************************************
      * TODO: compute the importance weight for edge_H
@@ -28,100 +29,137 @@ public class PathSub {
     public double getPathSub(Graph graph_T, Graph graph_H, DefaultWeightedEdge edge_H, MatchedGraph mg) {
 
         double pathSubValue = 0.0;
-        PathSub ps = new PathSub();
 
         // get source and target node given edge_H
-        DNode source_H = (DNode) graph_H.getEdgeSource(edge_H);
-        DNode target_H = (DNode) graph_H.getEdgeTarget(edge_H);
+        DNode sourceV = (DNode) graph_H.getEdgeSource(edge_H);
+        DNode targetV = (DNode) graph_H.getEdgeTarget(edge_H);
 
         // get the best mapping node source_T for source_H; get the best mapping node target_T for target_H;
-        NodePair source_pair = mg.getNodePair(source_H, true).get(0);
-        NodePair target_pair = mg.getNodePair(target_H, true).get(0);
+        List<NodePair> sourceVMappedPairList = mg.getNodePair(sourceV, true);
+        List<NodePair> targetVMappedPairList = mg.getNodePair(targetV, true);
 
-        if (source_pair != null && target_pair != null) {
-            DNode source_T = (DNode) source_pair.node1;
-            DNode target_T = (DNode) target_pair.node1;
-
-            List pathLabel_H = new ArrayList<>();
-            pathLabel_H.add(((DNode) graph_H.getEdgeTarget(edge_H)).getDepLabel());
+        if (!sourceVMappedPairList.isEmpty() && !targetVMappedPairList.isEmpty()) {
+            NodePair sourceVMappedPair = sourceVMappedPairList.get(0);
+            NodePair targetVMappedPair = targetVMappedPairList.get(0);
+            DNode sourceVMapped = (DNode) sourceVMappedPair.node1;
+            DNode targetVMapped = (DNode) targetVMappedPair.node1;
 
             List pathLabel_T = new ArrayList<>();
-            List path_T = graph_T.findShortestPath(source_T, target_T);
+            List path_T = graph_T.findShortestPath(sourceVMapped, targetVMapped);
             for (int i = 0; i < path_T.size(); i++) {
                 pathLabel_T.add(((DNode) graph_T.getEdgeTarget((DefaultWeightedEdge) path_T.get(i))).getDepLabel());
             }
 
-            pathSubValue = getPathSub(graph_T, graph_H, source_T, target_T, source_H, target_H);
+
+            pathSubValue = getPathSub(graph_T, graph_H, sourceV, targetV, sourceVMapped, targetVMapped, path_T);
 
             if (PathSubDebug) {
-                System.out.println("\n--------------------------------------------------");
-                System.out.println("edge_H: " + source_H.getForm()+"-"+source_H.getId() + "\t" + target_H.getForm()+"-"+target_H.getId() + "\t" + pathLabel_H.toString());
-                System.out.println("edge_T: " + source_T.getForm()+"-"+source_T.getId() + "\t" + target_T.getForm()+"-"+target_T.getId() + "\t" + pathLabel_T.toString());
-                System.out.println("source_H: " + source_H);
-                System.out.println("target_H: " + target_H);
-                System.out.println("source_T: " + source_T);
-                System.out.println("target_T: " + target_T);
-                System.out.println("pathSubValue = " + pathSubValue);
                 System.out.println("--------------------------------------------------");
+                System.out.println("edge_H: " + sourceV.getForm()+"-"+sourceV.getId() + "\t" + targetV.getForm()+"-"+targetV.getId()/** + "\t" + pathLabel_H.toString()**/);
+                System.out.println("edge_T: " + sourceVMapped.getForm()+"-"+sourceVMapped.getId() + "\t" + targetVMapped.getForm()+"-"+targetVMapped.getId() + "\t" + pathLabel_T.toString());
+                System.out.println("sourceV: " + sourceV);
+                System.out.println("targetV: " + targetV);
+                System.out.println("sourceVMappedInT: " + sourceVMapped);
+                System.out.println("targetVMappedInT: " + targetVMapped);
+                System.out.println("pathSubValue = " + pathSubValue);
+                System.out.println("--------------------------------------------------\n");
             }
         } else {
             if (PathSubDebug) {
-                System.out.println("\n--------------------------------------------------");
-                System.out.println("source_H: " + source_H);
-                System.out.println("target_H: " + target_H);
-                System.out.println("source_T: " + null);
-                System.out.println("target_T: " + null);
-                System.out.println("pathSubValue = " + pathSubValue);
                 System.out.println("--------------------------------------------------");
+                System.out.println("sourceV: " + sourceV);
+                System.out.println("targetV: " + targetV);
+                System.out.println("sourceVMappedInT: " + null);
+                System.out.println("targetVMappedInT: " + null);
+                System.out.println("pathSubValue = " + pathSubValue);
+                System.out.println("--------------------------------------------------\n");
             }
         }
 
         return pathSubValue;
     }
 
-    private static double getPathSub(Graph graph_T, Graph graph_H, DNode source_T,
-                                     DNode target_T, DNode source_H, DNode target_H) {
+    private double getPathSub(
+            Graph graph_T, Graph graph_H, DNode sourceV, DNode targetV,
+            DNode sourceVMapped, DNode targetVMapped, List path_T) {
 
-        Vector<Double> fie_vector = new Vector<>();
+        Vector<Double> fie_vector = getPathSubFeatureVector(
+                graph_T, graph_H, sourceV, targetV, sourceVMapped, targetVMapped, path_T);
 
-        // TODO: Should implement these methods
-        double exactMatch_tag = doExactMatch(target_T, target_H);
-        double partialMatch_tag = doPartialMatch( );
-        double ancestorMatch_tag = doAncestorMatch(source_T, target_T);
-        double kinkedMatch_tag = doKinkedMatch( );
+        if (PathSubDebug) {
+            System.out.println("*************Feature Vector**************");
+            System.out.println("exactMatch_tag = " + fie_vector.get(0));
+            System.out.println("partialMatch_tag = " + fie_vector.get(1));
+            System.out.println("ancestorMatch_tag = " + fie_vector.get(2));
+            System.out.println("kinkedMatch_tag = " + fie_vector.get(3));
+            System.out.println("***************************");
+        }
 
-        fie_vector.add(exactMatch_tag);
-        fie_vector.add(partialMatch_tag);
-        fie_vector.add(ancestorMatch_tag);
-        fie_vector.add(kinkedMatch_tag);
-
-        Double[] weights = {0.3, 0.2, 0.2, 0.3};
         Vector<Double> fie_weight_vector = new Vector();
-        Collections.addAll(fie_weight_vector, weights);
+        Collections.addAll(fie_weight_vector, PathSubWeights);
 
         double PathSub = DMatching.computeExpFun(fie_weight_vector, fie_vector);
 
         return PathSub;
     }
 
-    private static double doExactMatch(DNode target_T, DNode target_H) {
+    private Vector<Double> getPathSubFeatureVector(
+            Graph graph_T, Graph graph_H, DNode sourceV, DNode targetV,
+            DNode sourceVMapped, DNode targetVMapped, List path_T) {
 
-        if (target_H.getDepLabel().equals(target_T.getDepLabel()))
+        Vector<Double> fie_vector = new Vector<>();
+
+        // TODO: Should implement these methods
+        double exactMatch_tag = doExactMatch(targetV, targetVMapped, path_T);
+        double partialMatch_tag = doPartialMatch(graph_H, targetVMapped, path_T);
+        double ancestorMatch_tag = doAncestorMatch(graph_T, sourceVMapped, targetVMapped);
+        double kinkedMatch_tag = doKinkedMatch(graph_T, sourceVMapped, targetVMapped);
+
+        fie_vector.add(exactMatch_tag);
+        fie_vector.add(partialMatch_tag);
+        fie_vector.add(ancestorMatch_tag);
+        fie_vector.add(kinkedMatch_tag);
+
+        return fie_vector;
+    }
+
+    private static double doExactMatch(DNode targetV, DNode targetVMapped, List path_T) {
+
+        if (path_T == null || path_T.isEmpty() || path_T.size() > 1)
+            return 1.0;
+        if (targetV.getDepLabel().equals(targetVMapped.getDepLabel()))
             return 0.0;
         return 1.0;
     }
 
-    private static double doPartialMatch() {
-        return 0.0;
+    private static double doPartialMatch(Graph graph_H, DNode targetVMapped, List path_T) {
+
+        if (path_T == null || path_T.isEmpty() || path_T.size() > 1)
+            return 1.0;
+        for (Object object : graph_H.vertexSet()) {
+            DNode nodeH = (DNode) object;
+            if (targetVMapped.getDepLabel().equals(nodeH.getDepLabel()))
+                return 0.0;
+        }
+        return 1.0;
     }
 
-    private static double doAncestorMatch(DNode source_T, DNode target_T) {
+    private static double doAncestorMatch(Graph graph_T, DNode sourceVMapped, DNode targetVMapped) {
 
-        return 0.0;
+        int generation = graph_T.isAncestorOf(sourceVMapped, targetVMapped);
+        if ( generation < 1)
+            return 1.0;
+        double exp = Math.exp(generation);
+        return exp / (1.0 + exp);
     }
 
-    private static double doKinkedMatch() {
-        return 0.0;
+    private static double doKinkedMatch(Graph graph_T, DNode sourceVMapped, DNode targetVMapped) {
+
+        DNode node = graph_T.getLowestCommonAncestor(new ArrayList<>(Arrays.asList(sourceVMapped, targetVMapped)));
+        if (node == null)
+            return 1.0;
+        double exp = Math.exp(graph_T.findShortestPath(node, graph_T.getNodeById(0)).size());
+        return exp / (1.0 + exp);
     }
 
     private static Map.Entry<NodePair, Double> getBestMappingNodePair(List<Map.Entry<NodePair, Double>> matchedList) {
