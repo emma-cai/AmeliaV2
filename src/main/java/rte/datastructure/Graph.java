@@ -238,6 +238,41 @@ public class Graph extends SimpleGraph<Object, DefaultWeightedEdge> {
         return null;
     }
 
+    /**
+     * Return -1 if A is not the direct ancestor of C; otherwise return
+     * the generation level; e.g. if A is the parent of C, then generation
+     * level = 1; if A is exactly the same C, then generation level = 0;
+     */
+    public int isAncestorOf(DNode A, DNode D) {
+
+        if (A.getId() == D.getId())
+            return 0;
+
+        int generation = 1;
+        Queue<DNode> queue = new LinkedList<>();
+        queue.add(A);
+        queue.add(null);
+        while (!queue.isEmpty()) {
+            DNode T = queue.remove();
+            if (T == null) {
+                generation++;
+                T = queue.remove();
+            }
+            if (queue.isEmpty())
+                break;
+            List<DNode> children = T.getChildren();
+            for (DNode C : children) {
+                if (C.getId() == D.getId())
+                    return generation;
+                queue.add(C);
+            }
+            if (children.isEmpty())
+                queue.add(null);
+        }
+
+        return -1;
+    }
+
     /** **************************************************************
      * Get the first node with one of give posTags
      */
