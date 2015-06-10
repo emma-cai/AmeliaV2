@@ -13,6 +13,7 @@ public class RTEData {
     String positive;
     String negative;
     String answer;
+    String label;
 
     String conllxQ;
     String conllxP;

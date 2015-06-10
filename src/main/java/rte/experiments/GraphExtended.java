@@ -40,6 +40,10 @@ public class GraphExtended {
                     String dep = dnode.getDepLabel();
                     AnsFieldList.add(dep);
                     break;
+                case "lemma":
+                    String lemma = dnode.getLemma();
+                    AnsFieldList.add(lemma);
+                    break;
             }
 
         }

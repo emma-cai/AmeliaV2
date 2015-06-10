@@ -12,7 +12,10 @@ import rte.experiments.GraphExtended;
 import rte.graphmatching.NodeComparer;
 
 import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by qingqingcai on 6/5/15.
@@ -30,6 +33,7 @@ public class TrainingDataGeneration {
 
         String rawXMLPath = "/Users/qingqingcai/Documents/IntellijWorkspace/AmeliaV2/data/rte/MIT99.xls";
         String trainXMLPath = "/Users/qingqingcai/Documents/IntellijWorkspace/AmeliaV2/data/rte/MIT99.train.txt";
+        String trainArffPath = "/Users/qingqingcai/Documents/IntellijWorkspace/AmeliaV2/data/rte/MIT99.train.arff";
         String sheetname = "MIT99-trek8";
         List<RTEData> dataList = new ArrayList<>();
 
@@ -37,6 +41,8 @@ public class TrainingDataGeneration {
 
         System.out.println("===========================================================");
         saveFeatureToFile(trainXMLPath, sheetname, dataList);
+        writeFeatureToTxtFile(trainXMLPath, dataList, true);
+        writeFeatureToArffFile(trainArffPath, dataList, false);
     }
 
     public static void saveFeatureToFile(
@@ -80,7 +86,6 @@ public class TrainingDataGeneration {
                 System.out.println(index + " --> " + value);
             });
         }
-        writeFeatureToFile(trainXMLPath, dataList, true);
     }
 
     private static void featureNormalization(List<RTEData> dataList) {
@@ -112,14 +117,22 @@ public class TrainingDataGeneration {
             if (answer.isEmpty())
                 continue;
 
-            List<DNode> ansNodesList = GraphExtended.getNodeList(graphP, answer);
+            List<DNode> ansNodesList1 = GraphExtended.getNodeList(graphP, answer);
             String ansPosStr = GraphExtended.getFieldStr(ansNodesList, "pos");
             String ansDepStr = GraphExtended.getFieldStr(ansNodesList, "dep");
-
+            String ansLemStr = GraphExtended.getFieldStr(ansNodesList, "lemma").replaceAll("_", " ");
             DNode whNode = graphH.getFirstNodeWithPosTag(NodeComparer.WhSet);
 
             if (whNode == null)
                 continue;
+
+            List<List<DNode>> answerDNodeCandidateList = Prediction.generateAnswerCandidates(ques, positive, graphH, graphP);
+            for (String answerCandidate : answerCandidateList) {
+                if (answerCandidate.contains(ansLemStr))
+                    data.label = "1";
+                else
+                    data.label = "0";
+            }
 
             String whForm = whNode.getForm();
 
@@ -212,7 +225,7 @@ public class TrainingDataGeneration {
         }
     }
 
-    public static void writeFeatureToFile(
+    public static void writeFeatureToTxtFile(
             String filepath, List<RTEData> dataList, boolean saveAsSparse) {
 
         File file = new File(filepath);
@@ -236,6 +249,54 @@ public class TrainingDataGeneration {
                     bw.write(row);
                     bw.newLine();
                 }
+            }
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * In Arff file, saveAsSparse is default as false;
+     */
+    public static void writeFeatureToArffFile(
+            String filepath, List<RTEData> dataList, boolean saveAsSparse) {
+
+        File file = new File(filepath);
+        try {
+            file.createNewFile();
+            FileWriter fw = new FileWriter(file.getAbsoluteFile());
+            BufferedWriter bw = new BufferedWriter(fw);
+
+            bw.write("@relation breast-cancer");
+            bw.newLine();
+            for (String fea : FEALIST) {
+                bw.write("@attribute " + fea + " {'0','1'}");
+                bw.newLine();
+            }
+            bw.write("@attribute 'Class' {'0','1'}");
+            bw.newLine();
+            bw.write("@data");
+            bw.newLine();
+
+            for (RTEData data : dataList) {
+
+                if (data.answer.isEmpty())
+                    continue;
+
+                HashMap sparsefea = data.sparsefeamap;
+                StringBuilder sb = new StringBuilder();
+
+                for (int i = 0; i < FEALIST.size(); i++) {
+                    if (sparsefea.containsKey(i))
+                        sb.append("'1',");
+                    else
+                        sb.append("'0',");
+                }
+                sb.append("'1'");
+                String row = sb.toString().trim();
+                bw.write(row);
+                bw.newLine();
             }
             bw.close();
         } catch (IOException e) {
