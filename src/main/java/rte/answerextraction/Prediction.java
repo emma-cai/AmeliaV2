@@ -30,7 +30,7 @@ public class Prediction extends RteMessageHandler {
         generateAnswerCandidates(ques.toLowerCase(), text.toLowerCase());
     }
 
-    public static List<List<DNode>> generateAnswerCandidates(String ques, String text) {
+    public static List<TreeMap<Integer, DNode>> generateAnswerCandidates(String ques, String text) {
 
         Graph graphT = Graph.stringToGraph(text);
         Graph graphQ = Graph.stringToGraph(ques);
@@ -38,7 +38,7 @@ public class Prediction extends RteMessageHandler {
         return generateAnswerCandidates(ques, text, graphQ, graphT);
     }
 
-    public static List<List<DNode>> generateAnswerCandidates(
+    public static List<TreeMap<Integer, DNode>> generateAnswerCandidates(
             String ques, String text, Graph graphQ, Graph graphT) {
 
         HashMap<DNode, NavigableMap<Double, List<NodePair>>> nodeMatches
@@ -52,18 +52,18 @@ public class Prediction extends RteMessageHandler {
 //        return generateAnswerCandidates(nodeMatches, whNode);
     }
 
-    public static List<List<DNode>> generateAnswerCandidates(
+    public static List<TreeMap<Integer, DNode>> generateAnswerCandidates(
             HashMap<DNode, NavigableMap<Double, List<NodePair>>> nodeH_sim_NodePairList,
             DNode whNode) {
 
-        List<List<DNode>> answerCandidateList = new ArrayList<>();
+        List<TreeMap<Integer, DNode>> answerCandidateList = new ArrayList<>();
         List<NodePair> bestMatchedNodePairList_whNode = new ArrayList<>();
         Collection<List<NodePair>> tmp = nodeH_sim_NodePairList.get(whNode).values();
 
         for (List<NodePair> pairlist : tmp) {
             for (NodePair pair : pairlist) {
                 DNode node_T = (DNode) pair.node1;
-                List<DNode> answerCandidate = getSubtreeDNode(node_T);
+                TreeMap<Integer, DNode> answerCandidate = getSubtreeDNode(node_T);
                 answerCandidateList.add(answerCandidate);
             //    if (answerCandidate.split(" ").length > 1) {
                     System.out.println("\n" + pair.sim + "\t" + whNode);
@@ -105,20 +105,20 @@ public class Prediction extends RteMessageHandler {
         return answer;
     }
 
-    public static List<DNode> getSubtreeDNode(DNode startDNode) {
+    public static TreeMap<Integer, DNode> getSubtreeDNode(DNode startDNode) {
 
-        List<DNode> subtreeDNodeList = new ArrayList<>();
+        TreeMap<Integer, DNode> subtreeDNodeSorted = new TreeMap<>();
 
         Stack<DNode> stack = new Stack<>();
         stack.push(startDNode);
 
         while (!stack.empty()) {
             DNode top = stack.pop();
-            subtreeDNodeList.add(top);
+            subtreeDNodeSorted.put(top.getId(), top);
             List<DNode> children = top.getChildren();
             children.forEach(c -> stack.push(c));
         }
 
-        return subtreeDNodeList;
+        return subtreeDNodeSorted;
     }
 }

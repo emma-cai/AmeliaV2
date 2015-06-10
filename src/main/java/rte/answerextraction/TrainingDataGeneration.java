@@ -12,10 +12,7 @@ import rte.experiments.GraphExtended;
 import rte.graphmatching.NodeComparer;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by qingqingcai on 6/5/15.
@@ -117,7 +114,7 @@ public class TrainingDataGeneration {
             if (answer.isEmpty())
                 continue;
 
-            List<DNode> ansNodesList1 = GraphExtended.getNodeList(graphP, answer);
+            List<DNode> ansNodesList = GraphExtended.getNodeList(graphP, answer);
             String ansPosStr = GraphExtended.getFieldStr(ansNodesList, "pos");
             String ansDepStr = GraphExtended.getFieldStr(ansNodesList, "dep");
             String ansLemStr = GraphExtended.getFieldStr(ansNodesList, "lemma").replaceAll("_", " ");
@@ -126,34 +123,36 @@ public class TrainingDataGeneration {
             if (whNode == null)
                 continue;
 
-            List<List<DNode>> answerDNodeCandidateList = Prediction.generateAnswerCandidates(ques, positive, graphH, graphP);
-            for (String answerCandidate : answerCandidateList) {
-                if (answerCandidate.contains(ansLemStr))
+            String whForm = whNode.getForm();
+
+            List<TreeMap<Integer, DNode>> answerDNodeCandidateList = Prediction.generateAnswerCandidates(ques, positive, graphH, graphP);
+            for (TreeMap<Integer, DNode> answerCandidateMap : answerDNodeCandidateList) {
+                String answerCandidateString = toAnswerCandidateString(answerCandidateMap);
+                List<DNode> answerCandidateList = (List<DNode>) answerCandidateMap.values();
+                if (answerCandidateString.contains(ansLemStr))
                     data.label = "1";
                 else
                     data.label = "0";
+
+                DNode lcaNode = graphP.getLowestCommonAncestor(answerCandidateList);
+                String lcaPosStr = GraphExtended.getFieldStr(new ArrayList<>(Arrays.asList(lcaNode)), "pos");
+                String lcaDepStr = GraphExtended.getFieldStr(new ArrayList<>(Arrays.asList(lcaNode)), "dep");
+
+                data.feamap.put("w_a_pos", "w_a_pos=" + whForm + "-" + ansPosStr);
+                data.feamap.put("w_a_dep", "w_a_dep=" + whForm + "-" + ansDepStr);
+                data.feamap.put("w_l_pos", "w_l_pos=" + whForm + "-" + lcaPosStr);
+                data.feamap.put("w_l_dep", "w_l_dep=" + whForm + "-" + lcaDepStr);
+
+                System.out.println(id);
+                System.out.println(ques);
+                System.out.println(positive);
+                System.out.println(answer);
+                System.out.println(whNode.getForm() + "-" + ansPosStr);
+                System.out.println(whNode.getForm() + "-" + ansDepStr);
+                System.out.println(whNode.getForm() + "-" + lcaPosStr);
+                System.out.println(whNode.getForm() + "-" + lcaDepStr);
+                System.out.println();
             }
-
-            String whForm = whNode.getForm();
-
-            DNode lcaNode = graphP.getLowestCommonAncestor(ansNodesList);
-            String lcaPosStr = GraphExtended.getFieldStr(new ArrayList<>(Arrays.asList(lcaNode)), "pos");
-            String lcaDepStr = GraphExtended.getFieldStr(new ArrayList<>(Arrays.asList(lcaNode)), "dep");
-
-            data.feamap.put("w_a_pos", "w_a_pos=" + whForm + "-" + ansPosStr);
-            data.feamap.put("w_a_dep", "w_a_dep=" + whForm + "-" + ansDepStr);
-            data.feamap.put("w_l_pos", "w_l_pos=" + whForm + "-" + lcaPosStr);
-            data.feamap.put("w_l_dep", "w_l_dep=" + whForm + "-" + lcaDepStr);
-
-            System.out.println(id);
-            System.out.println(ques);
-            System.out.println(positive);
-            System.out.println(answer);
-            System.out.println(whNode.getForm() + "-" + ansPosStr);
-            System.out.println(whNode.getForm() + "-" + ansDepStr);
-            System.out.println(whNode.getForm() + "-" + lcaPosStr);
-            System.out.println(whNode.getForm() + "-" + lcaDepStr);
-            System.out.println();
         }
     }
 
@@ -302,5 +301,14 @@ public class TrainingDataGeneration {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private static String toAnswerCandidateString(TreeMap<Integer, DNode> map) {
+
+        StringBuilder sb = new StringBuilder();
+        map.forEach((id, node) -> {
+            sb.append(node.getForm() + " ");
+        });
+        return sb.toString().trim();
     }
 }
