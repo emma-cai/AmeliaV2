@@ -3,7 +3,7 @@ package rte.answerextraction;
 import rte.RteMessageHandler;
 import rte.datastructure.DNode;
 import rte.datastructure.Graph;
-import rte.graphmatching.DMatching;
+import rte.datastructure.LangLib;
 import rte.graphmatching.NodeComparer;
 import rte.similarityflooding.NodePair;
 
@@ -131,9 +131,17 @@ public class AnswerExtractionUtil extends RteMessageHandler {
     public static List<TreeMap<Integer, DNode>> generateAnswerCandidates(
             Graph graphQ, Graph graphT) {
 
+//        HashMap<DNode, NavigableMap<Double, List<NodePair>>> nodeMatches
+//                = initNodeMatches(graphT, graphQ, config);
+//        DMatching.computeMatchingCost(graphT, graphQ, nodeMatches);
+//
+//        DNode whNode = graphQ.getFirstNodeWithPosTag(NodeComparer.WhSet);
+//        return generateAnswerCandidates(whNode, nodeMatches);
+//
+//
+
         HashMap<DNode, NavigableMap<Double, List<NodePair>>> nodeMatches
                 = initNodeMatches(graphT, graphQ, config);
-        DMatching.computeMatchingCost(graphT, graphQ, nodeMatches);
 
         DNode whNode = graphQ.getFirstNodeWithPosTag(NodeComparer.WhSet);
         return generateAnswerCandidates(whNode, nodeMatches);
@@ -143,13 +151,21 @@ public class AnswerExtractionUtil extends RteMessageHandler {
             DNode whNode, HashMap<DNode, NavigableMap<Double, List<NodePair>>> nodeH_sim_NodePairList) {
 
         List<TreeMap<Integer, DNode>> answerCandidateList = new ArrayList<>();
-        List<NodePair> bestMatchedNodePairList_whNode = new ArrayList<>();
         Collection<List<NodePair>> tmp = nodeH_sim_NodePairList.get(whNode).values();
 
         for (List<NodePair> pairlist : tmp) {
             for (NodePair pair : pairlist) {
                 DNode node_T = (DNode) pair.node1;
                 TreeMap<Integer, DNode> answerCandidate = getSubtreeDNodeMap(node_T);
+
+                if (answerCandidate.isEmpty())
+                    continue;
+                if (answerCandidate.size() == 1) {
+                    String dep = answerCandidate.entrySet().iterator().next().getValue().getDepLabel();
+                    if (!dep.contains("nn") && !dep.contains("subj") && !dep.contains("obj"))
+                        continue;
+                }
+
                 answerCandidateList.add(answerCandidate);
             }
         }
@@ -192,8 +208,8 @@ public class AnswerExtractionUtil extends RteMessageHandler {
         String ques = "Who is the author of the book , `` The Iron Lady : A Biography of Margaret Thatcher '' ?";
         String text = "the IRON LADY ; A Biography of Margaret Thatcher by Hugo Young -LRB- Farrar , Straus & Giroux -RRB-";
 
-        ques = "When was London 's Docklands Light Railway constructed ?";
-        text = "As it turned out , when it opened in 1987 the Docklands Light Railway did not include any street running .";
+//        ques = "When was London 's Docklands Light Railway constructed ?";
+//        text = "As it turned out , when it opened in 1987 the Docklands Light Railway did not include any street running .";
 
 //        ques = "What country is the biggest producer of tungsten ?";
 //        text = "China dominates world tungsten production and has frequently been accused of dumping tungsten on western markets .";
@@ -204,4 +220,15 @@ public class AnswerExtractionUtil extends RteMessageHandler {
             System.out.println(ansCandStr);
         }
     }
+
+
+    private static HashSet<String> LessImportantPOSSet =
+            new HashSet<>(Arrays.asList(new String[]
+                    { LangLib.POS_IN, LangLib.POS_DT, LangLib.POS_JJ, LangLib.POS_JJR,
+                      LangLib.POS_JJS, LangLib.POS_TO}));
+    private static HashSet<String> LessImportantDepSet =
+            new HashSet<>(Arrays.asList(new String[]
+                    { LangLib.DEP_AUX, LangLib.DEP_AUXPASS, LangLib.DEP_ADVMOD,
+                      LangLib.DEP_ACOMP,
+                      LangLib.POS_JJS, LangLib.POS_TO}));
 }

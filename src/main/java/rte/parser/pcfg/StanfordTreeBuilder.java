@@ -17,15 +17,15 @@ import java.util.List;
 import java.util.function.Predicate;
 
 /**
-* For the Stanford parse tree.
-* Created by Maochen on 10/28/14.
-*/
+ * For the Stanford parse tree.
+ * Created by Maochen on 10/28/14.
+ */
 
 // Should only be used in PCFG Parser.
 public class StanfordTreeBuilder {
     private static final Logger LOG = LoggerFactory.getLogger(StanfordTreeBuilder.class);
 
-    // This is because of the difference of the stanford vs clearnlp standards. It is not err.
+    // This is due to the inconsistency of stanford parser.
     private static void patchTree(DNode node) {
         if (node.getLemma().equalsIgnoreCase("-LRB-")) {
             node.setForm("(");
@@ -33,7 +33,6 @@ public class StanfordTreeBuilder {
             node.setForm(")");
         }
 
-        // This is due to the inconsistency of stanford parser.
         if (node.getDepLabel().equals(LangLib.DEP_NUMBER)) {
             node.setDepLabel(LangLib.DEP_NUM);
         }
@@ -87,7 +86,7 @@ public class StanfordTreeBuilder {
         for (int i = 0; i < tokens.size(); i++) {
             CoreLabel token = tokens.get(i);
             String cPOSTagValue = cPOSTag == null ? LangTools.getCPOSTag(token.tag()) : cPOSTag.get(i).value();
-            DNode node = new DNode(i + 1, token.originalText(), token.lemma(), cPOSTagValue, token.tag(), StringUtils.EMPTY, 0);
+            DNode node = new DNode(i + 1, token.originalText(), token.lemma(), cPOSTagValue, token.tag(), StringUtils.EMPTY);
             depTree.add(node);
             setNamedEntity(node, token);
         }
@@ -130,9 +129,9 @@ public class StanfordTreeBuilder {
             }
 
             patchTree(node);
-            rte.parser.nn.StanfordNNDepParser.StanfordTreeDirtyPatch.dirtyPatchNER(node);
-            //            StanfordTreeDirtyPatch.dirtyPatch(node);
-            LangTools.generateName(node);
+            // StanfordTreeDirtyPatch.dirtyPatchNER(node);
+            // StanfordTreeDirtyPatch.dirtyPatch(node);
+            LangTools.generateLemma(node);
         });
 
         // Dont put it before dirty patch.

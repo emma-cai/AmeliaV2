@@ -57,7 +57,7 @@ public class DataCollection {
             cell.setCellValue(data.conllxQ);
 
             cell = row.createCell(6);
-            cell.setCellValue(data.conllxP);
+            cell.setCellValue(data.conllxT);
 
             /**
             // for negative instances
@@ -125,8 +125,8 @@ public class DataCollection {
                     if (!id.isEmpty()) {
                         RTEData data = new RTEData(id, question, positive, answer);
                         data.setConllxQ(Graph.textToConllx(question));
-                        data.setConllxP(Graph.textToConllx(positive));
-                        data.setConllxN(Graph.textToConllx(negative));
+                        data.setConllxT(Graph.textToConllx(positive));
+                //        data.setConllxN(Graph.textToConllx(negative));
                         dataList.add(data);
                     }
 
@@ -154,8 +154,8 @@ public class DataCollection {
 
             RTEData data = new RTEData(id, question, positive, answer);
             data.setConllxQ(Graph.textToConllx(question));
-            data.setConllxP(Graph.textToConllx(positive));
-            data.setConllxN(Graph.textToConllx(negative));
+            data.setConllxT(Graph.textToConllx(positive));
+        //    data.setConllxN(Graph.textToConllx(negative));
             dataList.add(data);
         } catch (IOException e) {
             e.printStackTrace();

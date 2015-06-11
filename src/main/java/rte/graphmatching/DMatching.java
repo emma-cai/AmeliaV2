@@ -32,8 +32,15 @@ public class DMatching {
         // Select bestMatchedGraphList by computing VertexCost
         if (!bestMatchedGraphListInVC.isEmpty())
             minMCInVC = bestMatchedGraphListInVC.get(0).getMatchingCost();
-
         minMC = minMCInVC;
+
+//        List<MatchedGraph> bestMatchedGraphListByAddingPathCost = computePathCost(graph_T, graph_H, bestMatchedGraphListInVC);
+//        double minimumMCByAddingPC = minMCInVC;
+//        if (!bestMatchedGraphListByAddingPathCost.isEmpty())
+//            minimumMCByAddingPC = bestMatchedGraphListByAddingPathCost.get(0).getMatchingCost();
+//        System.out.println("After computing path cost, the final matchingCost = " + minimumMCByAddingPC);
+//
+//        minMC = minimumMCByAddingPC;
 
         return minMC;
     }
@@ -42,7 +49,9 @@ public class DMatching {
      * Given two graphs, get node pairs which are sorted by similarity
      * score (from initial value or similarity flooding algorithm)
      */
-    public static HashMap<DNode, NavigableMap<Double, List<NodePair>>> initNodeMatches(Graph graph_T, Graph graph_H, RteConfiguration config) {
+    public static HashMap<DNode, NavigableMap<Double, List<NodePair>>> initNodeMatches(
+            Graph graph_T, Graph graph_H, RteConfiguration config) {
+
         if(config == null) {
             throw new IllegalArgumentException("RteConfiguration is null.");
         }
@@ -53,11 +62,6 @@ public class DMatching {
         Map<NodePair, Double> initVals = computeGraphComparerInitValues(comparer.getPCGraphNodes());
 
         Set<NodePair> actualSet = comparer.compareGraphNodes(initVals);
-
-        // JERRY: debugging
-        List<NodePair> actualList = NodePair.sortOnSimilarity(actualSet);
-//        System.out.println("\nPrinting actualList:");
-//        System.out.println(actualList.toString());
 
         HashMap<DNode, NavigableMap<Double, List<NodePair>>> nodeH_sim_NodePairList = groupOnDNodeAndSimilarity(actualSet);
 
@@ -121,11 +125,11 @@ public class DMatching {
      * highest similarity score;
      */
     public static List<MatchedGraph> computeVertexCost(Graph graph_T, Graph graph_H,
-                                           HashMap nodeH_sim_NodePairList,
-                                           List<MatchedGraph> MatchedGraphList) {
+                                                       HashMap nodeH_sim_NodePairList,
+                                                       List<MatchedGraph> MatchedGraphList) {
 
         if (debugInComputeVertexCost)
-            System.out.println("\n--------------------start debugging in ComputVertexCost---------------------");
+            System.out.println("\n-------ComputVertexCost Started--------");
 
         List<MatchedGraph> bestMatchedGraphList = new ArrayList<>();
         double VertexCost = 0.0;
@@ -134,10 +138,11 @@ public class DMatching {
         for (Object object : graph_H.vertexSet()) {
             DNode dnode_H = (DNode) object;
 
-            if (exclusiveCheck && VertexSub.excludeNodes(dnode_H))
-                continue;
+//            if (exclusiveCheck && VertexSub.excludeNodes(dnode_H))
+//                continue;
 
-            double dnode_weight = VertexSub.Importance(graph_H, dnode_H);                 // TODO: decide the weight for each different node
+            // compute the importance of the node in H
+            double dnode_weight = VertexSub.Importance(graph_H, dnode_H);
             NavigableMap<Double, List<NodePair>> sim_NodePairList =
                     (NavigableMap<Double, List<NodePair>>) nodeH_sim_NodePairList.get(dnode_H);
 
@@ -150,8 +155,8 @@ public class DMatching {
                     NodePair matchednodepair = matchedNodePairList.get(index);
                     DNode dnode_T = (DNode) matchednodepair.node1;
 
-                    if (exclusiveCheck && VertexSub.excludeNodes(dnode_T))
-                        continue;
+//                    if (exclusiveCheck && VertexSub.excludeNodes(dnode_T))
+//                        continue;
 
                     normalizationConstant += dnode_weight;
                     double vertexSubValue = 1.0 - matchednodepair.sim;
@@ -201,7 +206,7 @@ public class DMatching {
         }
 
         if (debugInComputeVertexCost)
-            System.out.println("--------------------finish debugging in ComputVertexCost---------------------\n");
+            System.out.println("-------ComputVertexCost Finished-------\n");
 
         for (MatchedGraph bmg : bestMatchedGraphList) {
             bmg.setVertexCost(VertexCost / normalizationConstant);
@@ -210,24 +215,14 @@ public class DMatching {
         return bestMatchedGraphList;
     }
 
-
     /** **************************************************************
      * Compute path substitution cost to match graph_T to graph_H
      */
-    public static double computePathCost(Graph graph_T, Graph graph_H) {
-
-        double PathCost = 0.0;
-
-        return PathCost;
-    }
-
-    /** **************************************************************
-     * Compute path substitution cost to match graph_T to graph_H
-     */
-    public static List<MatchedGraph> computePathCost(Graph graph_T, Graph graph_H, List<MatchedGraph> matchedGraphList) {
+    public static List<MatchedGraph> computePathCost(
+            Graph graph_T, Graph graph_H, List<MatchedGraph> matchedGraphList) {
 
         if (debugInComputePathCost)
-            System.out.println("\n--------------------start debugging in computePathCost---------------------");
+            System.out.println("\n-------ComputePathCost Started-------");
 
         List<MatchedGraph> bestMatchedGraphList = new ArrayList<>();
         PathSub ps = new PathSub();
@@ -237,8 +232,6 @@ public class DMatching {
             double PathCost = 0.0;
             double normalizationConstant = 0.0;
 
-            List<NodePair> matchedNodePairList = mg.getMatchedNodes();
-
             for (DefaultWeightedEdge edge_H : graph_H.edgeSet()) {
                 double edge_weight = 1.0;
                 normalizationConstant += PathSub.Importance(edge_H);
@@ -247,19 +240,20 @@ public class DMatching {
             }
 
             mg.setPathCost(PathCost / normalizationConstant);
-            mg.computeMatchingCost(0.55);   // TODO: manually change the weight
+            mg.computeMatchingCost(0.8);   // TODO: manually change the weight
         }
 
         bestMatchedGraphList = MatchedGraph.getBestMatchedGraphList(matchedGraphList);
 
         if (debugInComputePathCost)
-            System.out.println("--------------------finish debugging in computePathCost---------------------\n");
+            System.out.println("-------ComputePathCost Finished-------\n");
 
         return bestMatchedGraphList;
     }
 
     /** **************************************************************
-     * Compute f = (exp(weightVector * valueVector)) / (1.0 + exp(weightVector * valueVector))
+     * Compute f = (exp(weightVector * valueVector))
+     *              / (1.0 + exp(weightVector * valueVector))
      * @param weightVector Weight vector
      * @param feaVector Feature vector
      * @return

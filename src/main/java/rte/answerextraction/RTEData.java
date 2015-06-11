@@ -16,8 +16,8 @@ public class RTEData {
     String label;
 
     String conllxQ;
-    String conllxP;
-    String conllxN;
+    String conllxT;
+ //   String conllxN;
 
     Graph graphQ;
     Graph graphP;
@@ -31,15 +31,15 @@ public class RTEData {
         this.conllxQ = conllxQ;
     }
 
-    public void setConllxP(String conllxP) {
+    public void setConllxT(String conllxT) {
 
-        this.conllxP = conllxP;
+        this.conllxT = conllxT;
     }
 
-    public void setConllxN(String conllxN) {
-
-        this.conllxN = conllxN;
-    }
+//    public void setConllxN(String conllxN) {
+//
+//        this.conllxN = conllxN;
+//    }
 
     public RTEData(String id, String question, String positive, String answer) {
 
@@ -48,5 +48,18 @@ public class RTEData {
         this.text = positive;
         this.answer = answer;
     //    this.negative = negative;
+    }
+
+    public RTEData(String id, String label, String ques, String text, String answer,
+                   String quesConllx, String textConllx, HashMap<String, String> feamap) {
+
+        this.id = id;
+        this.label = label;
+        this.query = ques;
+        this.text = text;
+        this.answer = answer;
+        this.conllxQ = quesConllx;
+        this.conllxT = textConllx;
+        this.feamap.putAll(feamap);
     }
 }

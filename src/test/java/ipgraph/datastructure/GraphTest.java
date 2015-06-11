@@ -52,4 +52,14 @@ public class GraphTest {
         System.out.println("generation = " + generation);
         assertEquals(1, generation);
     }
+
+    @Test
+    public void testStringToGraph() {
+
+        String text = "\n" +
+                "Amelia Mary Earhart (/ˈɛərhɑrt/; July 24, 1897 – disappeared July 2, 1937) was an American aviation pioneer and author.[1][N 1] \n" +
+                "Earhart was the first female aviator to fly solo across the Atlantic Ocean.[3][N 2] ";
+        Graph graph = Graph.stringToGraph(text);
+        System.out.println("graph = " + graph);
+    }
 }

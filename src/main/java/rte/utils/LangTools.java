@@ -4,9 +4,13 @@ import rte.datastructure.DNode;
 import rte.datastructure.DTree;
 import rte.datastructure.LangLib;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Created by Maochen on 12/10/14.
+ */
 /**
  * Created by Maochen on 12/10/14.
  */
@@ -24,19 +28,9 @@ public class LangTools {
         put("'ll", "will");
     }};
 
-    public static void generateName(DNode node) {
-        // Can't
-        if (node.getForm().equalsIgnoreCase("ca") && node.getLemma().equals("can")) {
-            node.setLemma(node.getLemma());
-        }
-        // I ca/[n't].
-        else if (node.getForm().equalsIgnoreCase("n't") && node.getLemma().equals("not") && node.getDepLabel().equals(LangLib.DEP_NEG)) {
-            node.setLemma(node.getLemma());
-
-        }
-
+    public static void generateLemma(DNode node) {
         // Resolve 'd
-        else if (node.getForm().equalsIgnoreCase("'d") && node.getPOS().equals(LangLib.POS_MD)) {
+        if (node.getForm().equalsIgnoreCase("'d") && node.getPOS().equals(LangLib.POS_MD)) {
             node.setLemma(node.getLemma());
         } else if (contractions.containsKey(node.getForm())) {
             node.setLemma(contractions.get(node.getForm()));
@@ -62,9 +56,9 @@ public class LangTools {
             return LangLib.CPOSTAG_CONJ;
         } else if (pos.equals(LangLib.POS_CD)) {
             return LangLib.CPOSTAG_NUM;
-        } else if (pos.equals(LangLib.POS_DT) || pos.equals(LangLib.POS_WDT)) {
+        } else if (pos.equals(LangLib.POS_DT) || pos.equals(LangLib.POS_WDT) || pos.equals(LangLib.POS_PDT) || pos.equals(LangLib.POS_EX)) {
             return LangLib.CPOSTAG_DET;
-        } else if (pos.equals(LangLib.POS_POS)) {
+        } else if (pos.equals(LangLib.POS_POS) || pos.equals(LangLib.POS_RP)) {
             return LangLib.CPOSTAG_PART;
         } else if (pos.startsWith(LangLib.POS_PRP) || pos.startsWith(LangLib.POS_WP)) {
             return LangLib.CPOSTAG_PRON;
@@ -72,40 +66,41 @@ public class LangTools {
             return LangLib.CPOSTAG_INTJ;
         } else if (pos.equals(LangLib.POS_WRB)) {
             return LangLib.CPOSTAG_X;
-        } else if (pos.equals(LangLib.POS_SYM)) {
+        } else if (pos.equals(LangLib.POS_SYM) || pos.equals("$") || pos.equals("#")) {
             return LangLib.CPOSTAG_SYM;
-        } else if (pos.equals(".") || pos.matches("-.*B-")) {
+        } else if (pos.equals(".") || pos.equals(",") || pos.equals(":") || pos.equals("``") || pos.equals("''") || pos.equals(LangLib.POS_HYPH) || pos.matches("-.*B-")) {
             return LangLib.CPOSTAG_PUNCT;
         } else { // FW
             return LangLib.CPOSTAG_X;
         }
     }
 
-    public static DTree getDTreeFromCoNLLXString(final String input, boolean isLemmaMissing) {
+    public static DTree getDTreeFromCoNLLXString(final String input) {
         if (input == null || input.trim().isEmpty()) {
             return null;
         }
 
-        String[] tokens = input.split(System.lineSeparator());
+        String[] dNodesString = input.split(System.lineSeparator());
         DTree tree = new DTree();
-        for (String token : tokens) {
-            String[] fields = token.split("\t");
-            int currentIndex = 0;
-            int id = Integer.parseInt(fields[currentIndex++]);
-            String form = fields[currentIndex++];
-            String lemma = isLemmaMissing ? form : fields[currentIndex];
-            currentIndex++;
-            String cPOSTag = fields[currentIndex++];
-            String pos = fields[currentIndex++];
-            currentIndex++;
 
-            String headIndex = fields[currentIndex++];
-            String depLabel = fields[currentIndex];
+        Arrays.stream(dNodesString).parallel()
+                .map(s -> s.split("\t"))
+                .forEachOrdered(fields -> {
+                    int currentIndex = 0;
+                    int id = Integer.parseInt(fields[currentIndex++]);
+                    String form = fields[currentIndex++];
+                    String lemma = fields[currentIndex++];
+                    String cPOSTag = fields[currentIndex++];
+                    String pos = fields[currentIndex++];
+                    currentIndex++;
 
-            DNode node = new DNode(id, form, lemma, cPOSTag, pos, depLabel);
-            node.addFeature("head", headIndex);
-            tree.add(node);
-        }
+                    String headIndex = fields[currentIndex++];
+                    String depLabel = fields[currentIndex];
+
+                    DNode node = new DNode(id, form, lemma, cPOSTag, pos, depLabel);
+                    node.addFeature("head", headIndex); // by the time head might not be generated!
+                    tree.add(node);
+                });
 
         for (int i = 1; i < tree.size(); i++) {
             DNode node = tree.get(i);

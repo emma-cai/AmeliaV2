@@ -25,16 +25,16 @@ public class AnswerExtractionDataPrepare {
     public static void generateTrainingData() {
 
         String rawXMLPath = "/Users/qingqingcai/Documents/IntellijWorkspace/AmeliaV2/data/rte/MIT99.xls";
-        String trainXMLPath = "/Users/qingqingcai/Documents/IntellijWorkspace/AmeliaV2/data/rte/MIT99.train.txt";
+        String trainTxtPath = "/Users/qingqingcai/Documents/IntellijWorkspace/AmeliaV2/data/rte/MIT99.train.txt";
         String trainArffPath = "/Users/qingqingcai/Documents/IntellijWorkspace/AmeliaV2/data/rte/MIT99.train.arff";
         String sheetname = "MIT99-trek8";
 
         List<RTEData> dataList = new ArrayList<>();
-        featureGeneration(rawXMLPath, sheetname, dataList);
-        featureFormatting(dataList);
+        List<RTEData> dataWithFeatureList = featureGeneration(rawXMLPath, sheetname, dataList);
+        featureFormatting(dataWithFeatureList);
 
-        writeFeatureToTxtFile(trainXMLPath, dataList, true);
-//        writeFeatureToArffFile(trainArffPath, dataList, false);
+        writeFeatureToTxtFile(trainTxtPath, dataWithFeatureList, true);
+        writeFeatureToArffFile(trainArffPath, dataWithFeatureList, false);
     }
 
     /** **************************************************************
@@ -102,8 +102,10 @@ public class AnswerExtractionDataPrepare {
     /** **************************************************************
      * Generate features for each instance in dataList;
      */
-    public static void featureGeneration(
+    public static List<RTEData> featureGeneration(
             String xmlpath, String sheetname, List<RTEData> dataList) {
+
+        List<RTEData> dataWithFeatureList = new ArrayList<>();
 
         readExcel(xmlpath, sheetname, dataList);
         for (RTEData data : dataList) {
@@ -112,7 +114,7 @@ public class AnswerExtractionDataPrepare {
             String text = data.text;
             String answer = data.answer;
             String quesConllx = data.conllxQ;
-            String textConllx = data.conllxP;
+            String textConllx = data.conllxT;
             Graph graphQ = Graph.conllxToGraph(quesConllx);
             Graph graphT = Graph.conllxToGraph(textConllx);
 
@@ -123,6 +125,10 @@ public class AnswerExtractionDataPrepare {
 //            String ansPosStr = GraphExtended.getFieldStr(labeledAnsNodeList, "pos");
 //            String ansDepStr = GraphExtended.getFieldStr(labeledAnsNodeList, "dep");
 //            String ansFormStr = GraphExtended.getFieldStr(labeledAnsNodeList, "form").replaceAll("_", " ");
+
+            List<DNode> labeledAnsNodeList = getNodeList(graphT, answer);
+            String labeledAnsFormStr = getFieldStr(labeledAnsNodeList, "form").replaceAll("_", " ").toLowerCase();
+
             DNode whNode = graphQ.getFirstNodeWithPosTag(NodeComparer.WhSet);
 
             if (whNode == null)
@@ -132,27 +138,32 @@ public class AnswerExtractionDataPrepare {
 
             List<TreeMap<Integer, DNode>> ListOfAnsCandNodeMap
                     = generateAnswerCandidates(graphQ, graphT);
+
             for (TreeMap<Integer, DNode> ansCandNodeMap : ListOfAnsCandNodeMap) {
-                String ansCandStr = fromTreeMapToString(ansCandNodeMap);
+                String ansCandStr = fromTreeMapToString(ansCandNodeMap).toLowerCase();
                 List<DNode> ansCandNodeList = new ArrayList(ansCandNodeMap.values());
-                if (ansCandStr.contains(answer))
-                    data.label = "1";
-                else
-                    data.label = "0";
+                String label = "0";
+                if (ansCandStr.contains(labeledAnsFormStr))
+                    label = "1";
 
                 HashMap<String, String> feamap = featureGeneration(graphT, graphQ, ansCandNodeList);
-                data.feamap.putAll(feamap);
 
+                RTEData dataWithFeature = new RTEData(id, label, ques, text, answer, quesConllx, textConllx, feamap);
+                dataWithFeatureList.add(dataWithFeature);
                 System.out.println("id = " + data.id);
+                System.out.println("label = " + data.label);
                 System.out.println("ques = " + data.query);
                 System.out.println("text = " + data.text);
                 System.out.println("answer = " + data.answer);
                 System.out.println("ansCandStr = " + ansCandStr);
-                data.feamap.forEach((fn, fv) -> {
-                    System.out.println(fn + ": " + fv);
-                });
+//                data.feamap.forEach((fn, fv) -> {
+//                    System.out.println(fn + ": " + fv);
+//                });
+                System.out.println();
             }
         }
+
+        return dataWithFeatureList;
     }
 
     /** **************************************************************
@@ -227,7 +238,7 @@ public class AnswerExtractionDataPrepare {
                     if (expAns != null) {
                         RTEData data = new RTEData(id, ques, text, expAns);
                         data.setConllxQ(quesConllx);
-                        data.setConllxP(textConllx);
+                        data.setConllxT(textConllx);
                         dataList.add(data);
                     }
                 }
@@ -294,7 +305,7 @@ public class AnswerExtractionDataPrepare {
                 if (saveAsSparse) {
                     HashMap sparsefea = data.sparsefeamap;
                     StringBuilder sb = new StringBuilder();
-                    sb.append("1" + " ");
+                    sb.append(data.label + " ");
                     sparsefea.forEach((findex, fvalue) -> {
                         sb.append(findex + ":" + fvalue + " ");
                     });

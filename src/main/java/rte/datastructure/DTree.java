@@ -1,11 +1,5 @@
 package rte.datastructure;
 
-import edu.stanford.nlp.trees.EnglishGrammaticalStructure;
-import edu.stanford.nlp.trees.GrammaticalStructure;
-import edu.stanford.nlp.trees.SemanticHeadFinder;
-import edu.stanford.nlp.trees.Tree;
-import rte.parser.pcfg.StanfordPCFGParser;
-import rte.utils.LangTools;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
@@ -40,8 +34,6 @@ public class DTree extends ArrayList<DNode> {
     private DNode padding;
     private String sentenceType = StringUtils.EMPTY;
     private String originalSentence = StringUtils.EMPTY;
-    public static StanfordPCFGParser pcfgParser = new StanfordPCFGParser("", false);
-
 
     @Override
     public String toString() {
@@ -90,49 +82,5 @@ public class DTree extends ArrayList<DNode> {
         padding.setForm("^");
         padding.setLemma("^");
         this.add(padding);
-    }
-
-    /** **************************************************************
-     * Return DNode with specific ID
-     */
-    public DNode getNodeById(int id) {
-
-        for (DNode n : this) {
-            if (n.getId() == id)
-                return n;
-        }
-        return null;
-    }
-
-    /** **************************************************************
-     * Build dependency-tree from a plain sentence
-     */
-    public static DTree buildTree(String s) {
-
-        Tree tree = pcfgParser.getLexicalizedParser().parse(s);
-
-        SemanticHeadFinder headFinder = new SemanticHeadFinder(false); // keep copula verbs as head
-        GrammaticalStructure egs = new EnglishGrammaticalStructure(tree, string -> true, headFinder, true);
-
-        // notes: typedDependencies() is suggested
-        String conllx = null;
-        DTree dtree = null;
-        try {
-            conllx = EnglishGrammaticalStructure.dependenciesToString(egs, egs.typedDependencies(), tree, true, true);
-            dtree = LangTools.getDTreeFromCoNLLXString(conllx, true);
-        } catch (Exception ex) {
-            System.out.println("Exception when building DTree for: \"" + s + "\"");
-        }
-
-        return dtree;
-    }
-
-    /** **************************************************************
-     * Build dependency-tree from conllx
-     */
-    public static DTree buildTreeFromConllx(String conllx) {
-
-        DTree dtree = LangTools.getDTreeFromCoNLLXString(conllx, true);
-        return dtree;
     }
 }

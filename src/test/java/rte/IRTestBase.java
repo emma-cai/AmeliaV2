@@ -68,7 +68,7 @@ public class IRTestBase {
     }
 
     protected Graph stringToDGraph(String in)    {
-        DTree dtree = DTree.buildTree(in);
+        DTree dtree = Graph.buildTree(in);
         return Graph.buildDGraph(dtree);
     }
 

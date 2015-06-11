@@ -18,10 +18,10 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
-* This is an EXPERIMENTAL CLASS, NO use, modify or redistribution under any cases.
-* <p>
-* Created by Maochen on 1/9/15.
-*/
+ * This is an EXPERIMENTAL CLASS, NO use, modify or redistribution under any cases.
+ * <p>
+ * Created by Maochen on 1/9/15.
+ */
 public class StanfordPCFGParserTrainer {
     public static final String wsj = "/Users/Maochen/Desktop/treebank_3/parsed/mrg/wsj/";
     public static final String extra = "/Users/Maochen/Desktop/extra/treebank_extra_data/";

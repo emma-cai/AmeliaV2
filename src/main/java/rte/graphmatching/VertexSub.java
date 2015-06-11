@@ -21,20 +21,22 @@ public class VertexSub implements NodeComparer {
     public static boolean debug = false;
 
     // TODO: Feature Weight Learning as Future Work
-    public static Double[] weights = {0.3, 0.2, 0.05, 0.05, 0.1, 0.05, 0.1, 0.1};
+    //   public static Double[] weights = {0.3, 0.2, 0.05, 0.05, 0.1, 0.05, 0.1, 0.1};
+    //   public static Double[] weights = {0.3, 0.25, 0.1, 0.1, 0.15, 0.1};a
+    public static Double[] weights = {0.3, 0.2, 0.05, 0.05, 0.1, 0.1, 0.05, 0.05, 0.1, 0.1, 0.05, 0.05};
 
     private static double ws4jThreshold = 0.5;  // threshold for WordNet similarity
 
     private static ILexicalDatabase db = new NictWordNet();
 
     private static RelatednessCalculator[] rcs = {
-    //        new HirstStOnge(db),
-    //        new LeacockChodorow(db),
-    //        new Lesk(db),
-    //        new WuPalmer(db),
-    //        new Resnik(db),
-    //        new JiangConrath(db),
-    //        new Lin(db),
+            //        new HirstStOnge(db),
+            //        new LeacockChodorow(db),
+            //        new Lesk(db),
+            //        new WuPalmer(db),
+            //        new Resnik(db),
+            //        new JiangConrath(db),
+            //        new Lin(db),
             new Path(db)
     };
 
@@ -71,17 +73,42 @@ public class VertexSub implements NodeComparer {
         double stemMatch_tag_parent = 1.0;
         double posMatch_tag_parent = 1.0;
         double ws4jMatch_tag_parent = 1.0;
+        double exactMatch_tag_child = 0.0;
+        double stemMatch_tag_child = 0.0;
+        double posMatch_tag_child = 0.0;
+        double ws4jMatch_tag_child = 0.0;
 
         if (dnode_T != null && dnode_H != null) {
             exactMatch_tag = doExactMatch(dnode_T, dnode_H);
-            stemMatch_tag = doStemMatch(dnode_T, dnode_H);
+            stemMatch_tag = doLemmaMatch(dnode_T, dnode_H);
             posMatch_tag = doPOSMatch(dnode_T, dnode_H);
             ws4jMatch_tag = doWS4JMatch(dnode_T, dnode_H);
             if (dnode_T.getHead() != null && dnode_H.getHead() != null) {
                 exactMatch_tag_parent = doExactMatch(dnode_T.getHead(), dnode_H.getHead());
-                stemMatch_tag_parent = doStemMatch(dnode_T.getHead(), dnode_H.getHead());
+                stemMatch_tag_parent = doLemmaMatch(dnode_T.getHead(), dnode_H.getHead());
                 posMatch_tag_parent = doPOSMatch(dnode_T.getHead(), dnode_H.getHead());
                 ws4jMatch_tag_parent = doWS4JMatch(dnode_T.getHead(), dnode_H.getHead());
+            }
+            List<DNode> dnodeHChildren = dnode_H.getChildren();
+            if (!dnodeHChildren.isEmpty()) {
+                int pairnum = 0;
+                for (DNode childH : dnodeHChildren) {
+                    String label = childH.getDepLabel();
+                    List<DNode> dnodeTChildren = dnode_T.getChildrenByDepLabels(label);
+                    for (DNode childT : dnodeTChildren) {
+                        exactMatch_tag_child += doExactMatch(childT, childH);
+                        stemMatch_tag_child += doLemmaMatch(childT, childH);
+                        posMatch_tag_child += doPOSMatch(childT, childH);
+                        ws4jMatch_tag_child += doWS4JMatch(childT, childH);
+                        pairnum++;
+                    }
+                }
+                if (pairnum != 0) {
+                    exactMatch_tag_child /= (pairnum*1.0);
+                    stemMatch_tag_child /= (pairnum*1.0);
+                    posMatch_tag_child /= (pairnum*1.0);
+                    ws4jMatch_tag_child /= (pairnum*1.0);
+                }
             }
         }
 
@@ -93,12 +120,13 @@ public class VertexSub implements NodeComparer {
         fie_vector.add(stemMatch_tag_parent);
         fie_vector.add(posMatch_tag_parent);
         fie_vector.add(ws4jMatch_tag_parent);
+        fie_vector.add(exactMatch_tag_child);
+        fie_vector.add(stemMatch_tag_child);
+        fie_vector.add(posMatch_tag_child);
+        fie_vector.add(ws4jMatch_tag_child);
 
         Vector<Double> fie_weight_vector = new Vector();
         Collections.addAll(fie_weight_vector, weights);
-//        Vector<Double> fie_weight_vector = new Vector<>(fie_vector.size());
-//        for (int i = 0; i < fie_vector.size(); i++)
-//            fie_weight_vector.add(1.0/fie_vector.size());
 
         double VertexSub = DMatching.computeExpFun(fie_weight_vector, fie_vector);
 
@@ -116,12 +144,6 @@ public class VertexSub implements NodeComparer {
             System.out.println("----------------------------------------");
         }
 
-//        System.out.println("\n----------------------------------------");
-//        System.out.println("dnode_H = " + dnode_H);
-//        System.out.println("dnode_T = " + dnode_T);
-//        System.out.println("Vertex cost = " + VertexSub);
-//        System.out.println("----------------------------------------");
-
         return VertexSub;
     }
 
@@ -131,7 +153,7 @@ public class VertexSub implements NodeComparer {
      */
     private static double doExactMatch(DNode dnode_T, DNode dnode_H) {
         if (dnode_T.getForm().equals(dnode_H.getForm())
-                || doStemMatch(dnode_T, dnode_H) ==  0.0)
+                || doLemmaMatch(dnode_T, dnode_H) ==  0.0)
             return 0.0;             // if exactly matched, the cost is 0
         else
             return 1.0;
@@ -152,7 +174,7 @@ public class VertexSub implements NodeComparer {
      * A naive method (suggested by Peigen You) to check if two words
      * have the same stemming
      */
-    public static double doStemMatch(DNode dnode_T, DNode dnode_H) {
+    public static double doStemMatchUnsued(DNode dnode_T, DNode dnode_H) {
 
         String form_T = dnode_T.getForm();
         String form_H = dnode_H.getForm();
@@ -160,15 +182,13 @@ public class VertexSub implements NodeComparer {
         if (form_T.equals(form_H))
             return 0.0;
 
-//        if ((form_T.equals("flight") && form_H.equals("flying")) ||
-//                (form_H.equals("flight") && form_T.equals("flying")) )
-//            return 0.0;
-
-        if(Math.abs(form_H.length()-form_T.length())<3 && Math.abs(form_H.length()-form_T.length())>0){
+        if(Math.abs(form_H.length()-form_T.length())<3
+                && Math.abs(form_H.length()-form_T.length())>0) {
             String longForm = form_H.length() > form_T.length() ? form_H : form_T;
             String shortForm = longForm == form_H ? form_T : form_H;
 
-            if(longForm.startsWith(shortForm) && (longForm.endsWith("s")||longForm.endsWith("ed"))){
+            if(longForm.startsWith(shortForm)
+                    && (longForm.endsWith("s")||longForm.endsWith("ed"))){
                 return 0.0;
             }
         }
@@ -246,28 +266,20 @@ public class VertexSub implements NodeComparer {
     }
 
     /** **************************************************************
-     * TODO: compute the importance weight dnode_H in our algorithm
-     * @param dnode
-     * @return
+     * Compute the importance of node in H; Intuitively, Verb and Noun
+     * are more important to match than other;
      */
-    public static double Importance(DNode dnode) {
-
-        return 1.0;
-    }
-
     public static double Importance(Graph graph_H, DNode dnode_H) {
 
         String POSTag = dnode_H.getPOS();
         double tag = 0.0;
-        if (NodeComparer.VerbSet.contains(POSTag)) {
+        if (NodeComparer.VerbSet.contains(POSTag) || NodeComparer.NounSet.contains(POSTag)) {
             tag += 0.0;
-        } else if (NodeComparer.NounSet.contains(POSTag)) {
-            tag += 1.0;
         } else {
-            tag += 2.0;
+            tag += 1.0;
         }
-        tag += (graph_H.findShortestPath(graph_H.getNodeById(0), dnode_H)).size();
+        //    tag += (graph_H.findShortestPath(graph_H.getNodeById(0), dnode_H)).size();
 
-        return 1.0 / ( tag * 1.0 );
+        return 1.0 / ( tag + 1.0 );
     }
 }

@@ -12,8 +12,8 @@ import java.util.*;
  */
 public class AnswerExtraction {
 
-    public static String runAnswerExtraction(Graph graph_T, Graph graph_H,
-                                             HashMap<DNode, NavigableMap<Double, List<NodePair>>> node_sim_NodePairList) {
+    public static String extractShortAnswersV2(Graph graph_T, Graph graph_H,
+                                               HashMap<DNode, NavigableMap<Double, List<NodePair>>> node_sim_NodePairList) {
 
         String answer = "";
         DNode bestMatchedNode = null;
@@ -71,7 +71,7 @@ public class AnswerExtraction {
      * Extract short answers by taking the most related dnode from T,
      * which is matched to wh-node in H;
      */
-    public static String extractShortAnswers2(
+    public static String extractShortAnswers(
             Graph graph_T, Graph graph_H, String ques,
             HashMap<DNode, NavigableMap<Double, List<NodePair>>> node_sim_NodePairList) {
 
@@ -81,8 +81,16 @@ public class AnswerExtraction {
 
         DNode whNode = graph_H.getFirstNodeWithPosTag(NodeComparer.WhSet);
 
+        if (whNode == null)
+            return "I don't know.";
+
         DNode bestMatchedNode_whNode = null;
         HashMap<DNode, NavigableMap<Double, List<NodePair>>> nodeT_sim_NodePairList = toDNodeTMap(node_sim_NodePairList);
+
+        if (node_sim_NodePairList.get(whNode) == null)  {
+            return "I don't know.";
+        }
+
         List<NodePair> bestMatchedNodePairList_whNode = node_sim_NodePairList.get(whNode).entrySet().iterator().next().getValue();
 
         for (NodePair pair : bestMatchedNodePairList_whNode) {
@@ -133,7 +141,7 @@ public class AnswerExtraction {
         if (NodeComparer.VerbSet.contains(firstNode.getPOS()))
             return "YESNO";
 
-        if (ques.matches("^(When|when|What time|what time) .*$"))
+        if (ques.matches("^(When|when|What time|what time|What year|what year) .*$"))
             return "TIME";
 
         if (ques.matches("^(Where|where) .*$"))

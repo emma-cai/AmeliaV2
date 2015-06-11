@@ -1,7 +1,6 @@
 package rte.feature;
 
 import rte.datastructure.DNode;
-import rte.datastructure.DTree;
 import rte.datastructure.Graph;
 import rte.graphmatching.NodeComparer;
 
@@ -71,8 +70,8 @@ public class FeatureExtraction {
             System.out.println("answer = " + data.answer);
 
 
-            Graph graph_Q = Graph.buildDGraph(DTree.buildTree(data.question.toLowerCase()));
-            Graph graph_P = Graph.buildDGraph(DTree.buildTree(data.positive.toLowerCase()));
+            Graph graph_Q = Graph.buildDGraph(Graph.buildTree(data.question.toLowerCase()));
+            Graph graph_P = Graph.buildDGraph(Graph.buildTree(data.positive.toLowerCase()));
             List<Integer> ANSIDList = new ArrayList<>();
             String[] idArr = data.answer.split(" ");
             for (String id : idArr) {

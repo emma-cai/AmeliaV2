@@ -1,16 +1,13 @@
 package rte.datastructure;
 
-import edu.stanford.nlp.trees.EnglishGrammaticalStructure;
-import edu.stanford.nlp.trees.GrammaticalStructure;
-import edu.stanford.nlp.trees.SemanticHeadFinder;
-import edu.stanford.nlp.trees.Tree;
-import rte.graphmatching.NodeComparer;
-import rte.similarityflooding.Edge;
 import org.jgrapht.alg.DijkstraShortestPath;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.SimpleGraph;
 import org.jgrapht.graph.Subgraph;
+import rte.graphmatching.NodeComparer;
+import rte.parser.pcfg.StanfordPCFGParser;
+import rte.similarityflooding.Edge;
 import rte.utils.LangTools;
 
 import java.util.*;
@@ -19,6 +16,11 @@ import java.util.*;
  * Created by qingqingcai on 5/3/15.
  */
 public class Graph extends SimpleGraph<Object, DefaultWeightedEdge> {
+
+    private static String modelFile = "";
+    private static String posTaggerModel = "";
+
+    private static StanfordPCFGParser pcfgParser = new StanfordPCFGParser(modelFile, posTaggerModel, false);
 
     public static final Set<String> postagSet = NodeComparer.postagSet;
 
@@ -39,7 +41,7 @@ public class Graph extends SimpleGraph<Object, DefaultWeightedEdge> {
     }
 
 
-    /**
+    /** **************************************************************
      * Build a Graph from a set of edges.
      * @param edges
      * @return
@@ -90,40 +92,61 @@ public class Graph extends SimpleGraph<Object, DefaultWeightedEdge> {
     }
 
 //    /** **************************************************************
-//     * Convert plain text to graph
+//     * Convert plain text to graph using parser in ElizaNLPService
 //     */
 //    public static Graph stringToGraph(ElizaNLPService elizaNLPService, String text) {
 //
-//        SRUAnalysis sruAnalysis= elizaNLPService.parseSentence(text.toLowerCase());
-//        DEPTree deptree = sruAnalysis.getDepTree();             // get dependency tree
-//        String conllx = deptree.toStringCoNLL() + "\t_\t_";     // get conllx of the dependency tree
-//        DTree dtree = DTree.buildTreeFromConllx(conllx);        // build DTree from conllx
-//        Graph graph = Graph.buildDGraph(dtree);                 // build Graph from DTree
+//        Graph graph;
+//        if (elizaNLPService != null) {
+//            SRUAnalysis sruAnalysis= elizaNLPService.parseSentence(text.toLowerCase());
+//            DEPTree deptree = sruAnalysis.getDepTree();
+//            String conllx = deptree.toStringCoNLL().replaceAll("\n", "\t_\t_\n") + "\t_\t_";
+//            DTree dtree = buildTreeFromConllx(conllx);
+//            graph = Graph.buildDGraph(dtree);
+//        } else {
+//            throw new IllegalStateException(("elizaNLPService is null."));
+//        }
+//
 //        return graph;
+//    }
+//
+//    /** **************************************************************
+//     * Convert plain text to conllx using parser in ElizaNLPService
+//     */
+//    public static String stringToConllx(ElizaNLPService elizaNLPService, String text) {
+//
+//        String conllx;
+//        if (elizaNLPService != null) {
+//            SRUAnalysis sruAnalysis = elizaNLPService.parseSentence(text.toLowerCase());
+//            DEPTree deptree = sruAnalysis.getDepTree();
+//            conllx = deptree.toStringCoNLL().replaceAll("\n", "\t_\t_\n") + "\t_\t_";
+//        } else {
+//            throw new IllegalStateException(("elizaNLPService is null."));
+//        }
+//
+//        return conllx;
 //    }
 
     public static Graph stringToGraph(String text) {
 
-        DTree dtree = DTree.buildTree(text);
+        if (text.isEmpty()) { return null; }
+        DTree dtree = buildTree(text);
         return Graph.buildDGraph(dtree);
     }
 
     public static String textToConllx(String text) {
 
-        Tree tree = DTree.pcfgParser.getLexicalizedParser().parse(text);
-        SemanticHeadFinder headFinder = new SemanticHeadFinder(false); // keep copula verbs as head
-        GrammaticalStructure egs = new EnglishGrammaticalStructure(tree, string -> true, headFinder, true);
-
-        // notes: typedDependencies() is suggested
-        String conllx = null;
-        conllx = EnglishGrammaticalStructure.dependenciesToString(egs, egs.typedDependencies(), tree, true, true);
-
+        DTree dtree = pcfgParser.parse(text);
+        String conllx = dtree.toString();
         return conllx;
     }
 
+    /** **************************************************************
+     * Convert conllx string to graph
+     */
     public static Graph conllxToGraph(String conllx) {
 
-        DTree dtree = LangTools.getDTreeFromCoNLLXString(conllx, true);
+        DTree dtree = buildTreeFromConllx(conllx);
         return Graph.buildDGraph(dtree);
     }
 
@@ -145,7 +168,6 @@ public class Graph extends SimpleGraph<Object, DefaultWeightedEdge> {
                 builder.append(node.getcPOSTag()).append("\t\t");
                 builder.append(node.getPOS()).append("\t\t");
                 builder.append(node.getHead().getId()).append("\t\t");
-                builder.append(node.getLevel()).append("\t\t");
                 builder.append(node.getDepLabel());
                 builder.append(System.lineSeparator());
             }
@@ -169,7 +191,6 @@ public class Graph extends SimpleGraph<Object, DefaultWeightedEdge> {
             builder.append(node.getLemma()).append("\t\t");
             builder.append(node.getPOS()).append("\t\t");
             builder.append(node.getHead().getId()).append("\t\t");
-            builder.append(node.getLevel()).append("\t\t");
             builder.append(node.getDepLabel());
             builder.append(System.lineSeparator());
         }
@@ -184,10 +205,10 @@ public class Graph extends SimpleGraph<Object, DefaultWeightedEdge> {
 
         List path = new ArrayList();
         if (!this.vertexSet().contains(from)) {
-            System.out.println("ERROR: " + from + " is not in the graph!");
+            //    System.out.println("WARNING: " + from + " is not in the graph!");
             return path;
         } else if (!this.vertexSet().contains(to)) {
-            System.out.println("ERROR: " + to + " is not in the graph!");
+            //    System.out.println("WARNING: " + to + " is not in the graph!");
             return path;
         }
 
@@ -225,7 +246,7 @@ public class Graph extends SimpleGraph<Object, DefaultWeightedEdge> {
     }
 
     /** **************************************************************
-     * Get the first node with a specific posTag
+     * Get the first node (with smallest ID) with a specific posTag
      */
     public DNode getFirstNodeWithPosTag(String posTag) {
 
@@ -275,21 +296,7 @@ public class Graph extends SimpleGraph<Object, DefaultWeightedEdge> {
     }
 
     /** **************************************************************
-     * Get the first node with one of give posTags
-     */
-    public DNode getFirstNodeWithPosTag(Set<String> posTagList) {
-
-        int size = this.vertexSet().size();
-        for (int i = 1; i <= size; i++) {
-            DNode dnode = this.getNodeById(i);
-            if (dnode != null && posTagList.contains(dnode.getPOS()))
-                return dnode;
-        }
-        return null;
-    }
-
-    /** **************************************************************
-     * Find the lowest common ancestor
+     * Find the lowest common ancestor for the given node list;
      */
     public DNode getLowestCommonAncestor(List<DNode> dnodeList) {
 
@@ -319,6 +326,8 @@ public class Graph extends SimpleGraph<Object, DefaultWeightedEdge> {
                 DNode dnode0 = nodeWithSameLevel.get(0);
                 DNode dnode1 = nodeWithSameLevel.get(1);
                 List path = findShortestPath(dnode0, dnode1);
+                if (path == null || path.isEmpty())
+                    return null;
                 DefaultWeightedEdge edge = (DefaultWeightedEdge) path.get(0);
                 return (DNode) this.getEdgeSource(edge);
             } else {
@@ -326,6 +335,20 @@ public class Graph extends SimpleGraph<Object, DefaultWeightedEdge> {
                 return null;
             }
         }
+    }
+
+    /** **************************************************************
+     * Get the first node with one of give posTags
+     */
+    public DNode getFirstNodeWithPosTag(Set<String> posTagList) {
+
+        int size = this.vertexSet().size();
+        for (int i = 1; i <= size; i++) {
+            DNode dnode = this.getNodeById(i);
+            if (dnode != null && posTagList.contains(dnode.getPOS()))
+                return dnode;
+        }
+        return null;
     }
 
     /** **************************************************************
@@ -340,7 +363,7 @@ public class Graph extends SimpleGraph<Object, DefaultWeightedEdge> {
             return path.size();
     }
 
-    /**
+    /** **************************************************************
      * Lets us allow or reject subgraphs according to the type of node object.
      * @param obj
      * @return
@@ -372,99 +395,22 @@ public class Graph extends SimpleGraph<Object, DefaultWeightedEdge> {
     }
 
     /** **************************************************************
-     * In graph, return all nodes with id = targetLevel
-     * FIXME: Returns null if this is not a graph of DNode objects
+     * Build dependency-tree from a plain sentence
      */
-    public Set<DNode> getNodesByLevel(int targetLevel) {
+    @Deprecated
+    public static DTree buildTree(String s) {
 
-        Set<DNode> DNodeWithSpecificLevel = new HashSet<>();
-        Set<Object> vertexSet = this.vertexSet();
-        for (Object n : vertexSet) {
-            if (! (n instanceof DNode))   {
-                return null;
-            }
-            DNode node = (DNode) n;
-            if (targetLevel == node.getLevel())
-                DNodeWithSpecificLevel.add(node);
-        }
-        return DNodeWithSpecificLevel;
+        DTree dtree = pcfgParser.parse(s);
+
+        return dtree;
     }
 
     /** **************************************************************
-     * Compute and add DNode.level (distance from each node to root;
-     * For example:
-     *   if ROOT-0 --> transported-7, then level_of_transported-7 = 1;
-     * Return the maximum level in the graph/tree;
-     * FIXME: Returns Integer.MIN_VALUE if this is not a graph of DNode objects
+     * Build dependency-tree from conllx
      */
-    public int addNodeLevel() {
+    public static DTree buildTreeFromConllx(String conllx) {
 
-        int maxium = 0;
-
-        Object obj = getNodeById(0);
-        if (! (obj instanceof DNode))   {
-            return Integer.MIN_VALUE;
-        }
-
-
-        DNode root = (DNode) obj;
-        for (Object n : this.vertexSet()) {
-            DNode node = (DNode) n;
-            List<DefaultEdge> path = findShortestPath(root, node);
-            node.setLevel(path.size());
-            if (path.size() > maxium)
-                maxium = path.size();
-        }
-        return maxium;
-    }
-
-    public static void main(String[] args) {
-
-        String sentence = "What are transported into the RER during synthesis?";
-
-        // build tree
-        DTree dtree = DTree.buildTree(sentence);
-        System.out.println("\ndtree = \n" + dtree.toString());
-
-        // build graph
-        Graph dgraph = Graph.buildDGraph(dtree);
-        System.out.println("\ndgraph = \n" + dgraph.toString());
-
-        // compute and add nodes' levels
-        int maxiumlevel = dgraph.addNodeLevel();
-        System.out.println("\ndgraph (add levels to nodes) <maximumlevel = " + maxiumlevel + "> = \n" + dgraph.toString());
-
-        // find the path between two nodes
-        int sid = 1; int tid = 6;
-        DNode sn = dtree.getNodeById(1);
-        DNode tn = dtree.getNodeById(6);
-        List<DefaultWeightedEdge> paths = dgraph.findShortestPath(sn, tn);
-        printPath(dgraph, paths, sn, tn);
-
-        // build subgraph
-        Graph dsubgraph_NOUN = dgraph.getSubgraph(postagSet);
-        System.out.println("\nsubgraph_for_NOUN = \n" + dsubgraph_NOUN.toString());
-    }
-
-    public static void printPath(Graph dgraph,
-                                 List<DefaultWeightedEdge> paths, DNode sn, DNode tn) {
-        System.out.println("\nshortest path from " + sn.getId() + " to " + tn.getId() + " = ");
-        for (int i = 0; i < paths.size(); i++) {
-            DefaultWeightedEdge p = paths.get(i);
-            Object s = dgraph.getEdgeSource(p);
-            Object t = dgraph.getEdgeTarget(p);
-            if (s instanceof DNode && t instanceof DNode) {
-                DNode u = (DNode) s;
-                DNode v = (DNode) t;
-                System.out.println(u.getId() + ":" + u.getForm() + " --> " + v.getDepLabel() + " --> " + v.getId() + ":" + v.getForm());
-            }
-            else    {
-                System.out.println(s.toString() + " --> " + p.toString() + " --> " + t.toString());
-            }
-        }
-    }
-
-    private static void printSplitLine() {
-        System.out.println("===============================================================");
+        DTree dtree = LangTools.getDTreeFromCoNLLXString(conllx);
+        return dtree;
     }
 }

@@ -269,7 +269,7 @@ public class AnswerExtractionTest extends IRTestBase {
 
         DMatching.computeMatchingCost(graph_T, graph_Q, node_SortedMapList_T_Q);
 
-        String actual = AnswerExtraction.extractShortAnswers2(graph_T, graph_Q, ques, node_SortedMapList_T_Q).trim().toLowerCase();
+        String actual = AnswerExtraction.extractShortAnswers(graph_T, graph_Q, ques, node_SortedMapList_T_Q).trim().toLowerCase();
 
         System.out.println("answer = " + actual);
 

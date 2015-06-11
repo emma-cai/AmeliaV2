@@ -24,12 +24,12 @@ public class PathSubMain {
         ps.PathSubDebug = true;
 
         String T = "House crickets have conspicuous jumping legs and have two pairs of wings, of which, only the back pair are used for flight.";
-        DTree dtree_T = DTree.buildTree(T);
+        DTree dtree_T = Graph.buildTree(T);
         Graph graph_T = Graph.buildDGraph(dtree_T);
         System.out.println("\ngraph_T = \n" + graph_T.toString());
 
         String Q = "What has pairs of wings?";
-        DTree dtree_Q = DTree.buildTree(Q);
+        DTree dtree_Q = Graph.buildTree(Q);
         Graph graph_Q = Graph.buildDGraph(dtree_Q);
         System.out.println("\ngraph_Q = \n" + graph_Q.toString());
 

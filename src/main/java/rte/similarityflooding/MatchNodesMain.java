@@ -14,7 +14,7 @@ import java.util.Set;
  */
 public class MatchNodesMain {
     private static Graph stringToDGraph(String in)    {
-        DTree dtree = DTree.buildTree(in);
+        DTree dtree = Graph.buildTree(in);
         return Graph.buildDGraph(dtree);
     }
 

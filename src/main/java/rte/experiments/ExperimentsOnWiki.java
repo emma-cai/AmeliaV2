@@ -10,7 +10,6 @@ import rte.datastructure.Graph;
 import rte.graphmatching.AnswerExtraction;
 import rte.graphmatching.DMatching;
 import rte.graphmatching.NodeComparer;
-import rte.utils.LangTools;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -87,7 +86,7 @@ public class ExperimentsOnWiki {
                     for (String line : lines) {
                         if (line.trim().isEmpty())
                             continue;
-                        DTree dtree = DTree.buildTree(line.toLowerCase());
+                        DTree dtree = Graph.buildTree(line.toLowerCase());
 //                        SemanticHeadFinder headFinder = new SemanticHeadFinder(false); // keep copula verbs as head
 //                        GrammaticalStructure egs = new EnglishGrammaticalStructure(dtree, string -> true, headFinder, true);
 //                        System.out.println("current = " + line);
@@ -200,7 +199,7 @@ public class ExperimentsOnWiki {
                     for (String text : texts) {
                         if (text.trim().isEmpty())
                             continue;
-                        DTree dtree = DTree.buildTree(text);
+                        DTree dtree = Graph.buildTree(text);
                         Graph dgraph = Graph.buildDGraph(dtree);
                         graphs.add(dgraph);
                     }
@@ -223,8 +222,7 @@ public class ExperimentsOnWiki {
                             afterText = true;
                         } else if (line.trim().isEmpty()) {
                             System.out.println("test = " + conllx);
-                            DTree dtree = LangTools.getDTreeFromCoNLLXString(conllx, true);
-                            Graph dgraph = Graph.buildDGraph(dtree);
+                            Graph dgraph = Graph.conllxToGraph(conllx);
                             texts.add(text);
                             graphs.add(dgraph);
                             afterText = false;
@@ -245,7 +243,7 @@ public class ExperimentsOnWiki {
         List<Graph> graphs = file_graphs.get(fname);
         List<String> texts = file_texts.get(fname);
 
-        DTree DTree_T = DTree.buildTree(query);
+        DTree DTree_T = Graph.buildTree(query);
         Graph Graph_H = Graph.buildDGraph(DTree_T);
 
         double minimumCost = Double.MAX_VALUE;
@@ -269,7 +267,7 @@ public class ExperimentsOnWiki {
                 minimumNodeMatches = nodeH_sim_NodePairList;
             }
         }
-        shortAnswer = AnswerExtraction.runAnswerExtraction(minimumTGraph, Graph_H, minimumNodeMatches);
+        shortAnswer = AnswerExtraction.extractShortAnswers(minimumTGraph, Graph_H, query, minimumNodeMatches);
 
         TESTNUM++;
         boolean correctAnswer = judgeAnswer(answer, actual, "");
