@@ -151,11 +151,6 @@ public class AnswerExtractionUtil extends RteMessageHandler {
                 DNode node_T = (DNode) pair.node1;
                 TreeMap<Integer, DNode> answerCandidate = getSubtreeDNodeMap(node_T);
                 answerCandidateList.add(answerCandidate);
-                //    if (answerCandidate.split(" ").length > 1) {
-                System.out.println("\n" + pair.sim + "\t" + whNode);
-                System.out.println( pair.sim + "\t" + node_T);
-                System.out.println("answer candidate = " + answerCandidate);
-                //    }
             }
         }
 
@@ -197,12 +192,16 @@ public class AnswerExtractionUtil extends RteMessageHandler {
         String ques = "Who is the author of the book , `` The Iron Lady : A Biography of Margaret Thatcher '' ?";
         String text = "the IRON LADY ; A Biography of Margaret Thatcher by Hugo Young -LRB- Farrar , Straus & Giroux -RRB-";
 
-//        ques = "When was London 's Docklands Light Railway constructed ?";
-//        text = "As it turned out , when it opened in 1987 the Docklands Light Railway did not include any street running .";
+        ques = "When was London 's Docklands Light Railway constructed ?";
+        text = "As it turned out , when it opened in 1987 the Docklands Light Railway did not include any street running .";
 
-        ques = "What country is the biggest producer of tungsten ?";
-        text = "China dominates world tungsten production and has frequently been accused of dumping tungsten on western markets .";
+//        ques = "What country is the biggest producer of tungsten ?";
+//        text = "China dominates world tungsten production and has frequently been accused of dumping tungsten on western markets .";
 
-        generateAnswerCandidates(ques.toLowerCase(), text.toLowerCase());
+        List<TreeMap<Integer, DNode>> listOfMap = generateAnswerCandidates(ques.toLowerCase(), text.toLowerCase());
+        for(TreeMap id_dnode_map : listOfMap) {
+            String ansCandStr = fromTreeMapToString(id_dnode_map);
+            System.out.println(ansCandStr);
+        }
     }
 }
