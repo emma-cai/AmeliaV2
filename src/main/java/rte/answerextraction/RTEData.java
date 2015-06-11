@@ -9,9 +9,9 @@ import java.util.HashMap;
  */
 public class RTEData {
     String id;
-    String question;
-    String positive;
-    String negative;
+    String query;
+    String text;
+ //   String negative;
     String answer;
     String label;
 
@@ -41,12 +41,12 @@ public class RTEData {
         this.conllxN = conllxN;
     }
 
-    public RTEData(String id, String question, String positive, String answer, String negative) {
+    public RTEData(String id, String question, String positive, String answer) {
 
         this.id = id;
-        this.question = question;
-        this.positive = positive;
+        this.query = question;
+        this.text = positive;
         this.answer = answer;
-        this.negative = negative;
+    //    this.negative = negative;
     }
 }

@@ -8,42 +8,40 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import rte.datastructure.DNode;
 import rte.datastructure.Graph;
-import rte.experiments.GraphExtended;
 import rte.graphmatching.NodeComparer;
 
 import java.io.*;
 import java.util.*;
 
+import static rte.answerextraction.AnswerExtractionUtil.*;
+
 /**
- * Created by qingqingcai on 6/5/15.
+ * Created by qingqingcai on 6/10/15.
  */
-public class TrainingDataGeneration {
+public class AnswerExtractionDataPrepare {
 
     private static List<String> FEALIST = new ArrayList<>();
 
-    public static void main(String[] args) {
-
-        run();
-    }
-
-    public static void run() {
+    public static void generateTrainingData() {
 
         String rawXMLPath = "/Users/qingqingcai/Documents/IntellijWorkspace/AmeliaV2/data/rte/MIT99.xls";
         String trainXMLPath = "/Users/qingqingcai/Documents/IntellijWorkspace/AmeliaV2/data/rte/MIT99.train.txt";
         String trainArffPath = "/Users/qingqingcai/Documents/IntellijWorkspace/AmeliaV2/data/rte/MIT99.train.arff";
         String sheetname = "MIT99-trek8";
+
         List<RTEData> dataList = new ArrayList<>();
-
         featureGeneration(rawXMLPath, sheetname, dataList);
+        featureFormatting(dataList);
 
-        System.out.println("===========================================================");
-        saveFeatureToFile(trainXMLPath, sheetname, dataList);
         writeFeatureToTxtFile(trainXMLPath, dataList, true);
-        writeFeatureToArffFile(trainArffPath, dataList, false);
+//        writeFeatureToArffFile(trainArffPath, dataList, false);
     }
 
-    public static void saveFeatureToFile(
-            String trainXMLPath, String sheetname, List<RTEData> dataList) {
+    /** **************************************************************
+     * Format features based on usage using different learning tools
+     */
+
+    public static void featureFormatting(List<RTEData> dataList) {
 
         featureNormalization(dataList);
         for (RTEData data : dataList) {
@@ -55,8 +53,8 @@ public class TrainingDataGeneration {
             data.sparsefeamap = new HashMap<>();
             System.out.println();
             System.out.println(data.id);
-            System.out.println(data.question);
-            System.out.println(data.positive);
+            System.out.println(data.query);
+            System.out.println(data.text);
             System.out.println(data.answer);
             System.out.println(data.feamap);
             for (int i = 0; i < FEALIST.size(); i++) {
@@ -85,6 +83,10 @@ public class TrainingDataGeneration {
         }
     }
 
+    /** **************************************************************
+     * Collect all feature values appeared in training data, and save
+     * the feature values in FEALIST;
+     */
     private static void featureNormalization(List<RTEData> dataList) {
 
         for (RTEData data : dataList) {
@@ -97,66 +99,112 @@ public class TrainingDataGeneration {
         }
     }
 
+    /** **************************************************************
+     * Generate features for each instance in dataList;
+     */
     public static void featureGeneration(
             String xmlpath, String sheetname, List<RTEData> dataList) {
 
         readExcel(xmlpath, sheetname, dataList);
         for (RTEData data : dataList) {
             String id = data.id;
-            String ques = data.question;
-            String positive = data.positive;
+            String ques = data.query;
+            String text = data.text;
             String answer = data.answer;
             String quesConllx = data.conllxQ;
             String textConllx = data.conllxP;
-            Graph graphH = Graph.conllxToGraph(quesConllx);
-            Graph graphP = Graph.conllxToGraph(textConllx);
+            Graph graphQ = Graph.conllxToGraph(quesConllx);
+            Graph graphT = Graph.conllxToGraph(textConllx);
 
             if (answer.isEmpty())
                 continue;
 
-            List<DNode> ansNodesList = GraphExtended.getNodeList(graphP, answer);
-            String ansPosStr = GraphExtended.getFieldStr(ansNodesList, "pos");
-            String ansDepStr = GraphExtended.getFieldStr(ansNodesList, "dep");
-            String ansLemStr = GraphExtended.getFieldStr(ansNodesList, "lemma").replaceAll("_", " ");
-            DNode whNode = graphH.getFirstNodeWithPosTag(NodeComparer.WhSet);
+//            List<DNode> labeledAnsNodeList = GraphExtended.getNodeList(graphT, answer);
+//            String ansPosStr = GraphExtended.getFieldStr(labeledAnsNodeList, "pos");
+//            String ansDepStr = GraphExtended.getFieldStr(labeledAnsNodeList, "dep");
+//            String ansFormStr = GraphExtended.getFieldStr(labeledAnsNodeList, "form").replaceAll("_", " ");
+            DNode whNode = graphQ.getFirstNodeWithPosTag(NodeComparer.WhSet);
 
             if (whNode == null)
                 continue;
 
             String whForm = whNode.getForm();
 
-            List<TreeMap<Integer, DNode>> answerDNodeCandidateList = Prediction.generateAnswerCandidates(ques, positive, graphH, graphP);
-            for (TreeMap<Integer, DNode> answerCandidateMap : answerDNodeCandidateList) {
-                String answerCandidateString = toAnswerCandidateString(answerCandidateMap);
-                List<DNode> answerCandidateList = (List<DNode>) answerCandidateMap.values();
-                if (answerCandidateString.contains(ansLemStr))
+            List<TreeMap<Integer, DNode>> ListOfAnsCandNodeMap
+                    = generateAnswerCandidates(graphQ, graphT);
+            for (TreeMap<Integer, DNode> ansCandNodeMap : ListOfAnsCandNodeMap) {
+                String ansCandStr = fromTreeMapToString(ansCandNodeMap);
+                List<DNode> ansCandNodeList = new ArrayList(ansCandNodeMap.values());
+                if (ansCandStr.contains(answer))
                     data.label = "1";
                 else
                     data.label = "0";
 
-                DNode lcaNode = graphP.getLowestCommonAncestor(answerCandidateList);
-                String lcaPosStr = GraphExtended.getFieldStr(new ArrayList<>(Arrays.asList(lcaNode)), "pos");
-                String lcaDepStr = GraphExtended.getFieldStr(new ArrayList<>(Arrays.asList(lcaNode)), "dep");
+                HashMap<String, String> feamap = featureGeneration(graphT, graphQ, ansCandNodeList);
+                data.feamap.putAll(feamap);
 
-                data.feamap.put("w_a_pos", "w_a_pos=" + whForm + "-" + ansPosStr);
-                data.feamap.put("w_a_dep", "w_a_dep=" + whForm + "-" + ansDepStr);
-                data.feamap.put("w_l_pos", "w_l_pos=" + whForm + "-" + lcaPosStr);
-                data.feamap.put("w_l_dep", "w_l_dep=" + whForm + "-" + lcaDepStr);
-
-                System.out.println(id);
-                System.out.println(ques);
-                System.out.println(positive);
-                System.out.println(answer);
-                System.out.println(whNode.getForm() + "-" + ansPosStr);
-                System.out.println(whNode.getForm() + "-" + ansDepStr);
-                System.out.println(whNode.getForm() + "-" + lcaPosStr);
-                System.out.println(whNode.getForm() + "-" + lcaDepStr);
-                System.out.println();
+                System.out.println("id = " + data.id);
+                System.out.println("ques = " + data.query);
+                System.out.println("text = " + data.text);
+                System.out.println("answer = " + data.answer);
+                System.out.println("ansCandStr = " + ansCandStr);
+                data.feamap.forEach((fn, fv) -> {
+                    System.out.println(fn + ": " + fv);
+                });
             }
         }
     }
 
-    public static void readExcel(String filepath, String sheetname, List<RTEData> dataList) {
+    /** **************************************************************
+     * Collect all feature values appeared in training data, and save
+     * the feature values in FEALIST;
+     */
+    public static HashMap<String, String> featureGeneration(
+            Graph graphT, Graph graphQ, String ansCandStr) {
+
+        List<DNode> ansCandNodeList = getNodeList(graphT, ansCandStr);
+        return featureGeneration(graphT, graphQ, ansCandNodeList);
+    }
+
+    public static HashMap<String, String> featureGeneration(
+            Graph graphT, Graph graphQ, List<DNode> ansCandNodeList) {
+
+        String ansPosStr = getFieldStr(ansCandNodeList, "pos");
+        String ansDepStr = getFieldStr(ansCandNodeList, "dep");
+        String ansLemStr = getFieldStr(ansCandNodeList, "lemma").replaceAll("_", " ");
+        DNode whNode = graphQ.getFirstNodeWithPosTag(NodeComparer.WhSet);
+
+        if (whNode == null) {
+            System.out.println("WARNING: No Wh-words were found!");
+            whNode = graphQ.getNodeById(1);
+        }
+
+        String whForm = whNode.getForm();
+
+        DNode lcaNode = graphT.getLowestCommonAncestor(ansCandNodeList);
+        String lcaPosStr = getFieldStr(new ArrayList<>(Arrays.asList(lcaNode)), "pos");
+        String lcaDepStr = getFieldStr(new ArrayList<>(Arrays.asList(lcaNode)), "dep");
+
+        HashMap<String, String> feamap = new HashMap<>();
+
+        feamap.put("w_a_pos", "w_a_pos=" + whForm + "-" + ansPosStr);
+        feamap.put("w_a_dep", "w_a_dep=" + whForm + "-" + ansDepStr);
+        feamap.put("w_l_pos", "w_l_pos=" + whForm + "-" + lcaPosStr);
+        feamap.put("w_l_dep", "w_l_dep=" + whForm + "-" + lcaDepStr);
+
+//        System.out.println(whNode.getForm() + "-" + ansPosStr);
+//        System.out.println(whNode.getForm() + "-" + ansDepStr);
+//        System.out.println(whNode.getForm() + "-" + lcaPosStr);
+//        System.out.println(whNode.getForm() + "-" + lcaDepStr);
+//        System.out.println();
+        return feamap;
+    }
+
+    /** **************************************************************
+     * Read data information from prepared XML file; store as RETData
+     */
+    public static void readExcel(
+            String filepath, String sheetname, List<RTEData> dataList) {
 
         try {
             POIFSFileSystem fs = new POIFSFileSystem(new FileInputStream(filepath));
@@ -177,7 +225,7 @@ public class TrainingDataGeneration {
                     String textConllx = row.getCell(6).getStringCellValue();
 
                     if (expAns != null) {
-                        RTEData data = new RTEData(id, ques, text, expAns, "");
+                        RTEData data = new RTEData(id, ques, text, expAns);
                         data.setConllxQ(quesConllx);
                         data.setConllxP(textConllx);
                         dataList.add(data);
@@ -189,6 +237,9 @@ public class TrainingDataGeneration {
         }
     }
 
+    /** **************************************************************
+     * Write training data with features to an xml file
+     */
     public static void writeFeatureToXMLFile(
             String filepath, String sheetname,
             List<RTEData> dataList, boolean saveAsSparse) {
@@ -224,6 +275,9 @@ public class TrainingDataGeneration {
         }
     }
 
+    /** **************************************************************
+     * Write training data with features to a txt file
+     */
     public static void writeFeatureToTxtFile(
             String filepath, List<RTEData> dataList, boolean saveAsSparse) {
 
@@ -255,8 +309,9 @@ public class TrainingDataGeneration {
         }
     }
 
-    /**
-     * In Arff file, saveAsSparse is default as false;
+    /** **************************************************************
+     * Write training data with features to an arff file; this will be
+     * used in weka package;
      */
     public static void writeFeatureToArffFile(
             String filepath, List<RTEData> dataList, boolean saveAsSparse) {
@@ -303,12 +358,8 @@ public class TrainingDataGeneration {
         }
     }
 
-    private static String toAnswerCandidateString(TreeMap<Integer, DNode> map) {
+    public static void main(String[] args) {
 
-        StringBuilder sb = new StringBuilder();
-        map.forEach((id, node) -> {
-            sb.append(node.getForm() + " ");
-        });
-        return sb.toString().trim();
+        generateTrainingData();
     }
 }
