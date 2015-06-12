@@ -25,6 +25,7 @@ public class RTEData {
 
     HashMap<String, String> feamap = new HashMap<>();
     HashMap<Integer, Integer> sparsefeamap = new HashMap<>();
+    HashMap<String, Double> numericfeamap = new HashMap<>();
 
     public void setConllxQ(String conllxQ) {
 

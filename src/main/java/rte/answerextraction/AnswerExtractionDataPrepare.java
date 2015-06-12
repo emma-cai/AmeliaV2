@@ -35,6 +35,7 @@ public class AnswerExtractionDataPrepare {
 
         List<RTEData> dataList = new ArrayList<>();
         List<RTEData> dataWithFeatureList = featureGeneration(rawXMLPath, sheetname, dataList);
+        featureNormalization(dataList);
         featureFormatting(dataWithFeatureList);
 
         writeFeatureToExcelFile(trainExcelPath, dataWithFeatureList, true);
@@ -42,17 +43,30 @@ public class AnswerExtractionDataPrepare {
         writeFeatureToArffFile(trainArffPath, dataWithFeatureList, false);
     }
 
+    public static void toNumericFeature(List<RTEData> dataList) {
+
+        for (RTEData data : dataList) {
+            HashMap<String, String> feamap = data.feamap;
+            data.numericfeamap = new HashMap<>();
+            for (String fn : feamap.keySet()) {
+                String fv = feamap.get(fn);
+                if (isNumeric(fn)) {
+                    data.numericfeamap.put(fn, Double.valueOf(fv));
+                } else if (isCategorial(fn)) {
+
+                } else {
+                    throw new IllegalFormatException("Illegal features!");
+                }
+            }
+        }
+    }
+
     /** **************************************************************
      * Format features based on usage using different learning tools
      */
+    public static void toSparseFeature(List<RTEData> dataList) {
 
-    public static void featureFormatting(List<RTEData> dataList) {
-
-        featureNormalization(dataList);
         for (RTEData data : dataList) {
-
-            if (data.answer.isEmpty())
-                continue;
 
             HashMap<String, String> feamap = data.feamap;
             data.sparsefeamap = new HashMap<>();
@@ -97,7 +111,7 @@ public class AnswerExtractionDataPrepare {
         for (RTEData data : dataList) {
             HashMap<String, String> feamap = data.feamap;
             feamap.forEach((fn, fv) -> {
-                if (!FEALIST.contains(fv)) {
+                if (fn.startsWith("C:") && !FEALIST.contains(fv)) {
                     FEALIST.add(fv);
                 }
             });
@@ -132,7 +146,7 @@ public class AnswerExtractionDataPrepare {
 //            String ansFormStr = GraphExtended.getFieldStr(labeledAnsNodeList, "form").replaceAll("_", " ");
 
             List<DNode> labeledAnsNodeList = getNodeList(graphT, answer);
-            String labeledAnsFormStr = getFieldStr(labeledAnsNodeList, "form", null).replaceAll("_", " ").toLowerCase();
+            String labeledAnsFormStr = getFieldStr(labeledAnsNodeList, "form", null, "_").replaceAll("_", " ").toLowerCase();
 
             DNode whNode = graphQ.getFirstNodeWithPosTag(NodeComparer.WhSet);
 
@@ -150,9 +164,14 @@ public class AnswerExtractionDataPrepare {
                 List<DNode> ansCandNodeList = new ArrayList(ansCandNodeMap.values());
                 String label = "0";
 
-                if (ansCandStr.contains(labeledAnsFormStr) ||
-                        (!ansCandStr.contains(labeledAnsFormStr) && NEGNUM <= POSNUM)) {
-                    if (ansCandStr.contains(labeledAnsFormStr)) {
+                boolean isPositiveCandidate = false;
+                if (labeledAnsFormStr.equals(ansCandStr) ||
+                        (ansCandStr.contains(labeledAnsFormStr)
+                                && (ansCandStr.split(" ").length <= labeledAnsFormStr.split(" ").length+3)))
+                    isPositiveCandidate = true;
+
+                if (isPositiveCandidate || (!isPositiveCandidate && NEGNUM <= POSNUM)) {
+                    if (isPositiveCandidate) {
                         label = "1";
                         POSNUM++;
                     } else {
@@ -169,6 +188,7 @@ public class AnswerExtractionDataPrepare {
                     System.out.println("text = " + data.text);
                     System.out.println("answer = " + data.answer);
                     System.out.println("ansCandStr = " + ansCandStr);
+                    System.out.println("feature = " + feamap);
 //                data.feamap.forEach((fn, fv) -> {
 //                    System.out.println(fn + ": " + fv);
 //                });
@@ -194,9 +214,15 @@ public class AnswerExtractionDataPrepare {
     public static HashMap<String, String> featureGeneration(
             Graph graphT, Graph graphQ, List<DNode> ansCandNodeList) {
 
-        String ansPosStr = getFieldStr(ansCandNodeList, "pos", POSFILTERLIST);
-        String ansDepStr = getFieldStr(ansCandNodeList, "dep", null);
-        String ansLemStr = getFieldStr(ansCandNodeList, "lemma", null).replaceAll("_", " ");
+        List<String> ansPosList = getFieldList(ansCandNodeList, "pos", POSFILTERLIST);
+        List<String> ansDepList = getFieldList(ansCandNodeList, "dep", null);
+
+//        String ansPosStr = getFieldStr(ansCandNodeList, "pos", POSFILTERLIST, "_");
+//        String ansDepStr = getFieldStr(ansCandNodeList, "dep", null, "_");
+//        String ansLemStr = getFieldStr(ansCandNodeList, "lemma", null, "_").replaceAll("_", " ");
+
+
+
         DNode whNode = graphQ.getFirstNodeWithPosTag(NodeComparer.WhSet);
 
         if (whNode == null) {
@@ -207,21 +233,33 @@ public class AnswerExtractionDataPrepare {
         String whForm = whNode.getForm();
 
         DNode lcaNode = graphT.getLowestCommonAncestor(ansCandNodeList);
-        String lcaPosStr = getFieldStr(new ArrayList<>(Arrays.asList(lcaNode)), "pos", null);
-        String lcaDepStr = getFieldStr(new ArrayList<>(Arrays.asList(lcaNode)), "dep", null);
+        String lcaPosStr = getFieldStr(new ArrayList<>(Arrays.asList(lcaNode)), "pos", null, "_");
+        String lcaDepStr = getFieldStr(new ArrayList<>(Arrays.asList(lcaNode)), "dep", null, "_");
 
         HashMap<String, String> feamap = new HashMap<>();
 
-        feamap.put("w_a_pos", "w_a_pos=" + whForm + "-" + ansPosStr);
-        feamap.put("w_a_dep", "w_a_dep=" + whForm + "-" + ansDepStr);
-        feamap.put("w_l_pos", "w_l_pos=" + whForm + "-" + lcaPosStr);
-        feamap.put("w_l_dep", "w_l_dep=" + whForm + "-" + lcaDepStr);
+        // # of tokens in answer-candidate
+        String fv = Integer.toString(ansCandNodeList.size());
+        feamap.put("a_TN", "a_TN=" + fv);
 
-//        System.out.println(whNode.getForm() + "-" + ansPosStr);
-//        System.out.println(whNode.getForm() + "-" + ansDepStr);
-//        System.out.println(whNode.getForm() + "-" + lcaPosStr);
-//        System.out.println(whNode.getForm() + "-" + lcaDepStr);
-//        System.out.println();
+        // Does answer-candidate contain number?
+        fv = ansPosList.contains("CD") ? "1" : "0";
+        feamap.put("a_hasCD", "a_hasCD=" + fv);
+
+        // Does answer-candidate start with IN?
+
+        // overlap of QUERY_LEMMA and TEXT_LEMMA
+        fv = Integer.toString(overlap(graphQ, ansCandNodeList));
+        feamap.put("overlapN", "overlapN=" + fv);
+
+        // wh-words and lowest-common-ancestor's pos
+        feamap.put("w_l_pos", "w_l_pos=" + whForm + "-" + lcaPosStr);
+//
+//        feamap.put("w_a_pos", "w_a_pos=" + whForm + "-" + ansPosStr);
+//        feamap.put("w_a_dep", "w_a_dep=" + whForm + "-" + ansDepStr);
+//        feamap.put("w_l_pos", "w_l_pos=" + whForm + "-" + lcaPosStr);
+//        feamap.put("w_l_dep", "w_l_dep=" + whForm + "-" + lcaDepStr);
+
         return feamap;
     }
 

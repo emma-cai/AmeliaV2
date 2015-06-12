@@ -1,10 +1,7 @@
 package rte.answerextraction;
 
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import rte.datastructure.Graph;
@@ -165,52 +162,5 @@ public class DataCollection {
         }
 
         return dataList;
-    }
-
-    /** **************************************************************
-     * Read RTE data from excel file
-     */
-    @Deprecated
-    public static void readExcel(String filepath, String sheetname, List<RTEData> data) {
-
-        try {
-            POIFSFileSystem fs = new POIFSFileSystem(new FileInputStream(filepath));
-            HSSFWorkbook workbook = new HSSFWorkbook(fs);
-            HSSFSheet sheet = workbook.getSheet(sheetname);
-            HSSFRow row;
-            HSSFCell cell;
-
-            int rows = sheet.getPhysicalNumberOfRows();
-
-            for (int i = 0; i < rows; i++) {
-                row = sheet.getRow(i);
-                if (row != null) {
-                    System.out.println("----------------------");
-                    String ques = row.getCell(2).getStringCellValue();
-                    String text = row.getCell(3).getStringCellValue();
-                    String quesConllx = row.getCell(5).getStringCellValue();
-                    String textConllx = row.getCell(6).getStringCellValue();
-//                    Graph graph_Q = Graph.conllxToGraph(ques);
-//                    Graph graph_T = Graph.stringToGraph(text);
-                    Graph graph_Q = Graph.conllxToGraph(quesConllx);
-                    Graph graph_T = Graph.conllxToGraph(textConllx);
-                    System.out.println("graph_Q = \n" + graph_Q);
-                    System.out.println("graph_T = \n" + graph_T);
-
-
-//                    // check preposition
-//                    System.out.println(text);
-//                    for (Object node : graph_T.vertexSet()) {
-//                        String form = ((DNode) node).getForm();
-//                        if (form.equals("in") || form.equals("on")) {
-//                            System.out.println((DNode) node);
-//                        }
-//                    }
-                    System.out.println("----------------------\n\n");
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }
