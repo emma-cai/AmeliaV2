@@ -21,6 +21,9 @@ import static rte.answerextraction.AnswerExtractionUtil.*;
 public class AnswerExtractionDataPrepare {
 
     private static List<String> FEALIST = new ArrayList<>();
+    private static List<String> POSFILTERLIST = new ArrayList<>(Arrays.asList(",", "", "``", "''"));
+    private static int POSNUM = 0;
+    private static int NEGNUM = 0;
 
     public static void generateTrainingData() {
 
@@ -51,12 +54,12 @@ public class AnswerExtractionDataPrepare {
 
             HashMap<String, String> feamap = data.feamap;
             data.sparsefeamap = new HashMap<>();
-            System.out.println();
-            System.out.println(data.id);
-            System.out.println(data.query);
-            System.out.println(data.text);
-            System.out.println(data.answer);
-            System.out.println(data.feamap);
+//            System.out.println();
+//            System.out.println(data.id);
+//            System.out.println(data.query);
+//            System.out.println(data.text);
+//            System.out.println(data.answer);
+//            System.out.println(data.feamap);
             for (int i = 0; i < FEALIST.size(); i++) {
                 String f = FEALIST.get(i);
                 boolean found = false;
@@ -69,17 +72,17 @@ public class AnswerExtractionDataPrepare {
                 }
                 if (found) {
                     data.sparsefeamap.put(i, 1);
-                    System.out.print(f + "=" + 1 + "\t");
+            //        System.out.print(f + "=" + 1 + "\t");
                 } else {
-                    System.out.print(f + "=" + 0 + "\t");
+            //        System.out.print(f + "=" + 0 + "\t");
                 }
             }
-            System.out.println();
-
-            System.out.println("=====final result");
-            data.sparsefeamap.forEach((index, value) -> {
-                System.out.println(index + " --> " + value);
-            });
+//            System.out.println();
+//
+//            System.out.println("=====final result");
+//            data.sparsefeamap.forEach((index, value) -> {
+//                System.out.println(index + " --> " + value);
+//            });
         }
     }
 
@@ -127,7 +130,7 @@ public class AnswerExtractionDataPrepare {
 //            String ansFormStr = GraphExtended.getFieldStr(labeledAnsNodeList, "form").replaceAll("_", " ");
 
             List<DNode> labeledAnsNodeList = getNodeList(graphT, answer);
-            String labeledAnsFormStr = getFieldStr(labeledAnsNodeList, "form").replaceAll("_", " ").toLowerCase();
+            String labeledAnsFormStr = getFieldStr(labeledAnsNodeList, "form", null).replaceAll("_", " ").toLowerCase();
 
             DNode whNode = graphQ.getFirstNodeWithPosTag(NodeComparer.WhSet);
 
@@ -143,15 +146,19 @@ public class AnswerExtractionDataPrepare {
                 String ansCandStr = fromTreeMapToString(ansCandNodeMap).toLowerCase();
                 List<DNode> ansCandNodeList = new ArrayList(ansCandNodeMap.values());
                 String label = "0";
-                if (ansCandStr.contains(labeledAnsFormStr))
+                if (ansCandStr.contains(labeledAnsFormStr)) {
                     label = "1";
+                    POSNUM++;
+                } else {
+                    NEGNUM++;
+                }
 
                 HashMap<String, String> feamap = featureGeneration(graphT, graphQ, ansCandNodeList);
 
                 RTEData dataWithFeature = new RTEData(id, label, ques, text, answer, quesConllx, textConllx, feamap);
                 dataWithFeatureList.add(dataWithFeature);
                 System.out.println("id = " + data.id);
-                System.out.println("label = " + data.label);
+                System.out.println("label = " + label);
                 System.out.println("ques = " + data.query);
                 System.out.println("text = " + data.text);
                 System.out.println("answer = " + data.answer);
@@ -180,9 +187,9 @@ public class AnswerExtractionDataPrepare {
     public static HashMap<String, String> featureGeneration(
             Graph graphT, Graph graphQ, List<DNode> ansCandNodeList) {
 
-        String ansPosStr = getFieldStr(ansCandNodeList, "pos");
-        String ansDepStr = getFieldStr(ansCandNodeList, "dep");
-        String ansLemStr = getFieldStr(ansCandNodeList, "lemma").replaceAll("_", " ");
+        String ansPosStr = getFieldStr(ansCandNodeList, "pos", POSFILTERLIST);
+        String ansDepStr = getFieldStr(ansCandNodeList, "dep", null);
+        String ansLemStr = getFieldStr(ansCandNodeList, "lemma", null).replaceAll("_", " ");
         DNode whNode = graphQ.getFirstNodeWithPosTag(NodeComparer.WhSet);
 
         if (whNode == null) {
@@ -193,8 +200,8 @@ public class AnswerExtractionDataPrepare {
         String whForm = whNode.getForm();
 
         DNode lcaNode = graphT.getLowestCommonAncestor(ansCandNodeList);
-        String lcaPosStr = getFieldStr(new ArrayList<>(Arrays.asList(lcaNode)), "pos");
-        String lcaDepStr = getFieldStr(new ArrayList<>(Arrays.asList(lcaNode)), "dep");
+        String lcaPosStr = getFieldStr(new ArrayList<>(Arrays.asList(lcaNode)), "pos", null);
+        String lcaDepStr = getFieldStr(new ArrayList<>(Arrays.asList(lcaNode)), "dep", null);
 
         HashMap<String, String> feamap = new HashMap<>();
 
@@ -344,24 +351,30 @@ public class AnswerExtractionDataPrepare {
             bw.write("@data");
             bw.newLine();
 
+            int negnum = 0;
             for (RTEData data : dataList) {
 
-                if (data.answer.isEmpty())
-                    continue;
+                if ((data.label.equals("0") && negnum <= POSNUM)
+                        || data.label.equals("1")) {
 
-                HashMap sparsefea = data.sparsefeamap;
-                StringBuilder sb = new StringBuilder();
+                    if (data.label.equals("0"))
+                        negnum++;
 
-                for (int i = 0; i < FEALIST.size(); i++) {
-                    if (sparsefea.containsKey(i))
-                        sb.append("'1',");
-                    else
-                        sb.append("'0',");
+                    HashMap sparsefea = data.sparsefeamap;
+                    StringBuilder sb = new StringBuilder();
+
+                    for (int i = 0; i < FEALIST.size(); i++) {
+                        if (sparsefea.containsKey(i)) {
+                            sb.append("'1',");
+                        } else {
+                            sb.append("'0',");
+                        }
+                    }
+                    sb.append(data.label);
+                    String row = sb.toString().trim();
+                    bw.write(row);
+                    bw.newLine();
                 }
-                sb.append("'1'");
-                String row = sb.toString().trim();
-                bw.write(row);
-                bw.newLine();
             }
             bw.close();
         } catch (IOException e) {

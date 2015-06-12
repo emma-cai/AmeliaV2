@@ -52,7 +52,8 @@ public class AnswerExtractionUtil extends RteMessageHandler {
     /** **************************************************************
      * Collect specific field for each node in the nodeList;
      */
-    public static List<String> getFieldList(List<DNode> nodeList, String field) {
+    public static List<String> getFieldList(
+            List<DNode> nodeList, String field, List<String> filterList) {
 
         List<String> AnsFieldList = new ArrayList<>();
 
@@ -60,15 +61,18 @@ public class AnswerExtractionUtil extends RteMessageHandler {
             switch (field) {
                 case "pos":
                     String pos = dnode.getPOS();
-                    AnsFieldList.add(pos);
+                    if (filterList != null && !filterList.contains(pos))
+                        AnsFieldList.add(pos);
                     break;
                 case "dep":
                     String dep = dnode.getDepLabel();
-                    AnsFieldList.add(dep);
+                    if (filterList != null && !filterList.contains(dep))
+                        AnsFieldList.add(dep);
                     break;
                 case "lemma":
                     String lemma = dnode.getLemma();
-                    AnsFieldList.add(lemma);
+                    if (filterList != null && !filterList.contains(lemma))
+                        AnsFieldList.add(lemma);
                     break;
                 case "form":
                     String form = dnode.getForm();
@@ -84,10 +88,11 @@ public class AnswerExtractionUtil extends RteMessageHandler {
      * Collect specific field for each node int the nodeList, and then
      * convert the collection into string;
      */
-    public static String getFieldStr(List<DNode> nodeList, String field) {
+    public static String getFieldStr(
+            List<DNode> nodeList, String field, List<String> filterList) {
 
         String AnsFieldStr = "";
-        List<String> AnsFieldList = getFieldList(nodeList, field);
+        List<String> AnsFieldList = getFieldList(nodeList, field, filterList);
         for (String s : AnsFieldList) {
             AnsFieldStr += AnsFieldStr.isEmpty() ? s : ("_" + s);
         }
