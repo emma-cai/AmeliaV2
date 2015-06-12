@@ -18,6 +18,7 @@ import java.util.List;
  */
 public class DataCollection {
 
+    public static boolean LOWERCASE = true;
     public static void main (String[] args) {
 
         String inputpath = "data/rte/jacana-qa-naacl2013-data-results/train-less-than-40.manual-edit.xml";
@@ -134,10 +135,12 @@ public class DataCollection {
                     while (!(line = br.readLine()).equals(pairEnd)) {
                         if (line.startsWith(questionTag)) {
                             question = br.readLine().trim().replaceAll("\t", " ");
+                            question = LOWERCASE ? question.toLowerCase() : question;
                         }
                         if (line.startsWith(positiveStart) && positivestarted == true) {
                             positivestarted = false;
                             positive = br.readLine().trim().replaceAll("\t", " ");
+                            positive = LOWERCASE ? positive.toLowerCase() : positive;
                             String prev = line;
                             while (!(line = br.readLine()).equals(positiveEnd)) {
                                 prev = line;

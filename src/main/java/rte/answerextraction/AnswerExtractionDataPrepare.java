@@ -28,6 +28,7 @@ public class AnswerExtractionDataPrepare {
     public static void generateTrainingData() {
 
         String rawXMLPath = "/Users/qingqingcai/Documents/IntellijWorkspace/AmeliaV2/data/rte/MIT99.xls";
+        String trainExcelPath = "/Users/qingqingcai/Documents/IntellijWorkspace/AmeliaV2/data/rte/MIT99.train.xls";
         String trainTxtPath = "/Users/qingqingcai/Documents/IntellijWorkspace/AmeliaV2/data/rte/MIT99.train.txt";
         String trainArffPath = "/Users/qingqingcai/Documents/IntellijWorkspace/AmeliaV2/data/rte/MIT99.train.arff";
         String sheetname = "MIT99-trek8";
@@ -36,6 +37,7 @@ public class AnswerExtractionDataPrepare {
         List<RTEData> dataWithFeatureList = featureGeneration(rawXMLPath, sheetname, dataList);
         featureFormatting(dataWithFeatureList);
 
+        writeFeatureToExcelFile(trainExcelPath, dataWithFeatureList, true);
         writeFeatureToTxtFile(trainTxtPath, dataWithFeatureList, true);
         writeFeatureToArffFile(trainArffPath, dataWithFeatureList, false);
     }
@@ -143,30 +145,35 @@ public class AnswerExtractionDataPrepare {
                     = generateAnswerCandidates(graphQ, graphT);
 
             for (TreeMap<Integer, DNode> ansCandNodeMap : ListOfAnsCandNodeMap) {
+
                 String ansCandStr = fromTreeMapToString(ansCandNodeMap).toLowerCase();
                 List<DNode> ansCandNodeList = new ArrayList(ansCandNodeMap.values());
                 String label = "0";
-                if (ansCandStr.contains(labeledAnsFormStr)) {
-                    label = "1";
-                    POSNUM++;
-                } else {
-                    NEGNUM++;
-                }
 
-                HashMap<String, String> feamap = featureGeneration(graphT, graphQ, ansCandNodeList);
+                if (ansCandStr.contains(labeledAnsFormStr) ||
+                        (!ansCandStr.contains(labeledAnsFormStr) && NEGNUM <= POSNUM)) {
+                    if (ansCandStr.contains(labeledAnsFormStr)) {
+                        label = "1";
+                        POSNUM++;
+                    } else {
+                        NEGNUM++;
+                    }
 
-                RTEData dataWithFeature = new RTEData(id, label, ques, text, answer, quesConllx, textConllx, feamap);
-                dataWithFeatureList.add(dataWithFeature);
-                System.out.println("id = " + data.id);
-                System.out.println("label = " + label);
-                System.out.println("ques = " + data.query);
-                System.out.println("text = " + data.text);
-                System.out.println("answer = " + data.answer);
-                System.out.println("ansCandStr = " + ansCandStr);
+                    HashMap<String, String> feamap = featureGeneration(graphT, graphQ, ansCandNodeList);
+
+                    RTEData dataWithFeature = new RTEData(id, label, ques, text, ansCandStr, quesConllx, textConllx, feamap);
+                    dataWithFeatureList.add(dataWithFeature);
+                    System.out.println("id = " + data.id);
+                    System.out.println("label = " + label);
+                    System.out.println("ques = " + data.query);
+                    System.out.println("text = " + data.text);
+                    System.out.println("answer = " + data.answer);
+                    System.out.println("ansCandStr = " + ansCandStr);
 //                data.feamap.forEach((fn, fv) -> {
 //                    System.out.println(fn + ": " + fv);
 //                });
-                System.out.println();
+                    System.out.println();
+                }
             }
         }
 
@@ -322,6 +329,53 @@ public class AnswerExtractionDataPrepare {
                 }
             }
             bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /** **************************************************************
+     * Write training data with features to a txt file
+     */
+    public static void writeFeatureToExcelFile(
+            String filepath, List<RTEData> dataList, boolean saveAsSparse) {
+
+        HSSFWorkbook workbook = new HSSFWorkbook();
+        HSSFSheet sheet = workbook.createSheet("sheet1");
+        int rownum = 0;
+        for (RTEData data : dataList) {
+
+            int colnum = 0;
+
+            // only save the (query, text) pairs with correct answers
+            Row row = sheet.createRow(rownum++);
+            Cell cell = row.createCell(colnum++);
+            cell.setCellValue(data.id);
+
+            cell = row.createCell(colnum++);
+            cell.setCellValue(data.label);
+
+            cell = row.createCell(colnum++);
+            cell.setCellValue(data.query);
+
+            cell = row.createCell(colnum++);
+            cell.setCellValue(data.text);
+
+            cell = row.createCell(colnum++);
+            cell.setCellValue(data.answer);
+
+            for (String fn : data.feamap.keySet()) {
+                cell = row.createCell(colnum++);
+                cell.setCellValue(data.feamap.get(fn));
+            }
+        }
+
+        try {
+            FileOutputStream out = new FileOutputStream(new File(filepath));
+            workbook.write(out);
+            out.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
