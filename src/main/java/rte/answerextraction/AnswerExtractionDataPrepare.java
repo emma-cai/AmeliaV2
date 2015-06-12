@@ -9,6 +9,7 @@ import org.apache.poi.ss.usermodel.Row;
 import rte.datastructure.DNode;
 import rte.datastructure.Graph;
 import rte.graphmatching.NodeComparer;
+import sun.rmi.runtime.Log;
 
 import java.io.*;
 import java.util.*;
@@ -54,8 +55,6 @@ public class AnswerExtractionDataPrepare {
                     data.numericfeamap.put(fn, Double.valueOf(fv));
                 } else if (isCategorial(fn)) {
 
-                } else {
-                    throw new IllegalFormatException("Illegal features!");
                 }
             }
         }

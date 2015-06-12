@@ -242,6 +242,16 @@ public class AnswerExtractionUtil extends RteMessageHandler {
         return subtreeDNodeSorted;
     }
 
+    static boolean isNumeric(String s) {
+
+        return s.startsWith("N:");
+    }
+
+    static boolean isCategorial(String s) {
+
+        return s.startsWith("C:");
+    }
+
     public static void main(String[] args) {
 
         String ques = "Who is the author of the book , `` The Iron Lady : A Biography of Margaret Thatcher '' ?";
