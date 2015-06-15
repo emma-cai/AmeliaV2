@@ -9,7 +9,6 @@ import org.apache.poi.ss.usermodel.Row;
 import rte.datastructure.DNode;
 import rte.datastructure.Graph;
 import rte.graphmatching.NodeComparer;
-import sun.rmi.runtime.Log;
 
 import java.io.*;
 import java.util.*;
@@ -21,14 +20,16 @@ import static rte.answerextraction.AnswerExtractionUtil.*;
  */
 public class AnswerExtractionDataPrepare {
 
-    private static List<String> FEALIST = new ArrayList<>();
+//    private static List<String> FEALIST = new ArrayList<>();
+    // feature_index (fi) -> feature_name (fn)
+    private static HashMap<Integer, String> FITOFN = new HashMap<>();
     private static List<String> POSFILTERLIST = new ArrayList<>(Arrays.asList(",", "", "``", "''"));
     private static int POSNUM = 0;
     private static int NEGNUM = 0;
 
     public static void generateTrainingData() {
 
-        String rawXMLPath = "/Users/qingqingcai/Documents/IntellijWorkspace/AmeliaV2/data/rte/MIT99.xls";
+        String rawXMLPath = "/Users/qingqingcai/Documents/IntellijWorkspace/AmeliaV2/data/rte/MIT99.tmp.xls";
         String trainExcelPath = "/Users/qingqingcai/Documents/IntellijWorkspace/AmeliaV2/data/rte/MIT99.train.xls";
         String trainTxtPath = "/Users/qingqingcai/Documents/IntellijWorkspace/AmeliaV2/data/rte/MIT99.train.txt";
         String trainArffPath = "/Users/qingqingcai/Documents/IntellijWorkspace/AmeliaV2/data/rte/MIT99.train.arff";
@@ -36,8 +37,8 @@ public class AnswerExtractionDataPrepare {
 
         List<RTEData> dataList = new ArrayList<>();
         List<RTEData> dataWithFeatureList = featureGeneration(rawXMLPath, sheetname, dataList);
-        featureNormalization(dataList);
-        featureFormatting(dataWithFeatureList);
+        featureNormalization(dataWithFeatureList);
+        toNumericFeature(dataWithFeatureList);
 
         writeFeatureToExcelFile(trainExcelPath, dataWithFeatureList, true);
         writeFeatureToTxtFile(trainTxtPath, dataWithFeatureList, true);
@@ -48,58 +49,83 @@ public class AnswerExtractionDataPrepare {
 
         for (RTEData data : dataList) {
             HashMap<String, String> feamap = data.feamap;
-            data.numericfeamap = new HashMap<>();
-            for (String fn : feamap.keySet()) {
-                String fv = feamap.get(fn);
-                if (isNumeric(fn)) {
-                    data.numericfeamap.put(fn, Double.valueOf(fv));
-                } else if (isCategorial(fn)) {
+            data.numericfeamap = new TreeMap<>();
+//            for (String fn : feamap.keySet()) {
+//                String fv = feamap.get(fn);
+//                if (isNumeric(fn)) {
+//                    data.numericfeamap.put(FEALIST.indexOf(fn), Double.valueOf(fv));
+//                } else if (isCategorial(fn)) {
+//                    String newfn = fn + ":" + fv;
+//                    if (FEALIST.contains(newfn))
+//                        data.numericfeamap.put()
+//                }
+//            }
 
-                }
-            }
-        }
-    }
 
-    /** **************************************************************
-     * Format features based on usage using different learning tools
-     */
-    public static void toSparseFeature(List<RTEData> dataList) {
+            for (Integer fi : FITOFN.keySet()) {
+                String normalizedFN = FITOFN.get(fi);
+                for (String fntmp : feamap.keySet()) {
+                    String fv = feamap.get(fntmp);
 
-        for (RTEData data : dataList) {
-
-            HashMap<String, String> feamap = data.feamap;
-            data.sparsefeamap = new HashMap<>();
-//            System.out.println();
-//            System.out.println(data.id);
-//            System.out.println(data.query);
-//            System.out.println(data.text);
-//            System.out.println(data.answer);
-//            System.out.println(data.feamap);
-            for (int i = 0; i < FEALIST.size(); i++) {
-                String f = FEALIST.get(i);
-                boolean found = false;
-                for (String fn : feamap.keySet()) {
-                    String fv = feamap.get(fn);
-                    if (f.equals(fv)) {
-                        found = true;
+                    if (isNumeric(fntmp)) {
+                        String newfn = fntmp;
+                        if (normalizedFN.equals(newfn)) {
+                            data.numericfeamap.put(fi, Double.parseDouble(fv));
+                            break;
+                        }
+                    } else if (isCategorial(fntmp)) {
+                        String newfn = fntmp + ":" + fv;
+                        if (normalizedFN.equals(newfn))
+                            data.numericfeamap.put(fi, 1.0);
+                        else
+                            data.numericfeamap.put(fi, 0.0);
                         break;
                     }
                 }
-                if (found) {
-                    data.sparsefeamap.put(i, 1);
-            //        System.out.print(f + "=" + 1 + "\t");
-                } else {
-            //        System.out.print(f + "=" + 0 + "\t");
-                }
             }
-//            System.out.println();
-//
-//            System.out.println("=====final result");
-//            data.sparsefeamap.forEach((index, value) -> {
-//                System.out.println(index + " --> " + value);
-//            });
         }
     }
+
+//    /** **************************************************************
+//     * Format features based on usage using different learning tools
+//     */
+//    public static void toSparseFeature(List<RTEData> dataList) {
+//
+//        for (RTEData data : dataList) {
+//
+//            HashMap<String, String> feamap = data.feamap;
+//            data.sparsefeamap = new HashMap<>();
+////            System.out.println();
+////            System.out.println(data.id);
+////            System.out.println(data.query);
+////            System.out.println(data.text);
+////            System.out.println(data.answer);
+////            System.out.println(data.feamap);
+//            for (int i = 0; i < FEALIST.size(); i++) {
+//                String f = FEALIST.get(i);
+//                boolean found = false;
+//                for (String fn : feamap.keySet()) {
+//                    String fv = feamap.get(fn);
+//                    if (f.equals(fv)) {
+//                        found = true;
+//                        break;
+//                    }
+//                }
+//                if (found) {
+//                    data.sparsefeamap.put(i, 1);
+//            //        System.out.print(f + "=" + 1 + "\t");
+//                } else {
+//            //        System.out.print(f + "=" + 0 + "\t");
+//                }
+//            }
+////            System.out.println();
+////
+////            System.out.println("=====final result");
+////            data.sparsefeamap.forEach((index, value) -> {
+////                System.out.println(index + " --> " + value);
+////            });
+//        }
+//    }
 
     /** **************************************************************
      * Collect all feature values appeared in training data, and save
@@ -107,11 +133,16 @@ public class AnswerExtractionDataPrepare {
      */
     private static void featureNormalization(List<RTEData> dataList) {
 
+        List<String> fntmp = new ArrayList<>();
         for (RTEData data : dataList) {
-            HashMap<String, String> feamap = data.feamap;
-            feamap.forEach((fn, fv) -> {
-                if (fn.startsWith("C:") && !FEALIST.contains(fv)) {
-                    FEALIST.add(fv);
+            HashMap<String, String> FNTOFV = data.feamap;
+            FNTOFV.forEach((fn, fv) -> {
+                String newfn = fn;          // for numeric feature, newfn = fn, e.g.
+                if (isCategorial(fn))
+                    newfn += ":" + fv;
+                if (!fntmp.contains(newfn)) {
+                    fntmp.add(newfn);
+                    FITOFN.put(fntmp.size(), newfn);
                 }
             });
         }
@@ -239,20 +270,20 @@ public class AnswerExtractionDataPrepare {
 
         // # of tokens in answer-candidate
         String fv = Integer.toString(ansCandNodeList.size());
-        feamap.put("a_TN", "a_TN=" + fv);
+        feamap.put("N:a_TN", fv);
 
         // Does answer-candidate contain number?
         fv = ansPosList.contains("CD") ? "1" : "0";
-        feamap.put("a_hasCD", "a_hasCD=" + fv);
+        feamap.put("N:a_hasCD", fv);
 
         // Does answer-candidate start with IN?
 
         // overlap of QUERY_LEMMA and TEXT_LEMMA
         fv = Integer.toString(overlap(graphQ, ansCandNodeList));
-        feamap.put("overlapN", "overlapN=" + fv);
+        feamap.put("N:overlapN", fv);
 
         // wh-words and lowest-common-ancestor's pos
-        feamap.put("w_l_pos", "w_l_pos=" + whForm + "-" + lcaPosStr);
+        feamap.put("C:w_l_pos", whForm + "-" + lcaPosStr);
 //
 //        feamap.put("w_a_pos", "w_a_pos=" + whForm + "-" + ansPosStr);
 //        feamap.put("w_a_dep", "w_a_dep=" + whForm + "-" + ansDepStr);
@@ -300,44 +331,6 @@ public class AnswerExtractionDataPrepare {
     }
 
     /** **************************************************************
-     * Write training data with features to an xml file
-     */
-    public static void writeFeatureToXMLFile(
-            String filepath, String sheetname,
-            List<RTEData> dataList, boolean saveAsSparse) {
-
-        HSSFWorkbook workbook = new HSSFWorkbook();
-        HSSFSheet sheet = workbook.createSheet(sheetname);
-        int rownum = 0;
-        for (RTEData data : dataList) {
-
-            Row row = sheet.createRow(rownum++);
-            Cell cell = row.createCell(0);
-            cell.setCellValue(data.id);
-            cell = row.createCell(1);
-            cell.setCellValue("1");           // label as 1; positive examples
-            int colNum = FEALIST.size();
-            for (int i = 0; i < colNum; i++) {
-                cell = row.createCell(i+2);     // IMPORTANT
-                if (data.sparsefeamap.containsKey(i))
-                    cell.setCellValue(data.sparsefeamap.get(i));
-                else
-                    cell.setCellValue(0);
-            }
-        }
-
-        try {
-            FileOutputStream out = new FileOutputStream(new File(filepath));
-            workbook.write(out);
-            out.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /** **************************************************************
      * Write training data with features to a txt file
      */
     public static void writeFeatureToTxtFile(
@@ -354,10 +347,10 @@ public class AnswerExtractionDataPrepare {
                     continue;
 
                 if (saveAsSparse) {
-                    HashMap sparsefea = data.sparsefeamap;
+                    TreeMap numericfea = data.numericfeamap;
                     StringBuilder sb = new StringBuilder();
                     sb.append(data.label + " ");
-                    sparsefea.forEach((findex, fvalue) -> {
+                    numericfea.forEach((findex, fvalue) -> {
                         sb.append(findex + ":" + fvalue + " ");
                     });
                     String row = sb.toString().trim();
@@ -433,11 +426,16 @@ public class AnswerExtractionDataPrepare {
 
             bw.write("@relation breast-cancer");
             bw.newLine();
-            for (String fea : FEALIST) {
-                bw.write("@attribute " + fea + " {'0','1'}");
+            for (Integer fi : FITOFN.keySet()) {
+                String fn = FITOFN.get(fi);
+                if (isNumeric(fn)) {
+                    bw.write("@attribute " + fn + " numeric");
+                } else if (isCategorial(fn)) {
+                    bw.write("@attribute " + fn + " {0,1}");
+                }
                 bw.newLine();
             }
-            bw.write("@attribute 'Class' {'0','1'}");
+            bw.write("@attribute 'Class' {0,1}");
             bw.newLine();
             bw.write("@data");
             bw.newLine();
@@ -450,16 +448,17 @@ public class AnswerExtractionDataPrepare {
 
                     if (data.label.equals("0"))
                         negnum++;
-
-                    HashMap sparsefea = data.sparsefeamap;
+                    TreeMap<Integer, Double> numericfea = data.numericfeamap;
                     StringBuilder sb = new StringBuilder();
 
-                    for (int i = 0; i < FEALIST.size(); i++) {
-                        if (sparsefea.containsKey(i)) {
-                            sb.append("'1',");
-                        } else {
-                            sb.append("'0',");
-                        }
+                    for (Integer fi : numericfea.keySet()) {
+                        Double fv = numericfea.get(fi);
+                        if (Double.compare(fv, 0.0) == 0)
+                            sb.append("0").append(",");
+                        else if (Double.compare(fv, 1.0) == 0)
+                            sb.append("1").append(",");
+                        else
+                            sb.append(fv).append(",");
                     }
                     sb.append(data.label);
                     String row = sb.toString().trim();

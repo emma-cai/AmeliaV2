@@ -3,6 +3,7 @@ package rte.answerextraction;
 import rte.datastructure.Graph;
 
 import java.util.HashMap;
+import java.util.TreeMap;
 
 /**
  * Created by qingqingcai on 6/7/15.
@@ -24,8 +25,9 @@ public class RTEData {
     Graph graphN;
 
     HashMap<String, String> feamap = new HashMap<>();
-    HashMap<Integer, Integer> sparsefeamap = new HashMap<>();
-    HashMap<String, Double> numericfeamap = new HashMap<>();
+    TreeMap<Integer, Integer> sparsefeamap = new TreeMap<>();
+    // feature_index (fi) -> feature_value (fv)
+    TreeMap<Integer, Double> numericfeamap = new TreeMap<>();   // feature_index to feature_value
 
     public void setConllxQ(String conllxQ) {
 
