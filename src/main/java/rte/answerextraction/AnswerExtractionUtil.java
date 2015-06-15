@@ -61,7 +61,7 @@ public class AnswerExtractionUtil extends RteMessageHandler {
             switch (field) {
                 case "pos":
                     String pos = dnode.getPOS();
-                    if (!(filterList != null && !filterList.contains(pos)))
+                    if (!(filterList != null && filterList.contains(pos)))
                         AnsFieldList.add(pos);
                     break;
                 case "dep":

@@ -1,11 +1,16 @@
 package rte.answerextraction;
 
+import bpn.utils.Buckets;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import rte.datastructure.DNode;
 import rte.datastructure.Graph;
 import rte.graphmatching.NodeComparer;
@@ -29,20 +34,33 @@ public class AnswerExtractionDataPrepare {
 
     public static void generateTrainingData() {
 
-        String rawXMLPath = "/Users/qingqingcai/Documents/IntellijWorkspace/AmeliaV2/data/rte/MIT99.tmp.xls";
+        // For training data
+        String rawXMLPath = "/Users/qingqingcai/Documents/IntellijWorkspace/AmeliaV2/data/rte/MIT99.xls";
         String trainExcelPath = "/Users/qingqingcai/Documents/IntellijWorkspace/AmeliaV2/data/rte/MIT99.train.xls";
         String trainTxtPath = "/Users/qingqingcai/Documents/IntellijWorkspace/AmeliaV2/data/rte/MIT99.train.txt";
+        String trainSparkPath = "/Users/qingqingcai/Documents/IntellijWorkspace/AmeliaV2/data/rte/MIT99.train.spark.txt";
         String trainArffPath = "/Users/qingqingcai/Documents/IntellijWorkspace/AmeliaV2/data/rte/MIT99.train.arff";
         String sheetname = "MIT99-trek8";
 
-        List<RTEData> dataList = new ArrayList<>();
-        List<RTEData> dataWithFeatureList = featureGeneration(rawXMLPath, sheetname, dataList);
-        featureNormalization(dataWithFeatureList);
-        toNumericFeature(dataWithFeatureList);
+        List<RTEData> trainDataList = readTrainData(rawXMLPath, sheetname);
+        List<RTEData> trainDataWithFeatureList = featureGeneration(trainDataList);
+        featureNormalization(trainDataWithFeatureList);
+        toNumericFeature(trainDataWithFeatureList);
 
-        writeFeatureToExcelFile(trainExcelPath, dataWithFeatureList, true);
-        writeFeatureToTxtFile(trainTxtPath, dataWithFeatureList, true);
-        writeFeatureToArffFile(trainArffPath, dataWithFeatureList, false);
+        writeFeatureToExcelFile(trainExcelPath, trainDataWithFeatureList, true);
+        writeFeatureToTxtFile(trainTxtPath, trainDataWithFeatureList, true);
+        writeFeatureToArffFile(trainArffPath, trainDataWithFeatureList, false);
+        writeFeatureToSparkLabeledPoint(trainSparkPath, trainDataWithFeatureList, false);
+
+        // for testing data
+        String testPath = "";
+        String testSparkPath = "/Users/qingqingcai/Documents/IntellijWorkspace/AmeliaV2/data/rte/MIT99.test.spark.txt";
+
+        List<RTEData> testDataList = readTestData(testPath);
+        List<RTEData> testDataWithFeatureList = featureGeneration(testDataList);
+        toNumericFeature(testDataWithFeatureList);
+
+        writeFeatureToSparkLabeledPoint(testSparkPath, testDataWithFeatureList, false);
     }
 
     public static void toNumericFeature(List<RTEData> dataList) {
@@ -50,17 +68,6 @@ public class AnswerExtractionDataPrepare {
         for (RTEData data : dataList) {
             HashMap<String, String> feamap = data.feamap;
             data.numericfeamap = new TreeMap<>();
-//            for (String fn : feamap.keySet()) {
-//                String fv = feamap.get(fn);
-//                if (isNumeric(fn)) {
-//                    data.numericfeamap.put(FEALIST.indexOf(fn), Double.valueOf(fv));
-//                } else if (isCategorial(fn)) {
-//                    String newfn = fn + ":" + fv;
-//                    if (FEALIST.contains(newfn))
-//                        data.numericfeamap.put()
-//                }
-//            }
-
 
             for (Integer fi : FITOFN.keySet()) {
                 String normalizedFN = FITOFN.get(fi);
@@ -151,12 +158,10 @@ public class AnswerExtractionDataPrepare {
     /** **************************************************************
      * Generate features for each instance in dataList;
      */
-    public static List<RTEData> featureGeneration(
-            String xmlpath, String sheetname, List<RTEData> dataList) {
+    public static List<RTEData> featureGeneration(List<RTEData> dataList) {
 
         List<RTEData> dataWithFeatureList = new ArrayList<>();
 
-        readExcel(xmlpath, sheetname, dataList);
         for (RTEData data : dataList) {
             String id = data.id;
             String ques = data.query;
@@ -282,8 +287,8 @@ public class AnswerExtractionDataPrepare {
         fv = Integer.toString(overlap(graphQ, ansCandNodeList));
         feamap.put("N:overlapN", fv);
 
-        // wh-words and lowest-common-ancestor's pos
-        feamap.put("C:w_l_pos", whForm + "-" + lcaPosStr);
+//        // wh-words and lowest-common-ancestor's pos
+//        feamap.put("C:w_l_pos", whForm + "-" + lcaPosStr);
 //
 //        feamap.put("w_a_pos", "w_a_pos=" + whForm + "-" + ansPosStr);
 //        feamap.put("w_a_dep", "w_a_dep=" + whForm + "-" + ansDepStr);
@@ -294,10 +299,44 @@ public class AnswerExtractionDataPrepare {
     }
 
     /** **************************************************************
-     * Read data information from prepared XML file; store as RETData
+     * Read testing data from IPSoft corpus test; stored as RTEData;
      */
-    public static void readExcel(
-            String filepath, String sheetname, List<RTEData> dataList) {
+    public static List<RTEData> readTestData(String filepath) {
+
+        List<RTEData> dataList = new ArrayList<>();
+        JSONParser paser = new JSONParser();
+        try {
+            JSONArray array= (JSONArray) paser.parse(new FileReader(filepath));
+
+            Iterator<JSONObject> iter = array.iterator();
+
+            while(iter.hasNext()){
+                JSONObject obj = iter.next();
+                String query = obj.get("")
+                if (obj.get("gold").toString().isEmpty()) {
+                    if (Buckets.FOCUSED_ON.contains(obj.get("tag"))) {
+                        System.out.println(obj.get("tag") + "\t" + obj.get("sentence"));
+                        gold_text.add(obj.get("tag") + "\t" + obj.get("sentence"));
+                    }
+                } else if (Buckets.FOCUSED_ON.contains(obj.get("gold"))) {
+                    System.out.println(obj.get("gold") + "\t" + obj.get("sentence"));
+                    gold_text.add(obj.get("gold") + "\t" + obj.get("sentence"));
+                }
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /** **************************************************************
+     * Read training data from prepared XML file; stored as RETData;
+     */
+    public static List<RTEData> readTrainData(String filepath, String sheetname) {
+
+        List<RTEData> dataList = new ArrayList<>();
 
         try {
             POIFSFileSystem fs = new POIFSFileSystem(new FileInputStream(filepath));
@@ -328,6 +367,8 @@ public class AnswerExtractionDataPrepare {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        return dataList;
     }
 
     /** **************************************************************
@@ -357,6 +398,41 @@ public class AnswerExtractionDataPrepare {
                     bw.write(row);
                     bw.newLine();
                 }
+            }
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /** **************************************************************
+     * Write training data with features to a labeled point file which
+     * will be used in apache mllib
+     */
+    public static void writeFeatureToSparkLabeledPoint(
+            String filepath, List<RTEData> dataList, boolean saveAsSparse) {
+
+        File file = new File(filepath);
+        try {
+            file.createNewFile();
+            FileWriter fw = new FileWriter(file.getAbsoluteFile());
+            BufferedWriter bw = new BufferedWriter(fw);
+            for (RTEData data : dataList) {
+
+                TreeMap<Integer, Double> numericfea = data.numericfeamap;
+                StringBuilder sb = new StringBuilder();
+                sb.append(data.label).append(",");
+                numericfea.forEach((findex, fvalue) -> {
+                    if (Double.compare(fvalue, 0.0) == 0)
+                        sb.append("0").append(" ");
+                    else if (Double.compare(fvalue, 1.0) == 0)
+                        sb.append("1").append(" ");
+                    else
+                        sb.append(fvalue).append(" ");
+                });
+                String row = sb.toString().trim();
+                bw.write(row);
+                bw.newLine();
             }
             bw.close();
         } catch (IOException e) {
