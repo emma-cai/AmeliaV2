@@ -55,11 +55,33 @@ public class SVMSparkMLlib {
 
         // print out: labeled <- probability
         final int[] instanceIndex = {0};
+        final int[] TP = {0};
+        final int[] NP = {0};
+        final int[] TN = {0};
+        final int[] NN = {0};
         scoreAndLabels.collect().forEach(tuple2 -> {
-            System.out.println("instance " + (instanceIndex[0]++) + " = " + tuple2._2() + "\t" + tuple2._1());
+    //        System.out.println("instance " + (instanceIndex[0]++) + " = " + tuple2._2() + "\t" + tuple2._1());
+            String label = Double.toString((Double) tuple2._2());
+            Double confidence = (Double) tuple2._1();
+            if (label.equals("1.0") && confidence >= 0.0) {
+                System.out.println("TP:\t" + label + "\t" + confidence);
+                TP[0]++;
+            } else if (label.equals("0.0") && confidence >= 0.0) {
+                System.out.println("NP:\t" + label + "\t" + confidence);
+                NP[0]++;
+            } else if (label.equals("0.0") && confidence < 0.0) {
+                System.out.println("TN:\t" + label + "\t" + confidence);
+                TN[0]++;
+            } else if (label.equals("1.0") && confidence < 0.0) {
+                System.out.println("NN:\t" + label + "\t" + confidence);
+                NN[0]++;
+            }
         });
 
-
+        System.out.println("TP = " + TP[0]);
+        System.out.println("NP = " + NP[0]);
+        System.out.println("TN = " + TN[0]);
+        System.out.println("NN = " + NN[0]);
 
         // print out: performance using ROC
         System.out.println("Area under ROC = " + auROC);
