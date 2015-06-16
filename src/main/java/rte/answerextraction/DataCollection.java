@@ -4,10 +4,15 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import rte.datastructure.Graph;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -18,11 +23,17 @@ public class DataCollection {
     public static boolean LOWERCASE = true;
     public static void main (String[] args) {
 
-        String inputpath = "data/rte/jacana-qa-naacl2013-data-results/train-less-than-40.manual-edit.xml";
-        String outputpath = "data/rte/MIT99.xls";
-        String sheetname = "MIT99-trek8";
-        List<RTEData> dataList = readXML(inputpath);
-        writeToExcel(outputpath, sheetname, dataList);
+//        String trainInputPath = "data/rte/jacana-qa-naacl2013-data-results/train-less-than-40.manual-edit.xml";
+//        String trainOutputPath = "data/rte/MIT99.xls";
+//        String trainSheetName = "MIT99-trek8";
+//        List<RTEData> trainDataList = readXML(trainInputPath);
+//        writeToExcel(trainOutputPath, trainSheetName, trainDataList);
+
+        String testInputPath = "data/rte/cmuWiki.json";
+        String testOutputPath = "data/rte/cmuwiki.xls";
+        String testSheetName = "cmuwiki";
+        List<RTEData> testDataList = readJSON(testInputPath);
+        writeToExcel(testOutputPath, testSheetName, testDataList);
     }
 
     /** **************************************************************
@@ -158,6 +169,45 @@ public class DataCollection {
         //    data.setConllxN(Graph.textToConllx(negative));
             dataList.add(data);
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return dataList;
+    }
+
+    /** **************************************************************
+     * Read testing data from IPSoft corpus test; Store graph;
+     */
+    public static List<RTEData> readJSON(String filepath) {
+
+        List<RTEData> dataList = new ArrayList<>();
+        JSONParser paser = new JSONParser();
+        try {
+            JSONArray array = (JSONArray) paser.parse(new FileReader(filepath));
+
+            Iterator<JSONObject> iter = array.iterator();
+
+            int id = 1;
+            while (iter.hasNext()) {
+                JSONObject obj = iter.next();
+                String query = (String) obj.get("query");
+                String longanswer = (String) obj.get("answer");
+                String shortanswer = (String) obj.get("optimal_answer");
+
+                RTEData data = new RTEData(Integer.toString(id++), query, longanswer, shortanswer);
+                data.setConllxQ(Graph.textToConllx(query));
+                data.setConllxT(Graph.textToConllx(longanswer));
+
+                dataList.add(data);
+
+                System.out.println("\nid = " + data.id);
+                System.out.println("query = " + data.query);
+                System.out.println("longanswer = " + data.text);
+                System.out.println("shortanswer = " + data.answer);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
             e.printStackTrace();
         }
 

@@ -1,0 +1,26 @@
+[
+  {
+    "file": "Abraham_Lincoln.txt",
+    "query": "Was Abraham Lincoln the sixteenth President of the United States?",
+    "answer": "Abraham Lincoln (February 12, 1809 - April 15, 1865) was the sixteenth President of the United States, serving from March 4, 1861 until his assassination.",
+    "optimal_answer": "Yes"
+  },
+  {
+    "file": "Abraham_Lincoln.txt",
+    "query": "Did Lincoln sign the National Banking Act of 1863?",
+    "answer": "Also included was the creation of the system of national banks by the National Banking Acts of 1863, 1864, and 1865, which allowed the creation of a strong national financial system.",
+    "optimal_answer": "Yes"
+  },
+  {
+    "file": "Abraham_Lincoln.txt",
+    "query": "Did his mother die of pneumonia?",
+    "answer": "Lincoln was only nine when his mother, then thirty-four years old, died of milk sickness.",
+    "optimal_answer": "No"
+  },
+  {
+    "file": "Abraham_Lincoln.txt",
+    "query": "How long was Lincoln's formal education?",
+    "answer": "Lincoln's formal education consisted of about 18 months of schooling.",
+    "optimal_answer": "18 months"
+  }
+]

@@ -1,6 +1,5 @@
 package rte.answerextraction;
 
-import bpn.utils.Buckets;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -35,15 +34,15 @@ public class AnswerExtractionDataPrepare {
     public static void generateTrainingData() {
 
         // For training data
-        String rawXMLPath = "/Users/qingqingcai/Documents/IntellijWorkspace/AmeliaV2/data/rte/MIT99.xls";
+        String rawXMLPath = "/Users/qingqingcai/Documents/IntellijWorkspace/AmeliaV2/data/rte/MIT99.tmp.xls";
         String trainExcelPath = "/Users/qingqingcai/Documents/IntellijWorkspace/AmeliaV2/data/rte/MIT99.train.xls";
         String trainTxtPath = "/Users/qingqingcai/Documents/IntellijWorkspace/AmeliaV2/data/rte/MIT99.train.txt";
         String trainSparkPath = "/Users/qingqingcai/Documents/IntellijWorkspace/AmeliaV2/data/rte/MIT99.train.spark.txt";
         String trainArffPath = "/Users/qingqingcai/Documents/IntellijWorkspace/AmeliaV2/data/rte/MIT99.train.arff";
-        String sheetname = "MIT99-trek8";
+        String trainSheetName = "MIT99-trek8";
 
-        List<RTEData> trainDataList = readTrainData(rawXMLPath, sheetname);
-        List<RTEData> trainDataWithFeatureList = featureGeneration(trainDataList);
+        List<RTEData> trainDataList = readFromXML(rawXMLPath, trainSheetName, true);
+        List<RTEData> trainDataWithFeatureList = generateFeatures(trainDataList, true);
         featureNormalization(trainDataWithFeatureList);
         toNumericFeature(trainDataWithFeatureList);
 
@@ -53,11 +52,12 @@ public class AnswerExtractionDataPrepare {
         writeFeatureToSparkLabeledPoint(trainSparkPath, trainDataWithFeatureList, false);
 
         // for testing data
-        String testPath = "";
+        String testPath = "/Users/qingqingcai/Documents/IntellijWorkspace/AmeliaV2/data/rte/cmuWiki.xls";
         String testSparkPath = "/Users/qingqingcai/Documents/IntellijWorkspace/AmeliaV2/data/rte/MIT99.test.spark.txt";
+        String testSheetName = "cmuwiki";
 
-        List<RTEData> testDataList = readTestData(testPath);
-        List<RTEData> testDataWithFeatureList = featureGeneration(testDataList);
+        List<RTEData> testDataList = /**readTestData(testPath);**/readFromXML(testPath, testSheetName, false);
+        List<RTEData> testDataWithFeatureList = generateFeatures(testDataList, false);
         toNumericFeature(testDataWithFeatureList);
 
         writeFeatureToSparkLabeledPoint(testSparkPath, testDataWithFeatureList, false);
@@ -158,7 +158,7 @@ public class AnswerExtractionDataPrepare {
     /** **************************************************************
      * Generate features for each instance in dataList;
      */
-    public static List<RTEData> featureGeneration(List<RTEData> dataList) {
+    public static List<RTEData> generateFeatures(List<RTEData> dataList, boolean forTrainData) {
 
         List<RTEData> dataWithFeatureList = new ArrayList<>();
 
@@ -167,21 +167,24 @@ public class AnswerExtractionDataPrepare {
             String ques = data.query;
             String text = data.text;
             String answer = data.answer;
+
             String quesConllx = data.conllxQ;
             String textConllx = data.conllxT;
-            Graph graphQ = Graph.conllxToGraph(quesConllx);
-            Graph graphT = Graph.conllxToGraph(textConllx);
-
-            if (answer.isEmpty())
-                continue;
+            Graph graphQ = (quesConllx == null || quesConllx.isEmpty())
+                    ? Graph.stringToGraph(ques) : Graph.conllxToGraph(quesConllx);
+            Graph graphT = (textConllx == null || textConllx.isEmpty())
+                    ? Graph.stringToGraph(text) : Graph.conllxToGraph(textConllx);
 
 //            List<DNode> labeledAnsNodeList = GraphExtended.getNodeList(graphT, answer);
 //            String ansPosStr = GraphExtended.getFieldStr(labeledAnsNodeList, "pos");
 //            String ansDepStr = GraphExtended.getFieldStr(labeledAnsNodeList, "dep");
 //            String ansFormStr = GraphExtended.getFieldStr(labeledAnsNodeList, "form").replaceAll("_", " ");
 
-            List<DNode> labeledAnsNodeList = getNodeList(graphT, answer);
-            String labeledAnsFormStr = getFieldStr(labeledAnsNodeList, "form", null, "_").replaceAll("_", " ").toLowerCase();
+            String labeledAnsFormStr = answer;
+            if (forTrainData) {
+                List<DNode> labeledAnsNodeList = getNodeList(graphT, answer);
+                labeledAnsFormStr = getFieldStr(labeledAnsNodeList, "form", null, "_").replaceAll("_", " ").toLowerCase();
+            }
 
             DNode whNode = graphQ.getFirstNodeWithPosTag(NodeComparer.WhSet);
 
@@ -205,12 +208,32 @@ public class AnswerExtractionDataPrepare {
                                 && (ansCandStr.split(" ").length <= labeledAnsFormStr.split(" ").length+3)))
                     isPositiveCandidate = true;
 
-                if (isPositiveCandidate || (!isPositiveCandidate && NEGNUM <= POSNUM)) {
+                if (forTrainData) {
+                    if (isPositiveCandidate || (!isPositiveCandidate && NEGNUM <= POSNUM)) {
+                        if (isPositiveCandidate) {
+                            label = "1";
+                            POSNUM++;
+                        } else {
+                            NEGNUM++;
+                        }
+
+                        HashMap<String, String> feamap = featureGeneration(graphT, graphQ, ansCandNodeList);
+
+                        RTEData dataWithFeature = new RTEData(id, label, ques, text, ansCandStr, quesConllx, textConllx, feamap);
+                        dataWithFeatureList.add(dataWithFeature);
+                        System.out.println("id = " + data.id);
+                        System.out.println("label = " + label);
+                        System.out.println("ques = " + data.query);
+                        System.out.println("text = " + data.text);
+                        System.out.println("answer = " + data.answer);
+                        System.out.println("ansCandStr = " + ansCandStr);
+                        System.out.println("feature = " + feamap);
+                        System.out.println();
+                    }
+                } else {
+
                     if (isPositiveCandidate) {
                         label = "1";
-                        POSNUM++;
-                    } else {
-                        NEGNUM++;
                     }
 
                     HashMap<String, String> feamap = featureGeneration(graphT, graphQ, ansCandNodeList);
@@ -224,9 +247,6 @@ public class AnswerExtractionDataPrepare {
                     System.out.println("answer = " + data.answer);
                     System.out.println("ansCandStr = " + ansCandStr);
                     System.out.println("feature = " + feamap);
-//                data.feamap.forEach((fn, fv) -> {
-//                    System.out.println(fn + ": " + fv);
-//                });
                     System.out.println();
                 }
             }
@@ -310,17 +330,19 @@ public class AnswerExtractionDataPrepare {
 
             Iterator<JSONObject> iter = array.iterator();
 
+            int id = 0;
             while(iter.hasNext()){
                 JSONObject obj = iter.next();
-                String query = obj.get("")
-                if (obj.get("gold").toString().isEmpty()) {
-                    if (Buckets.FOCUSED_ON.contains(obj.get("tag"))) {
-                        System.out.println(obj.get("tag") + "\t" + obj.get("sentence"));
-                        gold_text.add(obj.get("tag") + "\t" + obj.get("sentence"));
-                    }
-                } else if (Buckets.FOCUSED_ON.contains(obj.get("gold"))) {
-                    System.out.println(obj.get("gold") + "\t" + obj.get("sentence"));
-                    gold_text.add(obj.get("gold") + "\t" + obj.get("sentence"));
+                String query = (String) obj.get("query");
+                String longanswer = (String) obj.get("answer");
+                String shortanswer = (String) obj.get("optimal_answer");
+
+                boolean yesorno = (shortanswer.toLowerCase().equals("yes"))
+                        || (shortanswer.toLowerCase().equals("no"));
+                if (!yesorno) {
+
+                    RTEData data = new RTEData(Integer.toString(id++), query, longanswer, shortanswer);
+                    dataList.add(data);
                 }
             }
         }
@@ -329,12 +351,14 @@ public class AnswerExtractionDataPrepare {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
+        return dataList;
     }
 
     /** **************************************************************
      * Read training data from prepared XML file; stored as RETData;
      */
-    public static List<RTEData> readTrainData(String filepath, String sheetname) {
+    public static List<RTEData> readFromXML(String filepath, String sheetname, boolean forTrainData) {
 
         List<RTEData> dataList = new ArrayList<>();
 
@@ -356,7 +380,10 @@ public class AnswerExtractionDataPrepare {
                     String quesConllx = row.getCell(5).getStringCellValue();
                     String textConllx = row.getCell(6).getStringCellValue();
 
-                    if (expAns != null) {
+                    boolean yesorno = (expAns.toLowerCase().equals("yes"))
+                            || (expAns.toLowerCase().equals("no"));
+                    if ((forTrainData && expAns != null)
+                            || (!forTrainData && !yesorno)) {
                         RTEData data = new RTEData(id, ques, text, expAns);
                         data.setConllxQ(quesConllx);
                         data.setConllxT(textConllx);
