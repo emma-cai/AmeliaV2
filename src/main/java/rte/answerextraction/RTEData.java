@@ -16,6 +16,8 @@ public class RTEData {
     String answer;
     String label;
 
+    String shortAnswerCandidate;
+
     String conllxQ;
     String conllxT;
  //   String conllxN;
@@ -29,6 +31,31 @@ public class RTEData {
     // feature_index (fi) -> feature_value (fv)
     TreeMap<Integer, Double> numericfeamap = new TreeMap<>();   // feature_index to feature_value
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setQuery(String query) {
+        this.query = query;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public void setShortAnswerCandidate(String shortAnswerCandidate) {
+
+        this.shortAnswerCandidate = shortAnswerCandidate;
+    }
+
     public void setConllxQ(String conllxQ) {
 
         this.conllxQ = conllxQ;
@@ -39,10 +66,17 @@ public class RTEData {
         this.conllxT = conllxT;
     }
 
-//    public void setConllxN(String conllxN) {
-//
-//        this.conllxN = conllxN;
-//    }
+    public void setFeaMap(HashMap<String, String> feamap) {
+        this.feamap.putAll(feamap);
+    }
+
+    public void setNumericFeamap(HashMap<Integer, Double> numericFeamap) {
+        this.numericfeamap.putAll(numericFeamap);
+    }
+
+    public RTEData() {
+
+    }
 
     public RTEData(String id, String question, String positive, String answer) {
 
@@ -64,5 +98,41 @@ public class RTEData {
         this.conllxQ = quesConllx;
         this.conllxT = textConllx;
         this.feamap.putAll(feamap);
+    }
+
+    public String getID() {
+        return id;
+    }
+
+    public String getQuery() {
+        return query;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public String getConllxQ() {
+        return conllxQ;
+    }
+
+    public String getConllxT() {
+        return conllxT;
+    }
+
+    public String getShortAnswerCandidate() {
+        return shortAnswerCandidate;
+    }
+
+    public HashMap<String, String> getFeamap() {
+        return feamap;
     }
 }

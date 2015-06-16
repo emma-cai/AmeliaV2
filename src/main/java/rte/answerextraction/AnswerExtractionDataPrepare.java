@@ -34,7 +34,7 @@ public class AnswerExtractionDataPrepare {
     public static void generateTrainingData() {
 
         // For training data
-        String rawXMLPath = "/Users/qingqingcai/Documents/IntellijWorkspace/AmeliaV2/data/rte/MIT99.tmp.xls";
+        String rawXMLPath = "/Users/qingqingcai/Documents/IntellijWorkspace/AmeliaV2/data/rte/MIT99.xls";
         String trainExcelPath = "/Users/qingqingcai/Documents/IntellijWorkspace/AmeliaV2/data/rte/MIT99.train.xls";
         String trainTxtPath = "/Users/qingqingcai/Documents/IntellijWorkspace/AmeliaV2/data/rte/MIT99.train.txt";
         String trainSparkPath = "/Users/qingqingcai/Documents/IntellijWorkspace/AmeliaV2/data/rte/MIT99.train.spark.txt";
@@ -53,13 +53,15 @@ public class AnswerExtractionDataPrepare {
 
         // for testing data
         String testPath = "/Users/qingqingcai/Documents/IntellijWorkspace/AmeliaV2/data/rte/cmuWiki.xls";
-        String testSparkPath = "/Users/qingqingcai/Documents/IntellijWorkspace/AmeliaV2/data/rte/MIT99.test.spark.txt";
+        String testSparkPath = "/Users/qingqingcai/Documents/IntellijWorkspace/AmeliaV2/data/rte/cmuwiki.test.spark.txt";
+        String testExcelPath = "/Users/qingqingcai/Documents/IntellijWorkspace/AmeliaV2/data/rte/cmuwiki.test.xls";
         String testSheetName = "cmuwiki";
 
         List<RTEData> testDataList = /**readTestData(testPath);**/readFromXML(testPath, testSheetName, false);
         List<RTEData> testDataWithFeatureList = generateFeatures(testDataList, false);
         toNumericFeature(testDataWithFeatureList);
 
+        writeFeatureToExcelFile(testExcelPath, testDataWithFeatureList, true);
         writeFeatureToSparkLabeledPoint(testSparkPath, testDataWithFeatureList, false);
     }
 
@@ -71,24 +73,24 @@ public class AnswerExtractionDataPrepare {
 
             for (Integer fi : FITOFN.keySet()) {
                 String normalizedFN = FITOFN.get(fi);
-                for (String fntmp : feamap.keySet()) {
-                    String fv = feamap.get(fntmp);
+                if (isNumeric(normalizedFN)) {
+                    String fv = feamap.get(normalizedFN);
+                    data.numericfeamap.put(fi, Double.parseDouble(fv));
+                } else {
+                    for (String fntmp : feamap.keySet()) {
+                        String fv = feamap.get(fntmp);
 
-                    if (isNumeric(fntmp)) {
-                        String newfn = fntmp;
-                        if (normalizedFN.equals(newfn)) {
-                            data.numericfeamap.put(fi, Double.parseDouble(fv));
+                        if (isCategorial(fntmp)) {
+                            String newfn = fntmp + ":" + fv;
+                            if (normalizedFN.equals(newfn))
+                                data.numericfeamap.put(fi, 1.0);
+                            else
+                                data.numericfeamap.put(fi, 0.0);
                             break;
                         }
-                    } else if (isCategorial(fntmp)) {
-                        String newfn = fntmp + ":" + fv;
-                        if (normalizedFN.equals(newfn))
-                            data.numericfeamap.put(fi, 1.0);
-                        else
-                            data.numericfeamap.put(fi, 0.0);
-                        break;
                     }
                 }
+
             }
         }
     }
@@ -205,9 +207,10 @@ public class AnswerExtractionDataPrepare {
                 boolean isPositiveCandidate = false;
                 if (labeledAnsFormStr.equals(ansCandStr) ||
                         (ansCandStr.contains(labeledAnsFormStr)
-                                && (ansCandStr.split(" ").length <= labeledAnsFormStr.split(" ").length+3)))
+                                && (ansCandStr.split(" ").length <= labeledAnsFormStr.split(" ").length+5)))
                     isPositiveCandidate = true;
 
+                boolean addtofile = false;
                 if (forTrainData) {
                     if (isPositiveCandidate || (!isPositiveCandidate && NEGNUM <= POSNUM)) {
                         if (isPositiveCandidate) {
@@ -217,35 +220,27 @@ public class AnswerExtractionDataPrepare {
                             NEGNUM++;
                         }
 
-                        HashMap<String, String> feamap = featureGeneration(graphT, graphQ, ansCandNodeList);
-
-                        RTEData dataWithFeature = new RTEData(id, label, ques, text, ansCandStr, quesConllx, textConllx, feamap);
-                        dataWithFeatureList.add(dataWithFeature);
-                        System.out.println("id = " + data.id);
-                        System.out.println("label = " + label);
-                        System.out.println("ques = " + data.query);
-                        System.out.println("text = " + data.text);
-                        System.out.println("answer = " + data.answer);
-                        System.out.println("ansCandStr = " + ansCandStr);
-                        System.out.println("feature = " + feamap);
-                        System.out.println();
+                        addtofile = true;
                     }
                 } else {
 
                     if (isPositiveCandidate) {
                         label = "1";
                     }
-
+                    addtofile = true;
+                }
+                if (addtofile) {
                     HashMap<String, String> feamap = featureGeneration(graphT, graphQ, ansCandNodeList);
 
-                    RTEData dataWithFeature = new RTEData(id, label, ques, text, ansCandStr, quesConllx, textConllx, feamap);
+                    RTEData dataWithFeature = new RTEData(id, label, ques, text, labeledAnsFormStr, quesConllx, textConllx, feamap);
+                    dataWithFeature.setShortAnswerCandidate(ansCandStr);
                     dataWithFeatureList.add(dataWithFeature);
                     System.out.println("id = " + data.id);
                     System.out.println("label = " + label);
                     System.out.println("ques = " + data.query);
                     System.out.println("text = " + data.text);
                     System.out.println("answer = " + data.answer);
-                    System.out.println("ansCandStr = " + ansCandStr);
+                    System.out.println("ansCandStr = " + dataWithFeature.shortAnswerCandidate);
                     System.out.println("feature = " + feamap);
                     System.out.println();
                 }
@@ -299,7 +294,7 @@ public class AnswerExtractionDataPrepare {
 
         // Does answer-candidate contain number?
         fv = ansPosList.contains("CD") ? "1" : "0";
-        feamap.put("N:a_hasCD", fv);
+        feamap.put("C:w_a_hasCD", whForm + "-" + fv);
 
         // Does answer-candidate start with IN?
 
@@ -496,6 +491,9 @@ public class AnswerExtractionDataPrepare {
 
             cell = row.createCell(colnum++);
             cell.setCellValue(data.answer);
+
+            cell = row.createCell(colnum++);
+            cell.setCellValue(data.shortAnswerCandidate);
 
             for (String fn : data.feamap.keySet()) {
                 cell = row.createCell(colnum++);

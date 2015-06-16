@@ -20,20 +20,20 @@ import java.util.List;
  */
 public class DataCollection {
 
-    public static boolean LOWERCASE = true;
+    public static boolean LOWERCASE = false;
     public static void main (String[] args) {
 
-//        String trainInputPath = "data/rte/jacana-qa-naacl2013-data-results/train-less-than-40.manual-edit.xml";
-//        String trainOutputPath = "data/rte/MIT99.xls";
-//        String trainSheetName = "MIT99-trek8";
-//        List<RTEData> trainDataList = readXML(trainInputPath);
-//        writeToExcel(trainOutputPath, trainSheetName, trainDataList);
+        String trainInputPath = "data/rte/jacana-qa-naacl2013-data-results/train2393.cleanup.xml";
+        String trainOutputPath = "data/rte/MIT99.xls";
+        String trainSheetName = "MIT99-trek8";
+        List<RTEData> trainDataList = readXML(trainInputPath);
+        writeToExcel(trainOutputPath, trainSheetName, trainDataList);
 
-        String testInputPath = "data/rte/cmuWiki.json";
-        String testOutputPath = "data/rte/cmuwiki.xls";
-        String testSheetName = "cmuwiki";
-        List<RTEData> testDataList = readJSON(testInputPath);
-        writeToExcel(testOutputPath, testSheetName, testDataList);
+//        String testInputPath = "data/rte/cmuWiki.smallexamples.json";
+//        String testOutputPath = "data/rte/cmuwiki.smallexamples.xls";
+//        String testSheetName = "cmuwiki";
+//        List<RTEData> testDataList = readJSON(testInputPath);
+//        writeToExcel(testOutputPath, testSheetName, testDataList);
     }
 
     /** **************************************************************
@@ -136,6 +136,7 @@ public class DataCollection {
                         data.setConllxQ(Graph.textToConllx(question));
                         data.setConllxT(Graph.textToConllx(positive));
                 //        data.setConllxN(Graph.textToConllx(negative));
+                        System.out.println(data.id + "\n" + data.query + "\n" + data.answer + "\n");
                         dataList.add(data);
                     }
 
@@ -167,6 +168,7 @@ public class DataCollection {
             data.setConllxQ(Graph.textToConllx(question));
             data.setConllxT(Graph.textToConllx(positive));
         //    data.setConllxN(Graph.textToConllx(negative));
+            System.out.println(data.id + "\n" + data.query + "\n" + data.answer + "\n");
             dataList.add(data);
         } catch (IOException e) {
             e.printStackTrace();
@@ -191,7 +193,9 @@ public class DataCollection {
             while (iter.hasNext()) {
                 JSONObject obj = iter.next();
                 String query = (String) obj.get("query");
+                query = LOWERCASE ? query.toLowerCase() : query;
                 String longanswer = (String) obj.get("answer");
+                longanswer = LOWERCASE ? longanswer.toLowerCase() : longanswer;
                 String shortanswer = (String) obj.get("optimal_answer");
 
                 RTEData data = new RTEData(Integer.toString(id++), query, longanswer, shortanswer);
