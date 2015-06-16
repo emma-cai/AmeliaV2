@@ -185,7 +185,7 @@ public class AnswerExtractionDataPrepare {
             String labeledAnsFormStr = answer;
             if (forTrainData) {
                 List<DNode> labeledAnsNodeList = getNodeList(graphT, answer);
-                labeledAnsFormStr = getFieldStr(labeledAnsNodeList, "form", null, "_").replaceAll("_", " ").toLowerCase();
+                labeledAnsFormStr = getFieldStr(labeledAnsNodeList, "form", null, "_").replaceAll("_", " ");
             }
 
             DNode whNode = graphQ.getFirstNodeWithPosTag(NodeComparer.WhSet);
@@ -200,13 +200,13 @@ public class AnswerExtractionDataPrepare {
 
             for (TreeMap<Integer, DNode> ansCandNodeMap : ListOfAnsCandNodeMap) {
 
-                String ansCandStr = fromTreeMapToString(ansCandNodeMap).toLowerCase();
+                String ansCandStr = fromTreeMapToString(ansCandNodeMap);
                 List<DNode> ansCandNodeList = new ArrayList(ansCandNodeMap.values());
                 String label = "0";
 
                 boolean isPositiveCandidate = false;
-                if (labeledAnsFormStr.equals(ansCandStr) ||
-                        (ansCandStr.contains(labeledAnsFormStr)
+                if (labeledAnsFormStr.toLowerCase().equals(ansCandStr.toLowerCase()) ||
+                        (ansCandStr.toLowerCase().contains(labeledAnsFormStr.toLowerCase())
                                 && (ansCandStr.split(" ").length <= labeledAnsFormStr.split(" ").length+5)))
                     isPositiveCandidate = true;
 
@@ -223,7 +223,6 @@ public class AnswerExtractionDataPrepare {
                         addtofile = true;
                     }
                 } else {
-
                     if (isPositiveCandidate) {
                         label = "1";
                     }
@@ -368,10 +367,10 @@ public class AnswerExtractionDataPrepare {
             for (int i = 0; i < rows; i++) {
                 row = sheet.getRow(i);
                 if (row != null) {
-                    String id = row.getCell(0).getStringCellValue().toLowerCase();
-                    String ques = row.getCell(2).getStringCellValue().toLowerCase();
-                    String text = row.getCell(3).getStringCellValue().toLowerCase();
-                    String expAns = row.getCell(4) == null? null : row.getCell(4).getStringCellValue().toLowerCase();
+                    String id = row.getCell(0).getStringCellValue();
+                    String ques = row.getCell(2).getStringCellValue();
+                    String text = row.getCell(3).getStringCellValue();
+                    String expAns = row.getCell(4) == null? null : row.getCell(4).getStringCellValue();
                     String quesConllx = row.getCell(5).getStringCellValue();
                     String textConllx = row.getCell(6).getStringCellValue();
 

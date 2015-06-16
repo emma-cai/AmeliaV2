@@ -4,6 +4,7 @@ import edu.ucla.sspace.basis.StringBasisMapping;
 import edu.ucla.sspace.lsa.LatentSemanticAnalysis;
 import edu.ucla.sspace.matrix.NoTransform;
 import edu.ucla.sspace.matrix.factorization.SingularValueDecompositionLibC;
+import edu.ucla.sspace.vector.Vector;
 import rte.datastructure.Graph;
 
 import java.io.IOException;
@@ -15,7 +16,8 @@ public class ShortAnswerCandidateExtractor {
 
     public static void main(String[] args) {
 
-        testGraph();
+//        testGraph();
+        testLSA();
     }
 
     public static void testGraph() {
@@ -37,7 +39,8 @@ public class ShortAnswerCandidateExtractor {
             String sen1 = "shipment of gold damaged in a fire.";
             String sen2 = "gold silver truck";
 
-         //   DoubleVector projected = lsa.project(new StringDocument(sen2));
+            Vector projected = lsa.getVector("gold");
+            System.out.println(projected);
 
         } catch (IOException e) {
             e.printStackTrace();

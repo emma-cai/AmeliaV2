@@ -14,6 +14,7 @@ public class RTEData {
     String text;
  //   String negative;
     String answer;
+    String answerid;
     String label;
 
     String shortAnswerCandidate;
@@ -78,11 +79,12 @@ public class RTEData {
 
     }
 
-    public RTEData(String id, String question, String positive, String answer) {
+    public RTEData(String id, String question, String positive, String answerid, String answer) {
 
         this.id = id;
         this.query = question;
         this.text = positive;
+        this.answerid = answerid;
         this.answer = answer;
     //    this.negative = negative;
     }

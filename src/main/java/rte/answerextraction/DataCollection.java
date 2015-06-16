@@ -125,6 +125,7 @@ public class DataCollection {
             String question = "";
             String positive = "";
             String answer = "";
+            String answerid = "";
             String negative = "";           // NOT USED IN CURRENT VERSION
             while ((line = br.readLine()) != null) {
 
@@ -132,7 +133,7 @@ public class DataCollection {
                     boolean positivestarted = true;
                     boolean negativestarted = true;
                     if (!id.isEmpty()) {
-                        RTEData data = new RTEData(id, question, positive, answer);
+                        RTEData data = new RTEData(id, question, positive, answerid, answer);
                         data.setConllxQ(Graph.textToConllx(question));
                         data.setConllxT(Graph.textToConllx(positive));
                 //        data.setConllxN(Graph.textToConllx(negative));
@@ -150,10 +151,16 @@ public class DataCollection {
                             positivestarted = false;
                             positive = br.readLine().trim().replaceAll("\t", " ");
                             positive = LOWERCASE ? positive.toLowerCase() : positive;
+                            String twoStepPrev = line;
                             String prev = line;
                             while (!(line = br.readLine()).equals(positiveEnd)) {
+                                twoStepPrev = prev;
                                 prev = line;
                             }
+                            System.out.println("debug: twoStepPrev = " + twoStepPrev);
+                            System.out.println("debug: prev = " + prev);
+                            System.out.println("debug: line = " + line);
+                            answerid = twoStepPrev.trim().replaceAll("\t", " ");
                             answer = prev.trim().replaceAll("\t", " ");
                         }
                         if (line.startsWith(negativeStart) && negativestarted == true) {
@@ -164,7 +171,7 @@ public class DataCollection {
                 }
             }
 
-            RTEData data = new RTEData(id, question, positive, answer);
+            RTEData data = new RTEData(id, question, positive, answerid, answer);
             data.setConllxQ(Graph.textToConllx(question));
             data.setConllxT(Graph.textToConllx(positive));
         //    data.setConllxN(Graph.textToConllx(negative));
@@ -198,7 +205,7 @@ public class DataCollection {
                 longanswer = LOWERCASE ? longanswer.toLowerCase() : longanswer;
                 String shortanswer = (String) obj.get("optimal_answer");
 
-                RTEData data = new RTEData(Integer.toString(id++), query, longanswer, shortanswer);
+                RTEData data = new RTEData(Integer.toString(id++), query, longanswer, "", shortanswer);
                 data.setConllxQ(Graph.textToConllx(query));
                 data.setConllxT(Graph.textToConllx(longanswer));
 
