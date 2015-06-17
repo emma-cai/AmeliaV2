@@ -1,4 +1,4 @@
-package rte.answerextraction;
+package rte.answerextraction_tmp;
 
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -17,7 +17,7 @@ import rte.graphmatching.NodeComparer;
 import java.io.*;
 import java.util.*;
 
-import static rte.answerextraction.AnswerExtractionUtil.*;
+import static rte.answerextraction_tmp.AnswerExtractionUtil.*;
 
 /**
  * Created by qingqingcai on 6/10/15.
@@ -33,27 +33,27 @@ public class AnswerExtractionDataPrepare {
 
     public static void generateTrainingData() {
 
-//        // For training data
-//        String trainName = "MIT99";
-//        String rawXMLPath = "data/rte/" + trainName + ".xls";
-//        String trainExcelPath = "data/rte/" + trainName + ".train.xls";
-//        String trainTxtPath = "data/rte/" + trainName + ".train.txt";
-//        String trainSparkPath = "data/rte/" + trainName + ".train.spark.txt";
-//        String trainArffPath = "data/rte/" + trainName + ".train.arff";
-//        String trainSheetName = trainName;
-//
-//        List<RTEData> trainDataList = readFromXML(rawXMLPath, trainSheetName, true);
-//        List<RTEData> trainDataWithFeatureList = generateFeatures(trainDataList, true);
-//        featureNormalization(trainDataWithFeatureList);
-//        toNumericFeature(trainDataWithFeatureList);
-//
-//        writeFeatureToExcelFile(trainExcelPath, trainDataWithFeatureList, true);
-//        writeFeatureToTxtFile(trainTxtPath, trainDataWithFeatureList, true);
-//        writeFeatureToArffFile(trainArffPath, trainDataWithFeatureList, false);
-//        writeFeatureToSparkLabeledPoint(trainSparkPath, trainDataWithFeatureList, false);
+        // For training data
+        String trainName = "MIT99.smallexamples";
+        String rawXMLPath = "data/rte/" + trainName + ".xls";
+        String trainExcelPath = "data/rte/" + trainName + ".train.xls";
+        String trainTxtPath = "data/rte/" + trainName + ".train.txt";
+        String trainSparkPath = "data/rte/" + trainName + ".train.spark.txt";
+        String trainArffPath = "data/rte/" + trainName + ".train.arff";
+        String trainSheetName = trainName;
+
+        List<RTEData> trainDataList = readFromXML(rawXMLPath, trainSheetName, true);
+        List<RTEData> trainDataWithFeatureList = generateFeatures(trainDataList, true);
+        featureNormalization(trainDataWithFeatureList);
+        toNumericFeature(trainDataWithFeatureList);
+
+        writeFeatureToExcelFile(trainExcelPath, trainSheetName, trainDataWithFeatureList, true);
+        writeFeatureToTxtFile(trainTxtPath, trainDataWithFeatureList, true);
+        writeFeatureToArffFile(trainArffPath, trainDataWithFeatureList, false);
+        writeFeatureToSparkLabeledPoint(trainSparkPath, trainDataWithFeatureList, false);
 
         // for testing data
-        String testName = "cmuwiki";
+        String testName = "cmuwiki.smallexamples";
         String testPath = "data/rte/" + testName + ".xls";
         String testSparkPath = "data/rte/" + testName + ".test.spark.txt";
         String testExcelPath = "data/rte/" + testName + ".test.xls";
@@ -63,7 +63,7 @@ public class AnswerExtractionDataPrepare {
         List<RTEData> testDataWithFeatureList = generateFeatures(testDataList, false);
         toNumericFeature(testDataWithFeatureList);
 
-        writeFeatureToExcelFile(testExcelPath, testDataWithFeatureList, true);
+        writeFeatureToExcelFile(testExcelPath, testSheetName, testDataWithFeatureList, true);
         writeFeatureToSparkLabeledPoint(testSparkPath, testDataWithFeatureList, false);
     }
 
@@ -208,9 +208,7 @@ public class AnswerExtractionDataPrepare {
                 String label = "0";
 
 
-                boolean isPositiveCandidate = false;
-                if (forTrainData)
-                    isPositiveTraining(data, graphT, ansCandStr);
+                boolean isPositiveCandidate = isPositive(data, graphT, ansCandStr, forTrainData);
 
                 boolean addtofile = false;
                 if (forTrainData) {
@@ -244,7 +242,7 @@ public class AnswerExtractionDataPrepare {
                     System.out.println("answerid = " + data.answerid);
                     System.out.println("answer = " + data.answer);
                     System.out.println("ansCandStr = " + dataWithFeature.shortAnswerCandidate);
-                    System.out.println("feature = " + feamap);
+                    System.out.println("feature = " + dataWithFeature.feamap);
                     System.out.println();
                 }
             }
@@ -325,25 +323,28 @@ public class AnswerExtractionDataPrepare {
      * @param ansCandStr
      * @return
      */
-    private static boolean isPositiveTraining(RTEData data, Graph graphT, String ansCandStr) {
+    private static boolean isPositive(RTEData data, Graph graphT, String ansCandStr, boolean forTraining) {
 
-        String answerid = data.answerid;
         String answer = data.answer;
-        String[] answeridArr = answerid.split(" ");
-        String[] answerArr = answer.split(" ");
 
-        // check if answer and answerid are matched
-        if (answeridArr.length != answerArr.length)
-            return false;
-        for (int i = 0; i < answeridArr.length; i++) {
-            String aid = answeridArr[i];
-            String a = answerArr[i];
-            DNode anode = graphT.getNodeById(Integer.parseInt(aid));
-            if (anode == null)
+        if (forTraining) {
+            String answerid = data.answerid;
+            String[] answeridArr = answerid.split(" ");
+            String[] answerArr = answer.split(" ");
+
+            // check if answer and answerid are matched
+            if (answeridArr.length != answerArr.length)
                 return false;
-            if (!anode.getForm().toLowerCase().equals(a.toLowerCase())) {
-                System.out.println("ERROR: answerid and answer are not matched for " + data.id);
-                return false;
+            for (int i = 0; i < answeridArr.length; i++) {
+                String aid = answeridArr[i];
+                String a = answerArr[i];
+                DNode anode = graphT.getNodeById(Integer.parseInt(aid));
+                if (anode == null)
+                    return false;
+                if (!anode.getForm().toLowerCase().equals(a.toLowerCase())) {
+                    System.out.println("ERROR: answerid and answer are not matched for " + data.id);
+                    return false;
+                }
             }
         }
 
@@ -411,15 +412,16 @@ public class AnswerExtractionDataPrepare {
             for (int i = 0; i < rows; i++) {
                 row = sheet.getRow(i);
                 if (row != null) {
+
                     int colIndex = 0;
-                    String id = row.getCell(colIndex++).getStringCellValue();
-                    String label = row.getCell(colIndex++).getStringCellValue();
-                    String ques = row.getCell(colIndex++).getStringCellValue();
-                    String text = row.getCell(colIndex++).getStringCellValue();
-                    String answerid = row.getCell(colIndex++).getStringCellValue();
-                    String answer = row.getCell(colIndex++).getStringCellValue();
-                    String quesConllx = row.getCell(colIndex++).getStringCellValue();
-                    String textConllx = row.getCell(colIndex++).getStringCellValue();
+                    String id = readCellValue(row, colIndex++);
+                    String label = readCellValue(row, colIndex++);
+                    String ques = readCellValue(row, colIndex++);
+                    String text = readCellValue(row, colIndex++);
+                    String answerid = readCellValue(row, colIndex++);
+                    String answer = readCellValue(row, colIndex++);
+                    String quesConllx = readCellValue(row, colIndex++);
+                    String textConllx = readCellValue(row, colIndex++);
 
                     boolean yesorno = (answer.toLowerCase().equals("yes"))
                             || (answer.toLowerCase().equals("no"));
@@ -437,6 +439,21 @@ public class AnswerExtractionDataPrepare {
         }
 
         return dataList;
+    }
+
+    public static String readCellValue(HSSFRow row, int colIndex) {
+
+        String value = "";
+        Cell cell = row.getCell(colIndex);
+        switch (cell.getCellType()) {
+            case Cell.CELL_TYPE_STRING:
+                value = cell.getStringCellValue();
+                break;
+            case Cell.CELL_TYPE_NUMERIC:
+                value = Double.toString(cell.getNumericCellValue());
+                break;
+        }
+        return value;
     }
 
     /** **************************************************************
@@ -512,10 +529,10 @@ public class AnswerExtractionDataPrepare {
      * Write training data with features to a txt file
      */
     public static void writeFeatureToExcelFile(
-            String filepath, List<RTEData> dataList, boolean saveAsSparse) {
+            String filepath, String sheetname, List<RTEData> dataList, boolean saveAsSparse) {
 
         HSSFWorkbook workbook = new HSSFWorkbook();
-        HSSFSheet sheet = workbook.createSheet("sheet1");
+        HSSFSheet sheet = workbook.createSheet(sheetname);
         int rownum = 0;
         for (RTEData data : dataList) {
 

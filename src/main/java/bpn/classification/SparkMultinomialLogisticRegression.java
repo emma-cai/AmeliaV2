@@ -34,10 +34,10 @@ public class SparkMultinomialLogisticRegression {
     public static HashMap<Integer, Double> lineIndex_label = new HashMap<>();
 
     /** **************************************************************
-     * Test BPN classifier based on apache spark libSVM
+     * Test BPN classifier_maochen based on apache spark libSVM
      * Training/Testing input: LABEL\tPLAIN_TEXT
      * Training/Testing feature: spark feature vector
-     * Model path: Path to store trained classifier model
+     * Model path: Path to store trained classifier_maochen model
      */
     public static void main(String[] args) {
 
@@ -62,7 +62,7 @@ public class SparkMultinomialLogisticRegression {
             }
         }
         Feature.runFeatureExtraction(traintextpath, trainfeapath, testtextpath, testfeapath);   // extract features
-        runMultinomialLogisticRegression(trainfeapath, testfeapath, modelpath, false);          // run classifier
+        runMultinomialLogisticRegression(trainfeapath, testfeapath, modelpath, false);          // run classifier_maochen
         printResults(testfeapath, testtextpath, resultpath);                                    // save classification result
         double precision = Performance.computePerformance(testtextpath, resultpath);            // compute performance (precision)
         System.out.println("Performance (precision) = " + precision);

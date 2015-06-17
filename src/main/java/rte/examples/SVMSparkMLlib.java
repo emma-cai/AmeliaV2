@@ -13,7 +13,7 @@ import org.apache.spark.mllib.classification.SVMWithSGD;
 import org.apache.spark.mllib.evaluation.BinaryClassificationMetrics;
 import org.apache.spark.mllib.regression.LabeledPoint;
 import org.apache.spark.mllib.util.MLUtils;
-import rte.answerextraction.RTEData;
+import rte.answerextraction_tmp.RTEData;
 import scala.Tuple2;
 
 import java.io.FileInputStream;

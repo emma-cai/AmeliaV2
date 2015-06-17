@@ -1,0 +1,40 @@
+@relation breast-cancer
+@attribute C:whLemma_lcaDep:who-pobj {0,1}
+@attribute N:a_TN numeric
+@attribute N:overlapN numeric
+@attribute C:whLemma_a_hasCD:who-0 {0,1}
+@attribute C:whLemma_lcaDep:what-acomp {0,1}
+@attribute C:whLemma_a_hasCD:what-1 {0,1}
+@attribute C:whLemma_lcaDep:what-nsubj {0,1}
+@attribute C:whLemma_a_hasCD:what-0 {0,1}
+@attribute C:whLemma_lcaDep:what-dep {0,1}
+@attribute C:whLemma_lcaDep:what-nn {0,1}
+@attribute C:whLemma_lcaDep:what-dobj {0,1}
+@attribute C:whLemma_lcaDep:how-dobj {0,1}
+@attribute C:whLemma_a_hasCD:how-0 {0,1}
+@attribute C:whLemma_lcaDep:how-nn {0,1}
+@attribute C:whLemma_lcaDep:why-xcomp {0,1}
+@attribute C:whLemma_a_hasCD:why-0 {0,1}
+@attribute C:whLemma_lcaDep:why-dobj {0,1}
+@attribute C:whLemma_lcaDep:why-vmod {0,1}
+@attribute C:whLemma_lcaDep:why-prep {0,1}
+@attribute C:whLemma_lcaDep:what-num {0,1}
+@attribute C:whLemma_lcaDep:what-pobj {0,1}
+@attribute 'Class' {0,1}
+@data
+1,12.0,3.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+0,3.0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+0,3.0,2.0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+0,2.0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1
+0,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+0,2.0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1
+0,3.0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+0,2.0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1
+0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0
+0,4.0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1
+0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+0,7.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1
+0,3.0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0
+0,2.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
+0,7.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1
+0,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0

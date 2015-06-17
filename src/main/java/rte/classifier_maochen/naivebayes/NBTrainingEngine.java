@@ -1,6 +1,6 @@
-package rte.classifier.naivebayes;
+package rte.classifier_maochen.naivebayes;
 
-import rte.classifier.Tuple;
+import rte.classifier_maochen.Tuple;
 
 import java.util.List;
 

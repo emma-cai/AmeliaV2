@@ -3,7 +3,6 @@ package rte.answerextraction;
 import rte.RteMessageHandler;
 import rte.datastructure.DNode;
 import rte.datastructure.Graph;
-import rte.datastructure.LangLib;
 import rte.graphmatching.NodeComparer;
 import rte.similarityflooding.NodePair;
 
@@ -12,9 +11,9 @@ import java.util.*;
 import static rte.graphmatching.DMatching.initNodeMatches;
 
 /**
- * Created by qingqingcai on 6/10/15.
+ * Created by qingqingcai on 6/17/15.
  */
-public class AnswerExtractionUtil extends RteMessageHandler {
+public class FeatureExtractorUtils extends RteMessageHandler {
 
     /** **************************************************************
      * Generate token string from <node-id, node> map
@@ -157,8 +156,8 @@ public class AnswerExtractionUtil extends RteMessageHandler {
      */
     public static List<TreeMap<Integer, DNode>> generateAnswerCandidates(String ques, String text) {
 
-        Graph graphT = Graph.stringToGraph(text);
-        Graph graphQ = Graph.stringToGraph(ques);
+        Graph graphT = GraphExtended.stringToGraph(text);
+        Graph graphQ = GraphExtended.stringToGraph(ques);
 
         return generateAnswerCandidates(graphQ, graphT);
     }
@@ -169,15 +168,6 @@ public class AnswerExtractionUtil extends RteMessageHandler {
      */
     public static List<TreeMap<Integer, DNode>> generateAnswerCandidates(
             Graph graphQ, Graph graphT) {
-
-//        HashMap<DNode, NavigableMap<Double, List<NodePair>>> nodeMatches
-//                = initNodeMatches(graphT, graphQ, config);
-//        DMatching.computeMatchingCost(graphT, graphQ, nodeMatches);
-//
-//        DNode whNode = graphQ.getFirstNodeWithPosTag(NodeComparer.WhSet);
-//        return generateAnswerCandidates(whNode, nodeMatches);
-//
-//
 
         HashMap<DNode, NavigableMap<Double, List<NodePair>>> nodeMatches
                 = initNodeMatches(graphT, graphQ, config);
@@ -269,15 +259,4 @@ public class AnswerExtractionUtil extends RteMessageHandler {
             System.out.println(ansCandStr);
         }
     }
-
-
-    private static HashSet<String> LessImportantPOSSet =
-            new HashSet<>(Arrays.asList(new String[]
-                    { LangLib.POS_IN, LangLib.POS_DT, LangLib.POS_JJ, LangLib.POS_JJR,
-                      LangLib.POS_JJS, LangLib.POS_TO}));
-    private static HashSet<String> LessImportantDepSet =
-            new HashSet<>(Arrays.asList(new String[]
-                    { LangLib.DEP_AUX, LangLib.DEP_AUXPASS, LangLib.DEP_ADVMOD,
-                      LangLib.DEP_ACOMP,
-                      LangLib.POS_JJS, LangLib.POS_TO}));
 }

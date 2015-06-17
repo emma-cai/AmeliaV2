@@ -1,4 +1,4 @@
-package rte.classifier.naivebayes;
+package rte.classifier_maochen.naivebayes;
 
 import java.util.Map;
 

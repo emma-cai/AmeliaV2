@@ -1,10 +1,10 @@
-package rte.classifier.naivebayes;
+package rte.classifier_maochen.naivebayes;
 
 import org.apache.commons.lang3.NotImplementedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import rte.classifier.IClassifier;
-import rte.classifier.Tuple;
+import rte.classifier_maochen.IClassifier;
+import rte.classifier_maochen.Tuple;
 
 import java.util.List;
 import java.util.Map;

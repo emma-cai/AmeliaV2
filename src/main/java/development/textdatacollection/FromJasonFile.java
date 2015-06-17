@@ -19,7 +19,7 @@ public class FromJasonFile {
 
     /** **************************************************************
      * Collect gold standard data from DA results with human correction
-     * @param ifilepath: classification results from DA classifier with
+     * @param ifilepath: classification results from DA classifier_maochen with
      *                 manual correction
      * @param ofilepath: gold standard (labeled) data
      */

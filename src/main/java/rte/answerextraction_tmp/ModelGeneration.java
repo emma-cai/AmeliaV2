@@ -1,4 +1,4 @@
-package rte.answerextraction;
+package rte.answerextraction_tmp;
 
 import org.apache.spark.SparkConf;
 import org.apache.spark.SparkContext;
@@ -25,8 +25,8 @@ public class ModelGeneration {
     public static void run() {
         String trainfeapath = "data/rte/MIT99.train.txt";
         String testfeapath = "data/rte/MIT99.train.txt";
-        String modelpath = "data/rte/MIT99.classifier";
-        runMultinomialLogisticRegression(trainfeapath, testfeapath, modelpath, false);          // run classifier
+        String modelpath = "data/rte/MIT99.classifier_maochen";
+        runMultinomialLogisticRegression(trainfeapath, testfeapath, modelpath, false);          // run classifier_maochen
     }
 
     /** **************************************************************
