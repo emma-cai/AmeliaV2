@@ -29,16 +29,17 @@ public class SVMSparkMLlib {
 
     public static void main(String[] args) {
 
-        String trainpath = "data/rte/MIT99.train.spark.txt";
-        String testpath = "data/rte/cmuwiki.test.spark.txt";
-        String testExcelPath = "data/rte/cmuwiki.test.xls";
-        String testSheetName = "sheet1";
-        List<RTEData> testDataList = readFromXML(testExcelPath, testSheetName);
-
-
         SparkConf conf = new SparkConf().setAppName("SVM Classifier")
                 .setMaster("local[4]");
         SparkContext sc = new SparkContext(conf);
+
+        String trainName = "MIT99";
+        String testName = "cmuwiki";
+        String trainpath = "data/rte/" + trainName + ".train.spark.txt";
+        String testpath = "data/rte/" + testName + ".test.spark.txt";
+        String testExcelPath = "data/rte/" + testName + ".test.xls";
+        String testSheetName = testName;
+        List<RTEData> testDataList = readFromXML(testExcelPath, testSheetName);
 
 //        JavaRDD<LabeledPoint> data = MLUtils.loadLabeledData(sc, trainpath).toJavaRDD().cache();
 //        JavaRDD<LabeledPoint>[] splits = data.randomSplit(new double[] {0.6, 0.4}, 11L);
@@ -144,12 +145,14 @@ public class SVMSparkMLlib {
 
                 row = sheet.getRow(i);
                 if (row != null) {
-                    String id = row.getCell(0).getStringCellValue().toLowerCase();
-                    String label = row.getCell(1).getStringCellValue().toLowerCase();
-                    String ques = row.getCell(2).getStringCellValue().toLowerCase();
-                    String text = row.getCell(3).getStringCellValue().toLowerCase();
-                    String expAns = row.getCell(4) == null? null : row.getCell(4).getStringCellValue().toLowerCase();
-                    String saCand = row.getCell(5) == null? null : row.getCell(5).getStringCellValue().toLowerCase();
+                    int colIndex = 0;
+                    String id = row.getCell(colIndex++).getStringCellValue();
+                    String label = row.getCell(colIndex++).getStringCellValue();
+                    String ques = row.getCell(colIndex++).getStringCellValue();
+                    String text = row.getCell(colIndex++).getStringCellValue();
+                    String answerid = row.getCell(colIndex++).getStringCellValue();
+                    String answer = row.getCell(colIndex++).getStringCellValue();
+                    String saCand = row.getCell(colIndex++).getStringCellValue();
 
                     int feaStart = 6;
                     int feaTotal = row.getPhysicalNumberOfCells();
@@ -161,7 +164,7 @@ public class SVMSparkMLlib {
                     String quesConllx = row.getCell(5).getStringCellValue();
                     String textConllx = row.getCell(6).getStringCellValue();
 
-                    RTEData data = new RTEData(id, ques, text, expAns);
+                    RTEData data = new RTEData(id, label, ques, text, answerid, answer);
                     data.setShortAnswerCandidate(saCand);
                     data.setFeaMap(feamap);
                     data.setLabel(label);

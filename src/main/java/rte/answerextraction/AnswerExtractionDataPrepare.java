@@ -33,31 +33,33 @@ public class AnswerExtractionDataPrepare {
 
     public static void generateTrainingData() {
 
-        // For training data
-        String rawXMLPath = "/Users/qingqingcai/Documents/IntellijWorkspace/AmeliaV2/data/rte/MIT99.xls";
-        String trainExcelPath = "/Users/qingqingcai/Documents/IntellijWorkspace/AmeliaV2/data/rte/MIT99.train.xls";
-        String trainTxtPath = "/Users/qingqingcai/Documents/IntellijWorkspace/AmeliaV2/data/rte/MIT99.train.txt";
-        String trainSparkPath = "/Users/qingqingcai/Documents/IntellijWorkspace/AmeliaV2/data/rte/MIT99.train.spark.txt";
-        String trainArffPath = "/Users/qingqingcai/Documents/IntellijWorkspace/AmeliaV2/data/rte/MIT99.train.arff";
-        String trainSheetName = "MIT99-trek8";
-
-        List<RTEData> trainDataList = readFromXML(rawXMLPath, trainSheetName, true);
-        List<RTEData> trainDataWithFeatureList = generateFeatures(trainDataList, true);
-        featureNormalization(trainDataWithFeatureList);
-        toNumericFeature(trainDataWithFeatureList);
-
-        writeFeatureToExcelFile(trainExcelPath, trainDataWithFeatureList, true);
-        writeFeatureToTxtFile(trainTxtPath, trainDataWithFeatureList, true);
-        writeFeatureToArffFile(trainArffPath, trainDataWithFeatureList, false);
-        writeFeatureToSparkLabeledPoint(trainSparkPath, trainDataWithFeatureList, false);
+//        // For training data
+//        String trainName = "MIT99";
+//        String rawXMLPath = "data/rte/" + trainName + ".xls";
+//        String trainExcelPath = "data/rte/" + trainName + ".train.xls";
+//        String trainTxtPath = "data/rte/" + trainName + ".train.txt";
+//        String trainSparkPath = "data/rte/" + trainName + ".train.spark.txt";
+//        String trainArffPath = "data/rte/" + trainName + ".train.arff";
+//        String trainSheetName = trainName;
+//
+//        List<RTEData> trainDataList = readFromXML(rawXMLPath, trainSheetName, true);
+//        List<RTEData> trainDataWithFeatureList = generateFeatures(trainDataList, true);
+//        featureNormalization(trainDataWithFeatureList);
+//        toNumericFeature(trainDataWithFeatureList);
+//
+//        writeFeatureToExcelFile(trainExcelPath, trainDataWithFeatureList, true);
+//        writeFeatureToTxtFile(trainTxtPath, trainDataWithFeatureList, true);
+//        writeFeatureToArffFile(trainArffPath, trainDataWithFeatureList, false);
+//        writeFeatureToSparkLabeledPoint(trainSparkPath, trainDataWithFeatureList, false);
 
         // for testing data
-        String testPath = "/Users/qingqingcai/Documents/IntellijWorkspace/AmeliaV2/data/rte/cmuWiki.xls";
-        String testSparkPath = "/Users/qingqingcai/Documents/IntellijWorkspace/AmeliaV2/data/rte/cmuwiki.test.spark.txt";
-        String testExcelPath = "/Users/qingqingcai/Documents/IntellijWorkspace/AmeliaV2/data/rte/cmuwiki.test.xls";
-        String testSheetName = "cmuwiki";
+        String testName = "cmuwiki";
+        String testPath = "data/rte/" + testName + ".xls";
+        String testSparkPath = "data/rte/" + testName + ".test.spark.txt";
+        String testExcelPath = "data/rte/" + testName + ".test.xls";
+        String testSheetName = testName;
 
-        List<RTEData> testDataList = /**readTestData(testPath);**/readFromXML(testPath, testSheetName, false);
+        List<RTEData> testDataList = readFromXML(testPath, testSheetName, false);
         List<RTEData> testDataWithFeatureList = generateFeatures(testDataList, false);
         toNumericFeature(testDataWithFeatureList);
 
@@ -168,6 +170,7 @@ public class AnswerExtractionDataPrepare {
             String id = data.id;
             String ques = data.query;
             String text = data.text;
+            String answerid = data.answerid;
             String answer = data.answer;
 
             String quesConllx = data.conllxQ;
@@ -182,11 +185,11 @@ public class AnswerExtractionDataPrepare {
 //            String ansDepStr = GraphExtended.getFieldStr(labeledAnsNodeList, "dep");
 //            String ansFormStr = GraphExtended.getFieldStr(labeledAnsNodeList, "form").replaceAll("_", " ");
 
-            String labeledAnsFormStr = answer;
-            if (forTrainData) {
-                List<DNode> labeledAnsNodeList = getNodeList(graphT, answer);
-                labeledAnsFormStr = getFieldStr(labeledAnsNodeList, "form", null, "_").replaceAll("_", " ");
-            }
+            String labeledAnsFormStr1 = answer;
+//            if (forTrainData) {
+//                List<DNode> labeledAnsNodeList = getNodeList(graphT, answer);
+//                labeledAnsFormStr = getFieldStr(labeledAnsNodeList, "form", null, "_").replaceAll("_", " ");
+//            }
 
             DNode whNode = graphQ.getFirstNodeWithPosTag(NodeComparer.WhSet);
 
@@ -204,11 +207,10 @@ public class AnswerExtractionDataPrepare {
                 List<DNode> ansCandNodeList = new ArrayList(ansCandNodeMap.values());
                 String label = "0";
 
+
                 boolean isPositiveCandidate = false;
-                if (labeledAnsFormStr.toLowerCase().equals(ansCandStr.toLowerCase()) ||
-                        (ansCandStr.toLowerCase().contains(labeledAnsFormStr.toLowerCase())
-                                && (ansCandStr.split(" ").length <= labeledAnsFormStr.split(" ").length+5)))
-                    isPositiveCandidate = true;
+                if (forTrainData)
+                    isPositiveTraining(data, graphT, ansCandStr);
 
                 boolean addtofile = false;
                 if (forTrainData) {
@@ -231,13 +233,15 @@ public class AnswerExtractionDataPrepare {
                 if (addtofile) {
                     HashMap<String, String> feamap = featureGeneration(graphT, graphQ, ansCandNodeList);
 
-                    RTEData dataWithFeature = new RTEData(id, label, ques, text, labeledAnsFormStr, quesConllx, textConllx, feamap);
+                    RTEData dataWithFeature = new RTEData(id, label, ques, text, answerid, answer);
+                    dataWithFeature.setFeaMap(feamap);
                     dataWithFeature.setShortAnswerCandidate(ansCandStr);
                     dataWithFeatureList.add(dataWithFeature);
                     System.out.println("id = " + data.id);
                     System.out.println("label = " + label);
                     System.out.println("ques = " + data.query);
                     System.out.println("text = " + data.text);
+                    System.out.println("answerid = " + data.answerid);
                     System.out.println("answer = " + data.answer);
                     System.out.println("ansCandStr = " + dataWithFeature.shortAnswerCandidate);
                     System.out.println("feature = " + feamap);
@@ -270,8 +274,6 @@ public class AnswerExtractionDataPrepare {
 //        String ansDepStr = getFieldStr(ansCandNodeList, "dep", null, "_");
 //        String ansLemStr = getFieldStr(ansCandNodeList, "lemma", null, "_").replaceAll("_", " ");
 
-
-
         DNode whNode = graphQ.getFirstNodeWithPosTag(NodeComparer.WhSet);
 
         if (whNode == null) {
@@ -280,6 +282,7 @@ public class AnswerExtractionDataPrepare {
         }
 
         String whForm = whNode.getForm();
+        String whLemma = whNode.getLemma();
 
         DNode lcaNode = graphT.getLowestCommonAncestor(ansCandNodeList);
         String lcaPosStr = getFieldStr(new ArrayList<>(Arrays.asList(lcaNode)), "pos", null, "_");
@@ -291,15 +294,18 @@ public class AnswerExtractionDataPrepare {
         String fv = Integer.toString(ansCandNodeList.size());
         feamap.put("N:a_TN", fv);
 
-        // Does answer-candidate contain number?
-        fv = ansPosList.contains("CD") ? "1" : "0";
-        feamap.put("C:w_a_hasCD", whForm + "-" + fv);
-
-        // Does answer-candidate start with IN?
-
         // overlap of QUERY_LEMMA and TEXT_LEMMA
         fv = Integer.toString(overlap(graphQ, ansCandNodeList));
         feamap.put("N:overlapN", fv);
+
+        // (wh-word-form, 0/1); 0/1 -> Does answer-candidate contain number/CD?
+        fv = ansPosList.contains("CD") ? "1" : "0";
+        feamap.put("C:whLemma_a_hasCD", whLemma + "-" + fv);
+
+        // (wh-word-lemma, lca-dep)
+        feamap.put("C:whLemma_lcaDep", whLemma + "-" + lcaDepStr);
+
+
 
 //        // wh-words and lowest-common-ancestor's pos
 //        feamap.put("C:w_l_pos", whForm + "-" + lcaPosStr);
@@ -310,6 +316,44 @@ public class AnswerExtractionDataPrepare {
 //        feamap.put("w_l_dep", "w_l_dep=" + whForm + "-" + lcaDepStr);
 
         return feamap;
+    }
+
+    /**
+     *
+     * @param data
+     * @param graphT
+     * @param ansCandStr
+     * @return
+     */
+    private static boolean isPositiveTraining(RTEData data, Graph graphT, String ansCandStr) {
+
+        String answerid = data.answerid;
+        String answer = data.answer;
+        String[] answeridArr = answerid.split(" ");
+        String[] answerArr = answer.split(" ");
+
+        // check if answer and answerid are matched
+        if (answeridArr.length != answerArr.length)
+            return false;
+        for (int i = 0; i < answeridArr.length; i++) {
+            String aid = answeridArr[i];
+            String a = answerArr[i];
+            DNode anode = graphT.getNodeById(Integer.parseInt(aid));
+            if (anode == null)
+                return false;
+            if (!anode.getForm().toLowerCase().equals(a.toLowerCase())) {
+                System.out.println("ERROR: answerid and answer are not matched for " + data.id);
+                return false;
+            }
+        }
+
+        // check if the ansCandStr contains expected-answer
+        if (answer.toLowerCase().equals(ansCandStr.toLowerCase()) ||
+                (ansCandStr.toLowerCase().contains(answer.toLowerCase())
+                        && (ansCandStr.split(" ").length <= answer.split(" ").length+5)))
+            return true;
+
+        return false;
     }
 
     /** **************************************************************
@@ -335,7 +379,7 @@ public class AnswerExtractionDataPrepare {
                         || (shortanswer.toLowerCase().equals("no"));
                 if (!yesorno) {
 
-                    RTEData data = new RTEData(Integer.toString(id++), query, longanswer, shortanswer);
+                    RTEData data = new RTEData(Integer.toString(id++), "", query, longanswer, "", shortanswer);
                     dataList.add(data);
                 }
             }
@@ -367,18 +411,21 @@ public class AnswerExtractionDataPrepare {
             for (int i = 0; i < rows; i++) {
                 row = sheet.getRow(i);
                 if (row != null) {
-                    String id = row.getCell(0).getStringCellValue();
-                    String ques = row.getCell(2).getStringCellValue();
-                    String text = row.getCell(3).getStringCellValue();
-                    String expAns = row.getCell(4) == null? null : row.getCell(4).getStringCellValue();
-                    String quesConllx = row.getCell(5).getStringCellValue();
-                    String textConllx = row.getCell(6).getStringCellValue();
+                    int colIndex = 0;
+                    String id = row.getCell(colIndex++).getStringCellValue();
+                    String label = row.getCell(colIndex++).getStringCellValue();
+                    String ques = row.getCell(colIndex++).getStringCellValue();
+                    String text = row.getCell(colIndex++).getStringCellValue();
+                    String answerid = row.getCell(colIndex++).getStringCellValue();
+                    String answer = row.getCell(colIndex++).getStringCellValue();
+                    String quesConllx = row.getCell(colIndex++).getStringCellValue();
+                    String textConllx = row.getCell(colIndex++).getStringCellValue();
 
-                    boolean yesorno = (expAns.toLowerCase().equals("yes"))
-                            || (expAns.toLowerCase().equals("no"));
-                    if ((forTrainData && expAns != null)
+                    boolean yesorno = (answer.toLowerCase().equals("yes"))
+                            || (answer.toLowerCase().equals("no"));
+                    if ((forTrainData && answer != null)
                             || (!forTrainData && !yesorno)) {
-                        RTEData data = new RTEData(id, ques, text, expAns);
+                        RTEData data = new RTEData(id, label, ques, text, answerid, answer);
                         data.setConllxQ(quesConllx);
                         data.setConllxT(textConllx);
                         dataList.add(data);
@@ -472,30 +519,33 @@ public class AnswerExtractionDataPrepare {
         int rownum = 0;
         for (RTEData data : dataList) {
 
-            int colnum = 0;
-
             // only save the (query, text) pairs with correct answers
             Row row = sheet.createRow(rownum++);
-            Cell cell = row.createCell(colnum++);
+
+            int colIndex = 0;
+            Cell cell = row.createCell(colIndex++);
             cell.setCellValue(data.id);
 
-            cell = row.createCell(colnum++);
+            cell = row.createCell(colIndex++);
             cell.setCellValue(data.label);
 
-            cell = row.createCell(colnum++);
+            cell = row.createCell(colIndex++);
             cell.setCellValue(data.query);
 
-            cell = row.createCell(colnum++);
+            cell = row.createCell(colIndex++);
             cell.setCellValue(data.text);
 
-            cell = row.createCell(colnum++);
+            cell = row.createCell(colIndex++);
+            cell.setCellValue(data.answerid);
+
+            cell = row.createCell(colIndex++);
             cell.setCellValue(data.answer);
 
-            cell = row.createCell(colnum++);
+            cell = row.createCell(colIndex++);
             cell.setCellValue(data.shortAnswerCandidate);
 
             for (String fn : data.feamap.keySet()) {
-                cell = row.createCell(colnum++);
+                cell = row.createCell(colIndex++);
                 cell.setCellValue(data.feamap.get(fn));
             }
         }

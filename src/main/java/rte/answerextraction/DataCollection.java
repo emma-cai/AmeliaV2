@@ -23,17 +23,20 @@ public class DataCollection {
     public static boolean LOWERCASE = false;
     public static void main (String[] args) {
 
+        String trainName = "MIT99";
         String trainInputPath = "data/rte/jacana-qa-naacl2013-data-results/train2393.cleanup.xml";
-        String trainOutputPath = "data/rte/MIT99.xls";
-        String trainSheetName = "MIT99-trek8";
+    //    String trainInputPath = "data/rte/original-trec-smallexamples.xml";
+        String trainOutputPath = "data/rte/" + trainName + ".xls";
+        String trainSheetName = trainName;
         List<RTEData> trainDataList = readXML(trainInputPath);
         writeToExcel(trainOutputPath, trainSheetName, trainDataList);
 
-//        String testInputPath = "data/rte/cmuWiki.smallexamples.json";
-//        String testOutputPath = "data/rte/cmuwiki.smallexamples.xls";
-//        String testSheetName = "cmuwiki";
-//        List<RTEData> testDataList = readJSON(testInputPath);
-//        writeToExcel(testOutputPath, testSheetName, testDataList);
+        String testName = "cmuwiki";
+        String testInputPath = "data/rte/" + testName + ".json";
+        String testOutputPath = "data/rte/" + testName + ".xls";
+        String testSheetName = testName;
+        List<RTEData> testDataList = readJSON(testInputPath);
+        writeToExcel(testOutputPath, testSheetName, testDataList);
     }
 
     /** **************************************************************
@@ -47,25 +50,31 @@ public class DataCollection {
 
             // only save the (query, text) pairs with correct answers
             Row row = sheet.createRow(rownum++);
-            Cell cell = row.createCell(0);
+
+            // id \t label \t query \t text \t answerid \t answer \t conllxQ \t conllxT
+            int colIndex = 0;
+            Cell cell = row.createCell(colIndex++);
             cell.setCellValue(data.id);
 
-            cell = row.createCell(1);
+            cell = row.createCell(colIndex++);
             cell.setCellValue("1");
 
-            cell = row.createCell(2);
+            cell = row.createCell(colIndex++);
             cell.setCellValue(data.query);
 
-            cell = row.createCell(3);
+            cell = row.createCell(colIndex++);
             cell.setCellValue(data.text);
 
-            cell = row.createCell(4);
+            cell = row.createCell(colIndex++);
+            cell.setCellValue(data.answerid);
+
+            cell = row.createCell(colIndex++);
             cell.setCellValue(data.answer);
 
-            cell = row.createCell(5);
+            cell = row.createCell(colIndex++);
             cell.setCellValue(data.conllxQ);
 
-            cell = row.createCell(6);
+            cell = row.createCell(colIndex++);
             cell.setCellValue(data.conllxT);
 
             /**
@@ -133,7 +142,7 @@ public class DataCollection {
                     boolean positivestarted = true;
                     boolean negativestarted = true;
                     if (!id.isEmpty()) {
-                        RTEData data = new RTEData(id, question, positive, answerid, answer);
+                        RTEData data = new RTEData(id, "", question, positive, answerid, answer);
                         data.setConllxQ(Graph.textToConllx(question));
                         data.setConllxT(Graph.textToConllx(positive));
                 //        data.setConllxN(Graph.textToConllx(negative));
@@ -157,11 +166,13 @@ public class DataCollection {
                                 twoStepPrev = prev;
                                 prev = line;
                             }
-                            System.out.println("debug: twoStepPrev = " + twoStepPrev);
-                            System.out.println("debug: prev = " + prev);
-                            System.out.println("debug: line = " + line);
-                            answerid = twoStepPrev.trim().replaceAll("\t", " ");
-                            answer = prev.trim().replaceAll("\t", " ");
+                            answer = twoStepPrev.trim().replaceAll("\t", " ");
+                            int indexOfSplit = answer.indexOf("#");
+                            answer = (indexOfSplit == -1) ? answer : answer.substring(0, indexOfSplit).trim();
+
+                            answerid = prev.trim().replaceAll("\t", " ");
+                            indexOfSplit = answerid.indexOf("#");
+                            answerid = (indexOfSplit == -1) ? answerid : answerid.substring(0, indexOfSplit).trim();
                         }
                         if (line.startsWith(negativeStart) && negativestarted == true) {
                             negativestarted = false;
@@ -171,11 +182,11 @@ public class DataCollection {
                 }
             }
 
-            RTEData data = new RTEData(id, question, positive, answerid, answer);
+            RTEData data = new RTEData(id, "", question, positive, answerid, answer);
             data.setConllxQ(Graph.textToConllx(question));
             data.setConllxT(Graph.textToConllx(positive));
         //    data.setConllxN(Graph.textToConllx(negative));
-            System.out.println(data.id + "\n" + data.query + "\n" + data.answer + "\n");
+            System.out.println(data.id + "\n" + data.query + "\n" + data.answerid + "\n");
             dataList.add(data);
         } catch (IOException e) {
             e.printStackTrace();
@@ -205,7 +216,7 @@ public class DataCollection {
                 longanswer = LOWERCASE ? longanswer.toLowerCase() : longanswer;
                 String shortanswer = (String) obj.get("optimal_answer");
 
-                RTEData data = new RTEData(Integer.toString(id++), query, longanswer, "", shortanswer);
+                RTEData data = new RTEData(Integer.toString(id++), "", query, longanswer, "", shortanswer);
                 data.setConllxQ(Graph.textToConllx(query));
                 data.setConllxT(Graph.textToConllx(longanswer));
 

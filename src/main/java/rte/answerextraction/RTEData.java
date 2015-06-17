@@ -79,27 +79,41 @@ public class RTEData {
 
     }
 
-    public RTEData(String id, String question, String positive, String answerid, String answer) {
+//    public RTEData(String id, String query, String text, String answer) {
+//
+//        new RTEData(id, query, text, "", answer);
+//    }
+//
+//    public RTEData(String id, String question, String positive, String answerid, String answer) {
+//
+//        this.id = id;
+//        this.query = question;
+//        this.text = positive;
+//        this.answerid = answerid;
+//        this.answer = answer;
+//    }
+//
+//    public RTEData(String id, String label, String ques, String text, String answer,
+//                   String quesConllx, String textConllx, HashMap<String, String> feamap) {
+//
+//        this.id = id;
+//        this.label = label;
+//        this.query = ques;
+//        this.text = text;
+//        this.answer = answer;
+//        this.conllxQ = quesConllx;
+//        this.conllxT = textConllx;
+//        this.feamap.putAll(feamap);
+//    }
 
-        this.id = id;
-        this.query = question;
-        this.text = positive;
-        this.answerid = answerid;
-        this.answer = answer;
-    //    this.negative = negative;
-    }
-
-    public RTEData(String id, String label, String ques, String text, String answer,
-                   String quesConllx, String textConllx, HashMap<String, String> feamap) {
+    public RTEData(String id, String label, String query, String text, String answerid, String answer) {
 
         this.id = id;
         this.label = label;
-        this.query = ques;
+        this.query = query;
         this.text = text;
+        this.answerid = answerid;
         this.answer = answer;
-        this.conllxQ = quesConllx;
-        this.conllxT = textConllx;
-        this.feamap.putAll(feamap);
     }
 
     public String getID() {

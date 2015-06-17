@@ -1,0 +1,713 @@
+<QApairs id='32.1'>
+<question>
+What	do	practitioners	of	Wicca	worship	?
+WP	VBP	NNS	IN	NNP	NN	.
+VMOD	ROOT	OBJ	NMOD	NMOD	PMOD	P
+2	0	2	3	6	4	2
+-	-	PER_DESC-B	-	ORGANIZATION-B	-	-
+</question>
+<positive>
+An	estimated	50,000	Americans	practice	Wicca	,	a	form	of	polytheistic	nature	worship	.
+DT	VBN	CD	NNPS	NN	NNP	,	DT	NN	IN	JJ	NN	NN	.
+SUB	ROOT	NMOD	NMOD	NMOD	NMOD	P	NMOD	OBJ	NMOD	NMOD	NMOD	PMOD	P
+2	0	6	6	6	9	9	9	2	9	13	13	10	2
+CARDINAL-B	CARDINAL-I	CARDINAL-I	NATIONALITY-B	-	PERSON-B	-	-	-	-	-	-	-	-
+nature	
+12	
+</positive>
+<positive>
+The	inch-	thick	chaplain	handbook	includes	a	five	-page	primer	on	Wicca	,	described	as	``	a	reconstruction	of	the	Nature	worship	of	tribal	Europe	.	''
+DT	JJ	NN	NN	NN	VBZ	DT	CD	NN	NN	IN	NNP	,	VBD	IN	``	DT	NN	IN	DT	NNP	NN	IN	JJ	NNP	.	''
+NMOD	NMOD	NMOD	NMOD	SUB	ROOT	NMOD	NMOD	NMOD	OBJ	NMOD	PMOD	P	NMOD	VMOD	P	NMOD	PMOD	NMOD	NMOD	NMOD	PMOD	NMOD	NMOD	PMOD	P	P
+5	5	5	5	6	0	10	10	10	6	10	11	10	10	14	15	18	15	18	22	22	19	22	25	23	6	6
+-	QUANTITY-B	-	-	-	-	-	CARDINAL-B	-	-	-	ORGANIZATION-B	-	-	-	-	-	-	-	-	ORGANIZATION-B	-	-	-	LOCATION-B	-	-
+Nature	
+21	
+</positive>
+<negative>
+Wicca	--	sometimes	spelled	Wycca	--	comes	from	the	Old	English	word	for	witch	.
+NNP	:	RB	VBN	NNP	:	NNS	IN	DT	NNP	JJ	NN	IN	NN	.
+NMOD	P	VMOD	NMOD	NMOD	P	ROOT	NMOD	NMOD	NMOD	NMOD	PMOD	NMOD	PMOD	P
+7	7	4	5	7	7	0	7	12	12	12	8	12	13	7
+ORGANIZATION-B	-	-	-	ORGANIZATION-B	-	-	-	-	-	LANGUAGE-B	-	-	PER_DESC-B	-
+</negative>
+<negative>
+Ms	.	Siefferly	,	a	senior	at	the	high	school	,	has	practiced	Wicca	for	several	years	after	reading	a	book	on	the	subject	,	Schram	said	.
+NNS	.	RB	,	DT	JJ	IN	DT	JJ	NN	,	VBZ	VBN	NNP	IN	JJ	NNS	IN	VBG	DT	NN	IN	DT	NN	,	NNP	VBD	.
+SUB	P	VMOD	P	NMOD	SUB	VMOD	NMOD	NMOD	PMOD	P	VMOD	VC	OBJ	VMOD	NMOD	PMOD	VMOD	PMOD	NMOD	OBJ	NMOD	NMOD	PMOD	P	SUB	ROOT	P
+12	12	12	12	6	12	12	10	10	7	12	27	12	13	13	17	15	13	18	21	19	21	24	22	27	27	0	27
+PERSON-B	-	-	-	-	-	-	-	-	-	-	-	-	ORGANIZATION-B	-	DATE-B	DATE-I	-	-	-	-	-	-	-	-	PERSON-B	-	-
+</negative>
+<negative>
+That	's	because	Ms	.	Palmer	is	a	witch	,	the	high	priestess	of	a	group	that	practices	Wicca	at	Fort	Hood	with	the	knowledge	and	approval	of	the	U.S	.	Army	.
+DT	VBZ	IN	NNP	.	NNP	VBZ	DT	NN	,	DT	JJ	NN	IN	DT	NN	WDT	VBZ	NNP	IN	NNP	NNP	IN	DT	NN	CC	NN	IN	DT	NNP	.	NNP	.
+SUB	ROOT	VMOD	NMOD	P	SUB	SBAR	NMOD	NMOD	P	NMOD	NMOD	PRD	NMOD	NMOD	PMOD	NMOD	SBAR	OBJ	VMOD	NMOD	PMOD	VMOD	NMOD	NMOD	NMOD	PMOD	NMOD	NMOD	PMOD	P	DEP	P
+2	0	2	6	6	7	3	9	13	13	13	13	7	13	16	14	16	17	18	18	22	20	18	27	27	27	23	27	30	28	2	31	2
+-	-	-	-	-	PERSON-B	-	-	-	-	-	-	-	-	-	ORG_DESC-B	-	-	PERSON-B	-	FAC-B	FAC-I	-	-	-	-	-	-	-	GPE-B	GPE-I	-	-
+</negative>
+<negative>
+Such	sentiments	are	rooted	in	fear	and	false	notions	that	witches	worship	Satan	or	sacrifice	animals	,	said	David	Oringderff	,	head	of	the	San	Antonio	-based	pagan	group	that	sponsors	Ms	.	Palmer	's	Fort	Hood	Open	Circle	.
+JJ	NNS	VBP	VBN	IN	JJ	CC	JJ	NNS	WDT	VBZ	NN	NNP	CC	NN	NNS	,	VBD	NNP	NNP	,	NN	IN	DT	NNP	NNP	JJ	NN	NN	IN	NNS	NNPS	.	NNP	POS	NNP	NNP	NNP	NNP	.
+NMOD	SUB	VMOD	VC	VMOD	AMOD	AMOD	NMOD	PMOD	NMOD	SBAR	NMOD	NMOD	NMOD	NMOD	OBJ	P	ROOT	NMOD	NMOD	P	SUB	NMOD	NMOD	NMOD	NMOD	NMOD	NMOD	PMOD	NMOD	NMOD	SBAR	P	NMOD	NMOD	NMOD	NMOD	NMOD	PMOD	P
+2	3	18	3	4	8	8	9	5	9	10	16	16	16	16	11	18	0	20	22	22	18	22	29	29	29	29	29	23	29	32	30	18	35	39	39	39	39	33	18
+-	-	-	-	-	-	-	-	-	-	PER_DESC-B	-	PERSON-B	-	-	ANIMAL-B	-	-	PERSON-B	PERSON-I	-	PER_DESC-B	-	-	GPE-B	GPE-I	-	-	ORG_DESC-B	-	PER_DESC-B	-	-	PERSON-B	-	LOCATION-B	LOCATION-I	LOCATION-I	LOCATION-I	-
+</negative>
+<negative>
+``	If	they	deny	our	right	to	worship	...
+``	IN	PRP	VBP	PRP$	NN	TO	NN	:
+P	VMOD	SUB	SBAR	NMOD	ROOT	NMOD	PMOD	P
+6	6	4	2	6	0	6	7	6
+-	-	-	-	-	-	-	-	-
+</negative>
+<negative>
+Wicca	members	tend	to	be	white	,	college-educated	,	middle-class	women	,	many	of	whom	have	families	,	said	Ms	.	Berger	,	who	said	the	religion	was	becoming	more	institutionalized	as	the	members	aged	.
+NNP	NNS	NN	TO	VB	JJ	,	JJ	,	JJ	NNS	,	JJ	IN	JJ	VBP	NNS	,	VBD	NNP	.	NNP	,	WP	VBD	DT	NN	VBD	VBG	RBR	JJ	IN	DT	NNS	VBD	.
+NMOD	NMOD	SUB	VMOD	NMOD	PRD	P	NMOD	P	NMOD	SUB	P	SUB	NMOD	PMOD	VMOD	OBJ	P	ROOT	NMOD	P	SUB	P	NMOD	SBAR	NMOD	SUB	VMOD	VC	AMOD	PRD	AMOD	NMOD	SUB	SBAR	P
+2	3	16	5	3	5	16	11	11	11	16	16	16	13	14	19	16	19	0	22	22	19	22	22	24	27	28	25	28	31	29	31	34	35	32	19
+ORGANIZATION-B	PER_DESC-B	-	-	-	-	-	-	-	-	PER_DESC-B	-	-	-	-	-	PER_DESC-B	-	-	-	-	PERSON-B	-	-	-	-	-	-	-	-	-	-	-	PER_DESC-B	-	-
+</negative>
+<negative>
+The	fear	of	a	backlash	has	never	disappeared	,	said	Ms	.	Berger	,	who	added	that	the	false	stereotype	that	witches	worship	Satan	endures	.
+DT	NN	IN	DT	NN	VBZ	RB	VBN	,	VBD	NNP	.	NNP	,	WP	VBD	IN	DT	NN	NN	WDT	VBZ	NN	NNP	NNS	.
+NMOD	SUB	NMOD	NMOD	PMOD	VMOD	VMOD	VC	P	ROOT	NMOD	P	SUB	P	NMOD	SBAR	VMOD	NMOD	NMOD	OBJ	NMOD	SBAR	NMOD	NMOD	OBJ	P
+2	6	2	5	3	10	6	6	10	0	13	13	10	13	13	15	16	20	20	16	20	21	25	25	22	10
+-	-	-	-	-	-	-	-	-	-	-	-	PERSON-B	-	-	-	-	-	-	-	-	PER_DESC-B	-	PERSON-B	-	-
+</negative>
+<negative>
+``	When	people	think	of	Wicca	,	they	think	of	either	Satanism	or	silly	mumbo	jumbo.	''
+``	WRB	NNS	VBP	IN	NNP	,	PRP	VBP	IN	NN	NNP	CC	RB	JJ	.	''
+P	VMOD	SUB	SBAR	VMOD	PMOD	P	SUB	ROOT	VMOD	PMOD	AMOD	AMOD	AMOD	NMOD	P	P
+9	9	4	2	4	5	9	9	0	9	10	15	15	15	11	9	9
+-	-	PER_DESC-B	-	-	ORGANIZATION-B	-	-	-	-	-	PRODUCT-B	-	-	-	-	-
+</negative>
+</QApairs>
+<QApairs id='32.2'>
+<question>
+How	many	followers	does	Wicca	have	?
+NNP	JJ	NNS	VBZ	NNP	VB	.
+NMOD	NMOD	SUB	ROOT	SUB	VMOD	P
+3	3	4	0	4	4	4
+-	-	PER_DESC-B	-	PERSON-B	-	-
+</question>
+<negative>
+Its	followers	describe	Wicca	as	a	nature-based	belief	system	that	existed	in	Europe	before	Christianity	.
+NNS	NNS	FW	NNP	IN	DT	JJ	NN	NN	IN	VBN	IN	NNP	IN	NNP	.
+NMOD	NMOD	NMOD	ROOT	NMOD	NMOD	NMOD	NMOD	PMOD	NMOD	SBAR	VMOD	PMOD	VMOD	PMOD	P
+2	4	4	0	4	9	9	9	5	9	10	11	12	11	14	4
+-	PER_DESC-B	-	PERSON-B	-	-	-	-	-	-	-	-	LOCATION-B	-	-	-
+</negative>
+<negative>
+Even	so	,	why	are	a	growing	number	of	scholars	studying	followers	of	the	occult	?
+RB	RB	,	RB	VBP	DT	VBG	NN	IN	NNS	VBG	NNS	IN	DT	NN	.
+VMOD	AMOD	P	VMOD	ROOT	NMOD	NMOD	PRD	NMOD	PMOD	NMOD	OBJ	NMOD	NMOD	PMOD	P
+5	1	5	5	0	8	8	5	8	9	10	11	12	15	13	5
+-	-	-	-	-	-	-	-	-	PER_DESC-B	-	PER_DESC-B	-	-	-	-
+</negative>
+</QApairs>
+<QApairs id='33.1'>
+<question>
+What	is	Florence	Nightingale	famous	for	?
+WP	VBZ	NNP	JJ	NN	IN	.
+VMOD	ROOT	NMOD	NMOD	PRD	NMOD	P
+2	0	5	5	2	5	2
+-	-	PERSON-B	PERSON-I	-	-	-
+</question>
+<positive>
+The	newly	named	``	corner	shop	''	where	Asprey	has	traded	since	1847	occupies	what	were	once	nine	Georgian	houses	,	one	of	which	was	the	last	London	home	of	nursing	pioneer	Florence	Nightingale	.
+DT	NN	VBN	``	NN	NN	''	WRB	NNP	VBZ	VBN	IN	CD	NNS	WP	VBD	RB	CD	JJ	NNS	,	NN	IN	WDT	VBD	DT	JJ	NNP	NN	IN	VBG	NN	NNP	NNP	.
+NMOD	SUB	ROOT	P	NMOD	VMOD	P	NMOD	SUB	SBAR	VC	VMOD	NMOD	OBJ	NMOD	SBAR	NMOD	AMOD	NMOD	PRD	P	NMOD	NMOD	PMOD	SBAR	NMOD	NMOD	NMOD	PRD	NMOD	PMOD	NMOD	NMOD	OBJ	P
+2	3	0	6	6	3	6	6	10	8	10	11	14	11	14	15	20	17	20	16	22	23	20	23	23	29	29	29	25	29	30	34	34	31	10
+-	-	-	-	-	-	-	-	ORGANIZATION-B	-	-	-	DATE-B	-	-	-	-	CARDINAL-B	NATIONALITY-B	ORG_DESC-B	-	-	-	-	-	-	-	GPE-B	-	-	-	ORG_DESC-B	ORGANIZATION-B	ORGANIZATION-I	-
+nursing	
+31	
+</positive>
+<positive>
+In	1820	,	the	founder	of	modern	nursing	,	Florence	Nightingale	,	was	born	in	Florence	,	Italy	.
+IN	CD	,	DT	NN	IN	JJ	NN	,	NNP	NNP	,	VBD	VBN	IN	NNP	,	NNP	.
+VMOD	PMOD	P	NMOD	PMOD	NMOD	NMOD	PMOD	P	NMOD	PMOD	P	ROOT	VC	VMOD	NMOD	P	PMOD	P
+13	1	5	5	1	5	8	6	11	11	6	5	0	13	14	18	18	15	13
+-	DATE-B	-	-	PER_DESC-B	-	-	-	-	GPE-B	GPE-I	-	-	-	-	GPE-B	-	GPE-B	-
+nursing	
+8	
+</positive>
+<positive>
+1836	_	Theodor	Fliedner	reinstitutes	the	Order	of	Deaconesses	and	opens	a	small	hospital	and	training	school	in	Kaiserwerth	,	Germany	,	where	Florence	Nightingale	,	``	The	founder	of	Modern	Nursing	,	''	receives	her	training	.
+CD	IN	NNP	NNP	VBZ	DT	NN	IN	NNS	CC	VBZ	DT	JJ	NN	CC	NN	NN	IN	NNP	,	NNP	,	WRB	NNP	NNP	,	``	DT	NN	IN	NNP	VBG	,	''	VBZ	PRP$	NN	.
+SUB	NMOD	NMOD	SUB	SBAR	NMOD	OBJ	NMOD	PMOD	VMOD	VMOD	NMOD	NMOD	NMOD	NMOD	NMOD	NMOD	NMOD	NMOD	P	PMOD	P	NMOD	NMOD	NMOD	P	P	NMOD	SUB	NMOD	PMOD	VMOD	P	P	ROOT	NMOD	SUB	P
+32	1	4	5	2	7	5	7	8	5	5	17	17	17	17	17	29	17	21	21	18	21	29	25	29	29	29	29	32	29	30	35	35	35	0	37	35	35
+CONTACT_INFO-B	-	PERSON-B	PERSON-I	-	-	ORGANIZATION-B	ORGANIZATION-I	ORGANIZATION-I	-	-	-	-	ORG_DESC-B	-	-	ORG_DESC-B	-	GPE-B	-	GPE-B	-	-	PERSON-B	PERSON-I	-	-	-	PER_DESC-B	-	ORGANIZATION-B	ORGANIZATION-I	-	-	-	-	-	-
+Nursing	
+32	
+</positive>
+<positive>
+Florence	Nightingale	,	a	national	heroine	in	the	United	Kingdom	,	was	the	pioneer	of	the	modern	nursing	.
+NNP	NNP	,	DT	JJ	NN	IN	DT	NNP	NNP	,	VBD	DT	NN	IN	DT	JJ	NN	.
+NMOD	NMOD	P	NMOD	NMOD	SUB	NMOD	NMOD	NMOD	PMOD	P	ROOT	NMOD	PRD	NMOD	NMOD	NMOD	PMOD	P
+2	6	6	6	6	12	6	10	10	7	10	0	14	12	14	18	18	15	12
+PERSON-B	PERSON-I	-	-	-	PER_DESC-B	-	-	GPE-B	GPE-I	-	-	-	ORG_DESC-B	-	-	-	-	-
+nursing	
+18	
+</positive>
+<negative>
+Referring	to	the	general	acceptance	of	Peplau	's	interpersonal	process	,	Sills	added	,	``	It	has	been	argued	that	Dr	.	Peplau	's	life	and	work	produced	the	greatest	changes	in	nursing	practice	since	Florence	Nightingale	.	''
+VBG	TO	DT	JJ	NN	IN	NNP	POS	JJ	NN	,	NNS	VBD	,	``	PRP	VBZ	VBN	VBN	IN	NNP	.	NNP	POS	NN	CC	NN	VBD	DT	JJS	NNS	IN	VBG	NN	IN	NNP	NNP	.	''
+VMOD	VMOD	NMOD	NMOD	PMOD	NMOD	NMOD	NMOD	NMOD	PMOD	P	SUB	ROOT	P	P	SUB	VMOD	VC	VC	VMOD	NMOD	P	NMOD	NMOD	NMOD	NMOD	SUB	SBAR	NMOD	NMOD	OBJ	NMOD	PMOD	OBJ	VMOD	NMOD	PMOD	P	P
+13	1	5	5	2	5	8	10	10	6	13	13	0	13	17	17	13	17	18	19	24	24	24	27	27	27	28	20	31	31	28	31	32	33	33	37	35	13	13
+-	-	-	-	-	-	ORGANIZATION-B	-	-	-	-	PERSON-B	-	-	-	-	-	-	-	-	ORGANIZATION-B	-	ORGANIZATION-B	-	-	-	-	-	-	-	-	-	-	ORG_DESC-B	-	GPE-B	GPE-I	-	-
+</negative>
+<negative>
+He	noted	that	21	people	from	12	countries	,	including	the	three	Chinese	nurses	,	won	the	37th	Nightingale	Awards	presented	by	the	International	Committee	of	the	Red	Cross	.
+PRP	VBD	IN	CD	NNS	IN	CD	NNS	,	VBG	DT	CD	JJ	NNS	,	VBD	DT	JJ	JJ	NNS	VBN	IN	DT	NNP	NNP	IN	DT	NNP	NNP	.
+SUB	ROOT	VMOD	NMOD	SUB	NMOD	NMOD	PMOD	P	NMOD	NMOD	NMOD	NMOD	PMOD	P	SBAR	NMOD	NMOD	NMOD	OBJ	NMOD	VMOD	NMOD	NMOD	PMOD	NMOD	NMOD	NMOD	PMOD	P
+2	0	2	5	16	5	8	6	8	8	14	14	14	10	8	3	20	20	20	16	20	21	25	25	22	25	29	29	26	2
+-	-	-	CARDINAL-B	PER_DESC-B	-	CARDINAL-B	GPE_DESC-B	-	-	-	CARDINAL-B	NATIONALITY-B	PER_DESC-B	-	-	-	ORDINAL-B	EVENT-B	EVENT-I	-	-	-	ORGANIZATION-B	ORGANIZATION-I	-	-	ORGANIZATION-B	ORGANIZATION-I	-
+</negative>
+<negative>
+The	Nightingale	Award	,	established	at	the	Ninth	International	Red	Cross	Conference	in	Washington	in	1912	,	are	presented	every	two	years	.
+DT	JJ	NNP	,	VBD	IN	DT	NNP	NNP	NNP	NNP	NNP	IN	NNP	IN	CD	,	VBP	JJ	NN	CD	NNS	.
+NMOD	NMOD	SUB	P	NMOD	VMOD	NMOD	NMOD	NMOD	NMOD	NMOD	PMOD	VMOD	PMOD	VMOD	PMOD	P	ROOT	NMOD	NMOD	NMOD	PRD	P
+3	3	18	3	3	5	12	12	12	12	12	6	5	13	5	15	3	0	20	22	22	18	18
+-	WORK_OF_ART-B	WORK_OF_ART-I	-	-	-	-	ORGANIZATION-B	ORGANIZATION-I	ORGANIZATION-I	ORGANIZATION-I	ORGANIZATION-I	-	GPE-B	-	DATE-B	-	-	-	-	DATE-B	DATE-I	-
+</negative>
+</QApairs>
+<QApairs id='33.2'>
+<question>
+When	was	Florence	Nightingale	born	?
+WRB	VBD	NNP	NNP	NN	.
+VMOD	ROOT	NMOD	NMOD	SUB	P
+2	0	5	5	2	2
+-	-	PERSON-B	PERSON-I	-	-
+</question>
+<positive>
+In	1820	,	the	founder	of	modern	nursing	,	Florence	Nightingale	,	was	born	in	Florence	,	Italy	.
+IN	CD	,	DT	NN	IN	JJ	NN	,	NNP	NNP	,	VBD	VBN	IN	NNP	,	NNP	.
+VMOD	PMOD	P	NMOD	PMOD	NMOD	NMOD	PMOD	P	NMOD	PMOD	P	ROOT	VC	VMOD	NMOD	P	PMOD	P
+13	1	5	5	1	5	8	6	11	11	6	5	0	13	14	18	18	15	13
+-	DATE-B	-	-	PER_DESC-B	-	-	-	-	GPE-B	GPE-I	-	-	-	-	GPE-B	-	GPE-B	-
+1820	
+2	
+</positive>
+<positive>
+On	May	12	,	1820	,	the	founder	of	modern	nursing	,	Florence	Nightingale	,	was	born	in	Florence	,	Italy	.
+IN	NNP	CD	,	CD	,	DT	NN	IN	JJ	NN	,	NNP	NNP	,	VBD	VBN	IN	NNP	,	NNP	.
+VMOD	PMOD	NMOD	P	NMOD	P	NMOD	PMOD	NMOD	NMOD	PMOD	P	NMOD	PMOD	P	ROOT	VC	VMOD	NMOD	P	PMOD	P
+16	1	2	2	2	2	8	1	8	11	9	14	14	9	8	0	16	17	21	21	18	16
+-	DATE-B	DATE-I	DATE-I	DATE-I	-	-	PER_DESC-B	-	-	-	-	GPE-B	GPE-I	-	-	-	-	GPE-B	-	GPE-B	-
+1820	
+5	
+</positive>
+</QApairs>
+<QApairs id='34.1'>
+<question>
+When	did	Amtrak	begin	operations	?
+WRB	VBD	RB	VB	NNS	.
+VMOD	ROOT	VMOD	VC	OBJ	P
+2	0	2	2	4	2
+-	-	ORGANIZATION-B	-	-	-
+</question>
+<positive>
+Amtrak	has	not	turned	a	profit	since	it	was	founded	in	1971	.
+NNP	VBZ	RB	VBN	DT	NN	IN	PRP	VBD	VBN	IN	CD	.
+SUB	ROOT	VMOD	VC	NMOD	OBJ	VMOD	SUB	SBAR	VC	VMOD	PMOD	P
+2	0	2	2	6	4	4	9	7	9	10	11	2
+ORGANIZATION-B	-	-	-	-	-	-	-	-	-	-	DATE-B	-
+1971	
+12	
+</positive>
+<positive>
+In	1971	,	Amtrak	--	which	combined	and	streamlined	the	operations	of	18	intercity	passenger	railroads	--	went	into	service	.
+IN	CD	,	NNP	:	WDT	VBD	CC	VBD	DT	NNS	IN	CD	NN	NN	NNS	:	VBD	IN	NN	.
+VMOD	PMOD	P	SUB	P	NMOD	SBAR	VMOD	VMOD	NMOD	OBJ	NMOD	NMOD	NMOD	NMOD	PMOD	P	ROOT	VMOD	PMOD	P
+18	1	18	18	4	4	6	7	7	11	7	11	16	16	16	12	7	0	18	19	18
+-	DATE-B	-	ORGANIZATION-B	-	-	-	-	-	-	ORG_DESC-B	-	CARDINAL-B	-	-	ORG_DESC-B	-	-	-	-	-
+1971	
+2	
+</positive>
+<positive>
+Amtrak	has	not	made	a	profit	since	Congress	created	it	in	1971	to	take	over	passenger	operations	of	private	railroads	.
+NNP	VBZ	RB	VBN	DT	NN	IN	NNP	VBD	PRP	IN	CD	TO	VB	RP	NN	NNS	IN	JJ	NNS	.
+SUB	ROOT	VMOD	VC	NMOD	OBJ	VMOD	PMOD	SBAR	OBJ	VMOD	PMOD	VMOD	VMOD	VMOD	NMOD	OBJ	NMOD	NMOD	PMOD	P
+2	0	2	2	6	4	4	7	7	9	9	11	14	9	14	17	14	17	20	18	2
+ORGANIZATION-B	-	-	-	-	-	-	ORGANIZATION-B	-	-	-	DATE-B	-	-	-	-	ORG_DESC-B	-	-	ORG_DESC-B	-
+1971	
+12	
+</positive>
+<positive>
+Congress	created	Amtrak	in	1971	from	a	collection	of	failing	passenger	railroads	.
+NNP	VBD	NNP	IN	CD	IN	DT	NN	IN	VBG	NN	NNS	.
+SUB	ROOT	OBJ	VMOD	PMOD	VMOD	NMOD	PMOD	NMOD	PMOD	NMOD	OBJ	P
+2	0	2	2	4	2	8	6	8	9	12	10	2
+ORGANIZATION-B	-	ORGANIZATION-B	-	DATE-B	-	-	-	-	-	-	ORG_DESC-B	-
+1971	
+5	
+</positive>
+<negative>
+The	long-awaited	new	trains	,	whose	secret	name	and	other	vital	statistics	were	being	released	at	a	news	conference	today	,	will	start	running	in	October	along	tracks	that	Amtrak	currently	uses	.
+DT	JJ	JJ	NNS	,	WP$	JJ	NN	CC	JJ	JJ	NNS	VBD	VBG	VBN	IN	DT	NN	NN	NN	,	MD	VB	VBG	IN	NNP	IN	NNS	IN	NNP	RB	VBZ	.
+NMOD	NMOD	NMOD	SUB	P	NMOD	NMOD	NMOD	VMOD	NMOD	NMOD	SUB	SBAR	VC	VC	VMOD	NMOD	NMOD	PMOD	PMOD	P	ROOT	VC	VMOD	VMOD	PMOD	VMOD	PMOD	NMOD	SUB	VMOD	SBAR	P
+4	4	4	22	4	4	6	6	13	12	12	13	6	13	14	15	19	19	16	16	4	0	22	23	24	25	24	27	28	32	32	29	22
+-	-	-	PRODUCT_DESC-B	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	DATE-B	-	-	-	-	-	DATE-B	-	-	-	ORGANIZATION-B	-	-	-
+</negative>
+<negative>
+Amtrak	views	the	Northeast	Corridor	as	a	model	for	other	high-speed	rail	proposals	in	the	Great	Lakes	,	along	the	Southeast	and	Gulf	Coast	and	throughout	California	and	the	Pacific	Northwest	.
+NNP	VBZ	DT	NNP	NNP	IN	DT	NN	IN	JJ	JJ	NN	NNS	IN	DT	NNP	NNP	,	IN	DT	NNP	CC	NNP	NNP	CC	JJ	NNP	CC	DT	NNP	NNP	.
+SUB	ROOT	NMOD	NMOD	OBJ	VMOD	NMOD	PMOD	NMOD	NMOD	NMOD	NMOD	PMOD	NMOD	NMOD	NMOD	PMOD	P	VMOD	NMOD	NMOD	NMOD	NMOD	NMOD	NMOD	NMOD	NMOD	NMOD	NMOD	NMOD	PMOD	P
+2	0	5	5	2	2	8	6	8	13	13	13	9	13	17	17	14	2	2	24	24	24	24	31	31	27	31	31	31	31	19	2
+ORGANIZATION-B	-	-	LOCATION-B	LOCATION-I	-	-	-	-	-	-	-	-	-	-	LOCATION-B	LOCATION-I	-	-	-	LOCATION-B	-	LOCATION-B	LOCATION-I	-	-	GPE-B	-	-	LOCATION-B	LOCATION-I	-
+</negative>
+<negative>
+In	1997	,	Congress	said	Amtrak	must	become	self-sufficient	by	2002	.
+IN	CD	,	NNP	VBD	NNP	MD	VB	JJ	IN	CD	.
+VMOD	PMOD	P	SUB	ROOT	SUB	VMOD	VC	PRD	VMOD	PMOD	P
+5	1	5	5	0	7	5	7	8	8	10	5
+-	DATE-B	-	ORGANIZATION-B	-	ORGANIZATION-B	-	-	-	-	DATE-B	-
+</negative>
+<negative>
+Amtrak	currently	transports	about	9	million	people	each	year	along	the	Northeast	Corridor	,	some	7	million	between	New	York	and	Washington	and	an	additional	2	million	between	New	York	and	Boston	.
+DT	RB	NNS	IN	CD	CD	NNS	DT	NN	IN	DT	NNP	NNP	,	DT	CD	CD	IN	NNP	NNP	CC	NNP	CC	DT	JJ	CD	CD	IN	NNP	NNP	CC	NNP	.
+NMOD	NMOD	NMOD	NMOD	AMOD	AMOD	NMOD	NMOD	ROOT	NMOD	NMOD	NMOD	NMOD	P	NMOD	AMOD	AMOD	NMOD	NMOD	NMOD	NMOD	NMOD	NMOD	NMOD	NMOD	AMOD	NMOD	NMOD	NMOD	NMOD	NMOD	PMOD	P
+3	3	9	7	6	4	9	9	0	9	13	13	32	32	20	15	15	15	20	22	22	32	32	27	27	27	32	32	32	32	32	10	9
+ORGANIZATION-B	-	-	CARDINAL-B	CARDINAL-I	CARDINAL-I	PER_DESC-B	DATE-B	DATE-I	-	-	LOCATION-B	LOCATION-I	-	-	CARDINAL-B	CARDINAL-I	-	GPE-B	GPE-I	-	GPE-B	-	CARDINAL-B	CARDINAL-I	CARDINAL-I	CARDINAL-I	-	GPE-B	GPE-I	-	GPE-B	-
+</negative>
+<negative>
+In	recent	years	,	Amtrak	has	spent	millions	improving	the	track	and	adding	electrical	service	from	New	Haven	to	Boston	.
+IN	JJ	NNS	,	NNP	VBZ	VBN	NNS	VBG	DT	NN	CC	VBG	JJ	NN	IN	NNP	NNP	TO	NNP	.
+VMOD	NMOD	PMOD	P	SUB	ROOT	VC	OBJ	VMOD	NMOD	OBJ	VMOD	VMOD	NMOD	OBJ	VMOD	NMOD	PMOD	VMOD	PMOD	P
+6	3	1	6	6	0	6	7	7	11	9	9	9	15	13	13	18	16	13	19	6
+-	DATE-B	DATE-I	-	ORGANIZATION-B	-	-	MONEY-B	-	-	FAC_DESC-B	-	-	-	-	-	GPE-B	GPE-I	-	GPE-B	-
+</negative>
+<negative>
+While	not	as	fast	as	the	185-mph	TGV	,	the	new	Amtrak	trains	will	glide	around	corners	using	technology	that	gently	tilts	the	cars	.
+RB	RB	RB	RB	IN	DT	JJ	NN	,	DT	JJ	NN	NNS	MD	VB	RB	NNS	VBG	NN	IN	RB	VBZ	DT	NNS	.
+VMOD	DEP	AMOD	AMOD	AMOD	NMOD	NMOD	PMOD	P	NMOD	NMOD	NMOD	SUB	ROOT	VC	VMOD	OBJ	NMOD	OBJ	NMOD	VMOD	SBAR	NMOD	OBJ	P
+14	1	1	3	3	8	8	5	14	13	13	13	14	0	14	15	15	17	18	19	22	20	24	22	14
+-	-	-	-	-	-	QUANTITY-B	-	-	-	-	ORGANIZATION-B	PRODUCT_DESC-B	-	-	-	-	-	-	-	-	-	-	PRODUCT_DESC-B	-
+</negative>
+<negative>
+Twenty	years	after	the	last	passenger	train	left	Oklahoma	,	Amtrak	rolled	back	into	the	state	on	Monday	with	daily	service	between	Oklahoma	City	and	Fort	Worth	,	Texas	.
+JJ	NNS	IN	DT	JJ	NN	NN	VBD	NNP	,	NNP	VBD	RB	IN	DT	NN	IN	NNP	IN	RB	NN	IN	NNP	NNP	CC	NNP	NNP	,	NNP	.
+NMOD	PMOD	VMOD	NMOD	NMOD	NMOD	PMOD	SBAR	OBJ	P	SUB	ROOT	VMOD	VMOD	NMOD	PMOD	VMOD	PMOD	VMOD	NMOD	PMOD	NMOD	NMOD	NMOD	NMOD	NMOD	NMOD	P	PMOD	P
+2	3	12	7	7	7	3	3	8	12	12	0	12	12	16	14	12	17	12	21	19	21	24	27	27	27	29	29	22	12
+DATE-B	DATE-I	-	-	-	-	PRODUCT_DESC-B	-	GPE-B	-	ORGANIZATION-B	-	-	-	-	GPE_DESC-B	-	DATE-B	-	DATE-B	-	-	GPE-B	GPE-I	-	GPE-B	GPE-I	-	GPE-B	-
+</negative>
+<negative>
+The	result	is	a	collaborative	effort	between	the	state	and	Amtrak	,	with	Oklahoma	leasing	the	track	,	trains	and	crew	and	Amtrak	operating	the	train	.
+DT	NN	VBZ	DT	JJ	NN	IN	DT	NN	CC	NN	,	IN	NNP	VBG	DT	NN	,	NNS	CC	NN	CC	NNP	VBG	DT	NN	.
+NMOD	SUB	ROOT	NMOD	NMOD	PRD	NMOD	NMOD	NMOD	NMOD	PMOD	P	NMOD	SUB	PMOD	NMOD	NMOD	P	NMOD	NMOD	NMOD	NMOD	SUB	VMOD	NMOD	OBJ	P
+2	3	0	6	6	3	6	11	11	11	7	11	11	15	13	21	21	21	21	21	23	23	24	15	26	24	3
+-	-	-	-	-	-	-	-	-	-	ORGANIZATION-B	-	-	GPE-B	-	-	FAC_DESC-B	-	PRODUCT_DESC-B	-	PER_DESC-B	-	ORGANIZATION-B	-	-	PRODUCT_DESC-B	-
+</negative>
+<negative>
+Oklahoma	's	venture	with	Amtrak	is	n't	unique	.
+NNP	POS	NN	IN	NNP	VBZ	RB	JJ	.
+NMOD	NMOD	SUB	NMOD	PMOD	ROOT	VMOD	PRD	P
+2	3	6	3	4	0	6	6	6
+GPE-B	-	-	-	ORGANIZATION-B	-	-	-	-
+</negative>
+<negative>
+Only	five	states	are	without	Amtrak	service	--	Alaska	,	Hawaii	,	Maine	,	Wyoming	and	South	Dakota	.
+RB	CD	NNS	VBP	IN	NNP	NN	:	NNP	,	NNP	,	NNP	,	VBG	CC	NNP	NNP	.
+NMOD	AMOD	SUB	ROOT	PRD	NMOD	NMOD	P	NMOD	P	NMOD	P	NMOD	P	NMOD	NMOD	NMOD	PMOD	P
+3	1	4	0	4	7	18	18	18	18	18	18	18	18	18	18	18	5	4
+CARDINAL-B	CARDINAL-I	GPE_DESC-B	-	-	ORGANIZATION-B	-	-	GPE-B	-	GPE-B	-	GPE-B	-	GPE-B	-	GPE-B	GPE-I	-
+</negative>
+<negative>
+Five	years	ago	:	Charges	that	Qubilah	Shabazz	,	the	daughter	of	Malcolm	X	,	had	plotted	to	murder	Nation	of	Islam	leader	Louis	Farrakhan	were	dropped	as	jury	selection	for	her	trial	was	about	to	begin	in	Minneapolis	.
+JJ	NNS	RB	:	NNS	WDT	VBP	NNP	,	DT	NN	IN	NNP	NNP	,	VBD	VBN	TO	VB	NN	IN	NNP	NN	NNP	NNP	VBD	VBN	IN	NN	NN	IN	PRP$	NN	VBD	IN	TO	VB	IN	NNP	.
+NMOD	AMOD	VMOD	P	SUB	NMOD	SBAR	NMOD	P	NMOD	OBJ	NMOD	NMOD	PMOD	P	SBAR	VC	VMOD	VMOD	OBJ	NMOD	NMOD	NMOD	NMOD	PMOD	ROOT	VC	VMOD	NMOD	SUB	NMOD	NMOD	SUB	SBAR	VC	VMOD	VMOD	VMOD	PMOD	P
+2	3	26	26	26	5	6	11	11	11	7	11	14	12	11	6	16	19	17	19	20	25	25	25	21	0	26	27	30	34	30	33	34	28	34	37	35	37	38	26
+DATE-B	DATE-I	DATE-I	-	-	-	PERSON-B	PERSON-I	-	-	PER_DESC-B	-	PERSON-B	PERSON-I	-	-	-	-	-	NATIONALITY-B	NATIONALITY-I	NATIONALITY-I	PER_DESC-B	PERSON-B	PERSON-I	-	-	-	ORG_DESC-B	-	-	-	-	-	-	-	-	-	GPE-B	-
+</negative>
+<negative>
+Sen	.	John	McCain	panned	a	plan	that	would	give	Amtrak	a	''	multibillion-dollar	blank	check	''	even	though	the	railway	is	under	orders	to	become	independent	from	federal	operating	subsidies	.
+CD	.	NNP	NNP	VBD	DT	NN	WDT	MD	VB	VB	DT	''	JJ	NN	NN	''	RB	IN	DT	NN	VBZ	IN	NNS	TO	VB	JJ	IN	JJ	NN	NNS	.
+NMOD	P	NMOD	SUB	ROOT	NMOD	OBJ	NMOD	SBAR	VC	OBJ	NMOD	P	NMOD	NMOD	OBJ	P	DEP	VMOD	NMOD	SUB	SBAR	PRD	PMOD	VMOD	NMOD	PRD	VMOD	NMOD	NMOD	PMOD	P
+4	4	4	5	0	7	5	7	8	9	10	16	16	16	16	11	16	19	5	21	22	19	22	23	26	24	26	26	31	31	28	5
+PERSON-B	-	PERSON-B	PERSON-I	-	-	-	-	-	-	ORGANIZATION-B	-	MONEY-B	MONEY-I	-	-	-	-	-	-	FAC_DESC-B	-	-	-	-	-	-	-	-	-	-	-
+</negative>
+<negative>
+The	Arizona	Republican	,	chairman	of	the	Senate	Commerce	Committee	,	led	a	highly	critical	oversight	hearing	Tuesday	that	painted	a	sobering	portrait	of	Amtrak	's	financial	status	and	outlook	.
+DT	NNP	NNP	,	NN	IN	DT	NNP	NNP	NNP	,	VBD	DT	RB	JJ	JJ	NN	NNP	WDT	VBD	DT	JJ	NN	IN	NNP	POS	JJ	NN	CC	NN	.
+NMOD	NMOD	NMOD	P	SUB	NMOD	NMOD	NMOD	NMOD	PMOD	P	ROOT	NMOD	AMOD	NMOD	NMOD	OBJ	VMOD	NMOD	SBAR	NMOD	NMOD	OBJ	NMOD	NMOD	NMOD	NMOD	NMOD	NMOD	PMOD	P
+3	3	5	5	12	5	10	10	10	6	5	0	17	15	17	17	12	12	18	19	23	23	20	23	26	30	28	30	30	24	12
+-	GPE-B	NATIONALITY-B	-	PER_DESC-B	-	-	ORGANIZATION-B	ORGANIZATION-I	ORGANIZATION-I	-	-	-	-	-	-	-	DATE-B	-	-	-	-	-	-	ORGANIZATION-B	-	-	-	-	-	-
+</negative>
+<negative>
+''	Amtrak	is	largely	no	better	off	today	than	one	year	ago	,	''	said	Phyllis	Scheinberg	,	associate	director	for	transportation	issues	at	the	General	Accounting	Office	.
+''	NNP	VBZ	RB	DT	RBR	IN	NN	IN	CD	NN	RB	,	''	VBD	NNP	NNP	,	NN	NN	IN	NN	NNS	IN	DT	NNP	NNP	NNP	.
+P	SUB	VMOD	VMOD	AMOD	PRD	AMOD	AMOD	AMOD	NMOD	AMOD	PMOD	P	P	ROOT	NMOD	NMOD	P	NMOD	SUB	NMOD	NMOD	PMOD	NMOD	NMOD	NMOD	NMOD	PMOD	P
+15	3	15	3	6	3	6	7	6	11	12	9	15	15	0	17	20	20	20	15	20	23	21	20	28	28	28	24	15
+-	ORGANIZATION-B	-	-	-	-	-	DATE-B	DATE-I	DATE-I	DATE-I	DATE-I	-	-	-	PERSON-B	PERSON-I	-	-	PER_DESC-B	-	-	-	-	-	ORGANIZATION-B	ORGANIZATION-I	ORGANIZATION-I	-
+</negative>
+<negative>
+Both	Scheinberg	and	Kenneth	Mead	,	inspector	general	in	the	Department	of	Transportation	,	said	Amtrak	is	not	on	track	to	meet	congressional	demands	that	it	achieve	financial	self-sufficiency	by	2003	.
+DT	NNP	CC	NNP	NNP	,	NN	NN	IN	DT	NNP	IN	NNP	,	VBD	NNP	VBZ	RB	IN	NN	TO	VB	JJ	NNS	IN	PRP	VBP	JJ	NN	IN	CD	.
+NMOD	NMOD	NMOD	NMOD	NMOD	P	NMOD	SUB	NMOD	NMOD	PMOD	NMOD	PMOD	P	ROOT	SUB	VMOD	VMOD	PRD	PMOD	VMOD	VMOD	NMOD	OBJ	NMOD	SUB	SBAR	NMOD	OBJ	VMOD	PMOD	P
+8	5	5	5	8	8	8	15	8	11	9	11	12	8	0	17	15	17	17	19	22	17	24	22	24	27	25	29	27	22	30	15
+-	ORGANIZATION-B	-	ORGANIZATION-B	ORGANIZATION-I	-	PER_DESC-B	PER_DESC-I	-	-	ORGANIZATION-B	ORGANIZATION-I	ORGANIZATION-I	-	-	ORGANIZATION-B	-	-	-	-	-	-	-	-	-	-	-	-	-	-	DATE-B	-
+</negative>
+<negative>
+Amtrak	could	face	liquidation	if	it	fails	to	meet	the	deadline	.
+NNP	MD	RB	VB	IN	PRP	VBZ	TO	VB	DT	NN	.
+SUB	ROOT	VMOD	VC	VMOD	SUB	SBAR	VMOD	VMOD	NMOD	OBJ	P
+2	0	2	2	4	7	5	9	7	11	9	2
+ORGANIZATION-B	-	-	-	-	-	-	-	-	-	-	-
+</negative>
+<negative>
+Mead	forecasts	that	Amtrak	will	lose	$	1.4	billion	more	than	it	anticipates	from	2000	through	2004	because	rising	costs	are	counteracting	gains	in	riders	and	revenue	.
+RB	VBZ	DT	NNP	MD	VB	$	CD	CD	JJR	IN	PRP	VBZ	IN	CD	IN	CD	IN	VBG	NNS	VBP	VBG	NNS	IN	NNS	CC	NN	.
+VMOD	ROOT	VMOD	SUB	SBAR	VC	P	AMOD	AMOD	OBJ	NMOD	SUB	SBAR	VMOD	PMOD	VMOD	PMOD	VMOD	NMOD	SUB	SBAR	VC	OBJ	NMOD	NMOD	NMOD	PMOD	P
+2	0	2	5	3	5	10	7	7	6	10	13	11	6	14	6	16	2	20	21	18	21	22	23	27	27	24	2
+ORGANIZATION-B	-	-	ORGANIZATION-B	-	-	MONEY-B	MONEY-I	MONEY-I	-	-	-	-	-	DATE-B	DATE-I	DATE-I	-	-	-	-	-	-	-	PER_DESC-B	-	-	-
+</negative>
+<negative>
+It	would	let	Amtrak	issue	bonds	,	sweetened	by	federal	tax	credits	,	to	raise	$	10	billion	over	10	years	to	build	high-speed	rail	lines	around	the	country	.
+PRP	MD	VB	DT	NN	NNS	,	VBN	IN	JJ	NN	NNS	,	TO	VB	$	CD	CD	IN	CD	NNS	TO	VB	JJ	NN	NNS	IN	DT	NN	.
+SUB	ROOT	VC	NMOD	NMOD	OBJ	P	NMOD	VMOD	NMOD	NMOD	PMOD	P	VMOD	VMOD	P	AMOD	AMOD	VMOD	AMOD	PMOD	VMOD	VMOD	NMOD	NMOD	OBJ	NMOD	NMOD	PMOD	P
+2	0	2	6	6	3	6	6	8	12	12	9	6	15	3	15	16	16	15	19	19	23	15	26	26	23	26	29	27	2
+-	-	-	ORGANIZATION-B	-	-	-	-	-	-	-	-	-	-	-	MONEY-B	MONEY-I	MONEY-I	-	DATE-B	DATE-I	-	-	-	PRODUCT_DESC-B	PRODUCT_DESC-I	-	-	GPE_DESC-B	-
+</negative>
+<negative>
+Amtrak	advocates	say	the	money	represents	an	investment	in	intercity	rail	that	should	be	considered	independent	of	Amtrak	's	future	as	a	corporation	.
+DT	NNS	VBP	DT	NN	VBZ	DT	NN	IN	NN	NN	WDT	MD	VB	VBN	JJ	IN	NNP	POS	JJ	IN	DT	NN	.
+NMOD	SUB	ROOT	NMOD	SUB	VMOD	NMOD	OBJ	NMOD	NMOD	PMOD	NMOD	SBAR	VC	VC	VMOD	AMOD	NMOD	NMOD	VMOD	AMOD	NMOD	PMOD	P
+2	3	0	5	6	3	8	6	8	11	9	11	12	13	14	15	16	19	20	15	20	23	21	3
+ORGANIZATION-B	PER_DESC-B	-	-	-	-	-	-	-	-	PRODUCT_DESC-B	-	-	-	-	-	-	ORGANIZATION-B	-	-	-	-	ORG_DESC-B	-
+</negative>
+<negative>
+''	Amtrak	needs	to	make	more	progress	before	any	further	funding	schemes	are	enacted	,	''	he	said	.
+''	NNP	VBZ	TO	VB	RBR	JJ	IN	DT	JJ	NN	NNS	VBP	VBN	,	''	PRP	VBD	.
+P	SUB	VMOD	VMOD	VMOD	AMOD	VMOD	VMOD	NMOD	NMOD	NMOD	SUB	SBAR	VC	P	P	SUB	ROOT	P
+3	3	18	5	3	7	5	5	12	12	12	13	8	13	18	18	18	0	18
+-	ORGANIZATION-B	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+</negative>
+<negative>
+Tuesday	's	hearing	was	a	dramatic	departure	from	the	last	time	Amtrak	's	fate	was	considered	by	Commerce	Committee	members	.
+NNP	POS	NN	VBD	DT	JJ	NN	IN	DT	JJ	NN	NNP	POS	NN	VBD	VBN	IN	NNP	NNP	NNS	.
+NMOD	NMOD	SUB	ROOT	NMOD	NMOD	PRD	NMOD	NMOD	NMOD	PMOD	NMOD	NMOD	SUB	NMOD	VC	VMOD	NMOD	NMOD	PMOD	P
+2	3	4	0	7	7	4	7	11	11	8	13	14	15	11	15	16	20	20	17	4
+DATE-B	-	-	-	-	-	-	-	-	-	-	ORGANIZATION-B	-	-	-	-	-	ORGANIZATION-B	ORGANIZATION-I	PER_DESC-B	-
+</negative>
+<negative>
+In	February	,	a	subcommittee	led	by	Amtrak	supporter	Sen	.	Kay	Bailey	Hutchison	,	R	-	Texas	,	endorsed	the	railway	's	plan	to	expand	rather	than	cut	service	as	the	route	to	fiscal	health	.
+IN	NNP	,	DT	NN	VBN	IN	NNP	NN	NNP	.	NNP	NNP	NNP	,	NNP	,	NNP	,	VBD	DT	NN	POS	NN	TO	VB	RB	IN	NN	NN	IN	DT	NN	TO	JJ	NN	.
+VMOD	PMOD	P	NMOD	SUB	NMOD	VMOD	NMOD	NMOD	NMOD	P	NMOD	NMOD	NMOD	P	NMOD	P	PMOD	P	ROOT	NMOD	NMOD	NMOD	OBJ	VMOD	NMOD	VMOD	DEP	NMOD	PMOD	VMOD	NMOD	PMOD	VMOD	NMOD	PMOD	P
+20	1	20	5	20	5	6	10	10	14	14	14	14	18	18	18	18	7	18	0	23	23	24	20	26	24	26	27	30	28	26	33	31	26	36	34	20
+-	DATE-B	-	-	ORG_DESC-B	-	-	ORGANIZATION-B	PER_DESC-B	PERSON-B	-	PERSON-B	PERSON-I	PERSON-I	-	NATIONALITY-B	-	GPE-B	-	-	-	FAC_DESC-B	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+</negative>
+<negative>
+But	Hutchison	and	pro-	Amtrak	Democrats	Max	Cleland	of	Georgia	and	John	Kerry	of	Massachusetts	had	to	settle	for	supporting	roles	Tuesday	as	McCain	offered	an	unflattering	history	lesson	about	Amtrak	,	which	runs	two	routes	that	cross	Arizona	.
+CC	NNP	CC	JJ	NNP	NNPS	NNP	NNP	IN	NNP	CC	NNP	NNP	IN	NNP	VBD	TO	VB	IN	VBG	NNS	NNP	IN	NNP	VBD	DT	NN	NN	NN	IN	NNP	,	WDT	VBZ	CD	NNS	WDT	VBP	NNP	.
+VMOD	NMOD	NMOD	NMOD	NMOD	NMOD	NMOD	SUB	NMOD	PMOD	VMOD	NMOD	SUB	NMOD	PMOD	ROOT	VMOD	VMOD	VMOD	PMOD	OBJ	VMOD	VMOD	PMOD	SBAR	NMOD	NMOD	NMOD	OBJ	NMOD	PMOD	P	NMOD	SBAR	NMOD	OBJ	NMOD	SBAR	OBJ	P
+16	8	8	8	8	8	8	16	8	9	16	13	16	13	14	0	18	16	18	19	20	20	20	23	23	29	29	29	25	29	30	31	31	33	36	34	36	37	38	16
+-	PERSON-B	-	-	ORGANIZATION-B	NATIONALITY-B	PERSON-B	PERSON-I	-	GPE-B	-	PERSON-B	PERSON-I	-	GPE-B	-	-	-	-	-	-	DATE-B	-	PERSON-B	-	-	-	-	-	-	ORGANIZATION-B	-	-	-	CARDINAL-B	-	-	-	GPE-B	-
+</negative>
+<negative>
+The	promise	,	McCain	said	,	was	that	Amtrak	would	be	self-sufficient	after	two	years	of	federal	operating	subsidies	.
+DT	NN	,	NNP	VBD	,	VBD	IN	NNP	MD	VB	JJ	IN	CD	NNS	IN	JJ	NN	NNS	.
+NMOD	SUB	P	SUB	VMOD	P	ROOT	PRD	SUB	SBAR	VC	PRD	VMOD	NMOD	PMOD	NMOD	NMOD	NMOD	PMOD	P
+2	7	5	5	7	5	0	7	10	8	10	11	11	15	13	15	19	19	16	7
+-	-	-	PERSON-B	-	-	-	-	ORGANIZATION-B	-	-	-	-	DATE-B	DATE-I	-	-	-	-	-
+</negative>
+<negative>
+Amtrak	is	now	in	its	29th	year	of	subsidies	and	has	consumed	more	than	$	23	billion	in	federal	operating	support	.
+NNP	VBZ	RB	IN	PRP$	JJ	NN	IN	NNS	CC	VBZ	VBN	JJR	IN	$	CD	CD	IN	JJ	NN	NN	.
+SUB	ROOT	VMOD	VMOD	NMOD	NMOD	PMOD	NMOD	PMOD	VMOD	VMOD	VC	AMOD	AMOD	P	AMOD	AMOD	NMOD	NMOD	NMOD	PMOD	P
+2	0	2	2	7	7	4	7	8	2	2	11	15	15	12	15	15	15	21	21	18	2
+ORGANIZATION-B	-	-	-	DATE-B	DATE-I	DATE-I	-	-	-	-	-	MONEY-B	MONEY-I	MONEY-I	MONEY-I	MONEY-I	-	-	-	-	-
+</negative>
+<negative>
+''	I	am	now	embarrassed	to	admit	that	I	worked	to	create	Amtrak	,	''	Joseph	Vranich	,	a	former	Amtrak	spokesman	turned	critic	,	told	the	committee	.
+''	PRP	VBP	RB	VBN	TO	VB	IN	PRP	VBD	TO	VB	NNP	,	''	NNP	NNP	,	DT	JJ	NNP	NN	VBD	JJ	,	VBD	DT	NN	.
+P	SUB	VMOD	VMOD	VC	VMOD	AMOD	VMOD	SUB	SBAR	VMOD	VMOD	OBJ	P	P	NMOD	SUB	P	NMOD	NMOD	NMOD	SUB	ROOT	PRD	P	VMOD	NMOD	OBJ	P
+23	3	23	3	3	7	5	7	10	8	12	10	12	23	23	17	23	23	22	22	22	23	0	23	23	23	28	26	23
+-	-	-	-	-	-	-	-	-	-	-	-	ORGANIZATION-B	-	-	PERSON-B	PERSON-I	-	-	-	ORGANIZATION-B	PER_DESC-B	-	PER_DESC-B	-	-	-	ORG_DESC-B	-
+</negative>
+<negative>
+Congress	gave	Amtrak	in	1997	an	infusion	of	aid	along	with	a	2003	deadline	to	become	self-sufficient	.
+NNP	VBD	VBN	IN	CD	DT	NN	IN	JJ	IN	IN	DT	CD	NN	TO	VB	JJ	.
+SUB	ROOT	VC	VMOD	NMOD	NMOD	SUB	NMOD	PMOD	NMOD	PMOD	NMOD	NMOD	PMOD	VMOD	VMOD	PRD	P
+2	0	2	3	7	7	16	7	8	7	10	14	14	11	16	3	16	2
+ORGANIZATION-B	-	ORGANIZATION-B	-	DATE-B	-	-	-	-	-	-	-	DATE-B	-	-	-	-	-
+</negative>
+<negative>
+Amtrak	Chairman	Tommy	Thompson	,	Wisconsin	's	governor	,	told	the	committee	the	railway	will	meet	the	deadline	.
+NNP	NNP	NNP	NNP	,	NNP	POS	NN	,	VBD	DT	NN	DT	NN	MD	VB	DT	NN	.
+NMOD	NMOD	NMOD	NMOD	P	NMOD	NMOD	SUB	P	ROOT	NMOD	OBJ	NMOD	SUB	NMOD	VC	NMOD	OBJ	P
+4	4	4	8	8	7	8	10	8	0	12	10	14	15	12	15	18	16	10
+ORGANIZATION-B	PER_DESC-B	PERSON-B	PERSON-I	-	GPE-B	-	PER_DESC-B	-	-	-	-	-	FAC_DESC-B	-	-	-	-	-
+</negative>
+<negative>
+He	said	Amtrak	's	governing	board	met	last	week	and	addressed	much	of	the	criticism	in	Mead	's	audit	.
+PRP	VBD	NNP	POS	NN	NN	NN	JJ	NN	CC	VBD	RB	IN	DT	NN	IN	NNP	POS	NN	.
+SUB	ROOT	NMOD	NMOD	NMOD	NMOD	NMOD	NMOD	VMOD	VMOD	VMOD	OBJ	NMOD	NMOD	PMOD	NMOD	NMOD	NMOD	PMOD	P
+2	0	4	7	7	7	9	9	2	2	2	11	12	15	13	15	18	19	16	2
+-	-	ORGANIZATION-B	-	-	ORG_DESC-B	-	DATE-B	DATE-I	-	-	-	-	-	-	-	ORGANIZATION-B	-	-	-
+</negative>
+<negative>
+''	For	much	of	Amtrak	's	history	,	it	was	not	run	like	a	business	,	''	Thompson	said	.
+''	IN	JJ	IN	NNP	POS	NN	,	PRP	VBD	RB	VB	IN	DT	NN	,	''	NNP	VBD	.
+P	VMOD	PMOD	NMOD	NMOD	NMOD	PMOD	P	SUB	VMOD	VMOD	VC	VMOD	NMOD	PMOD	P	P	SUB	ROOT	P
+10	10	2	3	6	7	4	10	10	19	10	10	12	15	13	19	19	19	0	19
+-	-	-	-	ORGANIZATION-B	-	-	-	-	-	-	-	-	-	-	-	-	PERSON-B	-	-
+</negative>
+<negative>
+''	It	did	not	have	an	entrepreneurial	focus	.
+''	PRP	VBD	RB	VB	DT	JJ	NN	.
+P	SUB	ROOT	VMOD	VC	NMOD	NMOD	OBJ	P
+3	3	0	3	3	8	8	5	3
+-	-	-	-	-	-	-	-	-
+</negative>
+<negative>
+It	did	lack	a	serious	business	plan	.
+PRP	VBD	RB	DT	JJ	NN	NN	.
+SUB	ROOT	VMOD	NMOD	NMOD	NMOD	OBJ	P
+2	0	2	7	7	7	2	2
+-	-	-	-	-	-	-	-
+</negative>
+<negative>
+But	in	recent	years	we	have	made	remarkable	progress	in	turning	Amtrak	around.	''
+CC	IN	JJ	NNS	PRP	VBP	VBN	JJ	NN	IN	VBG	JJ	NN	''
+VMOD	VMOD	NMOD	PMOD	SUB	ROOT	VC	NMOD	OBJ	VMOD	PMOD	NMOD	OBJ	P
+6	6	4	2	6	0	6	9	7	7	10	13	11	11
+-	-	DATE-B	DATE-I	-	-	-	-	-	-	-	ORGANIZATION-B	-	-
+</negative>
+<negative>
+Thompson	,	Mead	and	Scheinberg	agreed	that	,	even	if	Amtrak	weans	itself	from	federal	operating	subsidies	by	2003	,	it	will	need	significant	continuing	federal	support	for	capital	expenses	like	track	repair	.
+NNP	,	RB	CC	NNP	VBD	IN	,	RB	IN	NNP	VBZ	PRP	IN	JJ	NN	NNS	IN	CD	,	PRP	MD	VBP	JJ	VBG	JJ	NN	IN	NN	NNS	IN	NN	NN	.
+SUB	P	VMOD	VMOD	SUB	ROOT	VMOD	P	DEP	VMOD	SUB	SBAR	OBJ	VMOD	NMOD	NMOD	PMOD	VMOD	PMOD	P	SUB	SBAR	VC	NMOD	NMOD	NMOD	OBJ	NMOD	NMOD	PMOD	NMOD	NMOD	PMOD	P
+6	6	6	6	6	0	6	7	10	22	12	10	12	12	17	17	14	12	18	22	22	7	22	27	27	27	23	27	30	28	30	33	31	6
+ORGANIZATION-B	-	ORGANIZATION-B	-	ORGANIZATION-B	-	-	-	-	-	ORGANIZATION-B	-	-	-	-	-	-	-	DATE-B	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+</negative>
+<negative>
+Amtrak	President	George	Warrington	told	the	committee	that	the	railway	expects	delivery	next	week	of	the	first	of	20	high-speed	trains	for	the	Boston	-to-	Washington	Northeast	Corridor	.
+NNP	NNP	NNP	NNP	VBD	DT	NN	IN	DT	NN	VBZ	JJ	JJ	NN	IN	DT	JJ	IN	CD	JJ	NNS	IN	DT	NNP	NNP	NNP	NNP	NNP	.
+NMOD	NMOD	NMOD	SUB	ROOT	NMOD	OBJ	VMOD	NMOD	SUB	SBAR	NMOD	NMOD	VMOD	NMOD	NMOD	PMOD	NMOD	NMOD	NMOD	PMOD	NMOD	NMOD	NMOD	NMOD	NMOD	NMOD	PMOD	P
+4	4	4	5	0	7	5	5	10	11	8	14	14	5	14	17	15	17	21	21	18	21	28	28	28	28	28	22	5
+ORGANIZATION-B	PER_DESC-B	PERSON-B	PERSON-I	-	-	ORG_DESC-B	-	-	FAC_DESC-B	-	-	DATE-B	DATE-I	-	-	ORDINAL-B	-	CARDINAL-B	PRODUCT_DESC-B	PRODUCT_DESC-I	-	-	GPE-B	-	ORGANIZATION-B	ORGANIZATION-I	ORGANIZATION-I	-
+</negative>
+<negative>
+The	long-delayed	Acela	Express	service	,	which	will	reach	speeds	of	150	mph	,	will	begin	running	''	within	a	month	,	''	Warrington	said	.
+DT	JJ	NNP	NNP	NN	,	WDT	MD	VB	NNS	IN	CD	NN	,	MD	VB	VBG	''	IN	DT	NN	,	''	NNP	VBD	.
+NMOD	NMOD	NMOD	NMOD	SUB	P	NMOD	SBAR	VC	OBJ	NMOD	NMOD	PMOD	P	VMOD	VC	VMOD	P	VMOD	NMOD	PMOD	P	P	SUB	ROOT	P
+5	5	5	5	15	5	5	7	8	9	10	13	11	5	25	15	16	17	16	21	19	25	25	25	0	25
+-	-	ORGANIZATION-B	ORGANIZATION-I	-	-	-	-	-	-	-	QUANTITY-B	QUANTITY-I	-	-	-	-	-	-	DATE-B	DATE-I	-	-	PERSON-B	-	-
+</negative>
+<negative>
+On	the	Net	:	Amtrak	:	http	:	//www	.	amtrak	.	com
+IN	DT	NN	:	NNP	:	NN	:	NNP	.	JJ	.	NN
+ROOT	NMOD	NMOD	P	NMOD	P	NMOD	P	NMOD	P	NMOD	P	PMOD
+0	3	13	13	13	13	13	13	13	13	13	13	1
+-	-	-	-	ORGANIZATION-B	-	CONTACT_INFO-B	CONTACT_INFO-I	CONTACT_INFO-I	CONTACT_INFO-I	ORGANIZATION-B	-	CONTACT_INFO-B
+</negative>
+</QApairs>
+<QApairs id='34.2'>
+<question>
+How	many	passengers	does	Amtrak	serve	annually	?
+NNP	JJ	NNS	VBZ	NNP	NN	RB	.
+NMOD	NMOD	SUB	ROOT	NMOD	SUB	VMOD	P
+3	3	4	0	6	4	4	4
+-	-	PER_DESC-B	-	ORGANIZATION-B	-	DATE-B	-
+</question>
+<positive>
+Amtrak	annually	serves	about	21	million	passengers	.
+NNP	RB	VBZ	IN	CD	CD	NNS	.
+SUB	VMOD	ROOT	NMOD	AMOD	AMOD	OBJ	P
+3	3	0	7	4	4	3	3
+ORGANIZATION-B	-	-	CARDINAL-B	CARDINAL-I	CARDINAL-I	PER_DESC-B	-
+21	million	
+5	6	
+</positive>
+</QApairs>
+<QApairs id='34.3'>
+<question>
+How	many	employees	does	Amtrak	have	?
+NNP	JJ	NNS	VBZ	RB	VB	.
+NMOD	NMOD	SUB	ROOT	VMOD	VC	P
+3	3	4	0	4	4	4
+-	-	PER_DESC-B	-	ORGANIZATION-B	-	-
+</question>
+<positive>
+Schulz	said	Amtrak	prepared	for	the	new	guarantee	program	by	training	its	25,000	employees	''	to	take	personal	initiative	and	do	what	is	necessary	to	solve	guest	problems.	''
+NNP	VBD	NNP	VBD	IN	DT	JJ	NN	NN	IN	VBG	PRP$	CD	NNS	''	TO	VB	JJ	JJ	CC	VB	WP	VBZ	JJ	TO	VB	JJ	NN	''
+SUB	ROOT	SUB	VMOD	VMOD	NMOD	NMOD	NMOD	PMOD	VMOD	PMOD	NMOD	NMOD	OBJ	P	VMOD	VMOD	AMOD	VMOD	VMOD	VMOD	VMOD	SBAR	PRD	VMOD	VMOD	NMOD	OBJ	P
+2	0	4	2	4	9	9	9	5	4	10	14	14	11	11	17	11	19	17	17	17	21	22	23	26	17	28	26	2
+PERSON-B	-	ORGANIZATION-B	-	-	-	-	-	-	-	-	-	CARDINAL-B	PER_DESC-B	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+25,000	
+13	
+</positive>
+<positive>
+Currently	,	about	24,000	employees	work	for	Amtrak	,	according	to	spokesman	Steven	Taubenkibel	.
+RB	,	IN	CD	NNS	NN	IN	NNP	,	VBG	TO	NN	NNP	NNP	.
+ROOT	P	AMOD	AMOD	NMOD	PMOD	NMOD	PMOD	P	VMOD	PMOD	NMOD	NMOD	PMOD	P
+0	3	1	3	6	3	6	7	6	3	10	14	14	11	1
+-	-	CARDINAL-B	CARDINAL-I	PER_DESC-B	-	-	ORGANIZATION-B	-	-	-	PER_DESC-B	PERSON-B	PERSON-I	-
+24,000	
+4	
+</positive>
+</QApairs>
+<QApairs id='216'>
+<question>
+    What	is	the	primary	language	of	the	Philippines	?
+    WP	VBZ	DT	JJ	NN	IN	DT	NNPS	.
+    VMOD	ROOT	NMOD	NMOD	PRD	NMOD	NMOD	PMOD	P
+    2	0	5	5	2	5	8	6	2
+    -	-	-	-	-	-	-	GPE-B	-
+</question>
+<positive>
+    Professor	Jesus	Ramos	,	a	Filipino	-language	teacher	at	the	University	of	the	Philippines	,	defends	the	use	of	English	words	because	it	``	mirrors	the	use	of	the	national	language	by	all	Filipinos	.	''
+    NNP	NNP	NNP	,	DT	NNP	NN	NN	IN	DT	NNP	IN	DT	NNPS	,	VBZ	DT	NN	IN	JJ	NNS	IN	PRP	``	NNS	DT	NN	IN	DT	JJ	NN	IN	DT	NNP	.	''
+    NMOD	NMOD	NMOD	P	NMOD	NMOD	NMOD	SUB	NMOD	NMOD	PMOD	NMOD	NMOD	PMOD	P	ROOT	NMOD	OBJ	NMOD	NMOD	PMOD	VMOD	SUB	P	NMOD	NMOD	OBJ	NMOD	NMOD	NMOD	PMOD	NMOD	NMOD	PMOD	P	P
+    3	3	8	8	8	8	8	16	8	11	9	11	14	12	16	0	18	16	18	21	19	16	25	25	27	27	16	27	31	31	28	27	34	32	16	16
+    PER_DESC-B	PERSON-B	PERSON-I	-	-	LANGUAGE-B	-	PER_DESC-B	-	-	ORGANIZATION-B	ORGANIZATION-I	ORGANIZATION-I	ORGANIZATION-I	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	NATIONALITY-B	-	-
+    English
+    20
+</positive>
+<positive>
+    She	prefers	to	make	speeches	in	English	,	an	official	language	in	the	Philippines	.
+    NNP	NNS	TO	VB	NNS	IN	NNP	,	DT	JJ	NN	IN	DT	NNPS	.
+    NMOD	ROOT	VMOD	NMOD	OBJ	VMOD	NMOD	P	NMOD	NMOD	PMOD	NMOD	NMOD	PMOD	P
+    2	0	4	2	4	4	11	11	11	11	6	11	14	12	2
+    -	-	-	-	-	-	LANGUAGE-B	-	-	-	-	-	-	GPE-B	-
+    English
+    7
+</positive>
+<negative>
+    A	15-year	campaign	to	promote	Filipino	as	the	national	language	has	stirred	controversy	in	the	Philippines	where	more	than	80	languages	and	dialects	are	spoken	.
+    DT	JJ	NN	TO	VB	NNP	IN	DT	JJ	NN	VBZ	VBN	JJ	IN	DT	NNPS	WRB	JJR	IN	CD	NNS	CC	NNS	VBP	NNS	.
+    NMOD	NMOD	SUB	VMOD	NMOD	OBJ	VMOD	NMOD	NMOD	SUB	ROOT	VC	VMOD	VMOD	NMOD	PMOD	NMOD	AMOD	NMOD	AMOD	NMOD	NMOD	SUB	SBAR	PRD	P
+    3	3	11	5	3	5	5	10	10	11	0	11	12	12	16	14	16	19	23	19	23	23	24	17	24	11
+    -	DATE-B	-	-	-	LANGUAGE-B	-	-	-	-	-	-	-	-	-	GPE-B	-	CARDINAL-B	CARDINAL-I	CARDINAL-I	-	-	-	-	-	-
+</negative>
+</QApairs>
+<QApairs id='221'>
+<question>
+    Who	killed	Martin	Luther	King	?
+    NNP	VBD	NNP	NNP	NNP	.
+    SUB	ROOT	NMOD	NMOD	OBJ	P
+    2	0	5	5	2	2
+    -	-	PERSON-B	PERSON-I	PERSON-I	-
+</question>
+<positive>
+    After	nearly	two	decades	in	prison	for	the	assassination	of	the	Rev.	Martin	Luther	King	Jr.	,	James	Earl	Ray	says	he	would	trade	places	with	the	hostages	in	Lebanon	.
+    IN	RB	CD	NNS	IN	NN	IN	DT	NN	IN	DT	NNP	NNP	NNP	NNP	NNP	,	NNP	NNP	NNP	VBZ	PRP	MD	VB	NNS	IN	DT	NNS	IN	NNP	.
+    VMOD	NMOD	AMOD	PMOD	NMOD	PMOD	NMOD	NMOD	PMOD	NMOD	NMOD	NMOD	NMOD	NMOD	NMOD	PMOD	P	NMOD	NMOD	SUB	ROOT	SUB	VMOD	VC	OBJ	NMOD	NMOD	PMOD	NMOD	PMOD	P
+    21	4	2	1	4	5	4	9	7	9	16	16	16	16	16	10	21	20	20	21	0	23	21	23	24	25	28	26	28	29	21
+    -	DATE-B	DATE-I	DATE-I	-	FAC_DESC-B	-	-	-	-	-	PER_DESC-B	PERSON-B	PERSON-I	PERSON-I	PERSON-I	-	PERSON-B	PERSON-I	PERSON-I	-	-	-	-	-	-	-	PER_DESC-B	-	GPE-B	-
+    Ray
+    20
+</positive>
+<positive>
+    In	a	bizarre	allegation	,	Anderson	said	the	same	photo	analysts	also	concluded	that	a	picture	of	three	hobos	near	the	shooting	scene	taken	shortly	after	the	killing	appear	to	show	Watergate	conspirator	E.	Howard	Hunt	and	James	Earl	Ray	,	the	killer	of	Martin	Luther	King	Jr.	Hunt	denied	that	charge	on	the	show	.
+    IN	DT	NN	NN	,	NNP	VBD	DT	JJ	NN	NNS	RB	VBD	IN	DT	NN	IN	CD	NNS	IN	DT	VBG	NN	VBN	RB	IN	DT	NN	VB	TO	VB	NNP	NN	NNP	NNP	NNP	CC	NNP	NNP	NNP	,	DT	NN	IN	NNP	NNP	NNP	NNP	NNP	VBD	IN	NN	IN	DT	NN	.
+    VMOD	NMOD	NMOD	PMOD	P	SUB	ROOT	NMOD	NMOD	NMOD	SUB	VMOD	VMOD	VMOD	NMOD	SUB	NMOD	NMOD	PMOD	NMOD	NMOD	NMOD	PMOD	SBAR	PMOD	VMOD	NMOD	SUB	SBAR	VMOD	VMOD	NMOD	NMOD	NMOD	NMOD	NMOD	NMOD	NMOD	NMOD	NMOD	P	NMOD	SUB	NMOD	NMOD	NMOD	NMOD	NMOD	PMOD	SBAR	NMOD	OBJ	VMOD	NMOD	PMOD	P
+    7	4	4	1	7	7	0	11	11	11	13	13	7	13	16	24	16	19	17	19	23	23	20	14	26	24	28	29	26	31	29	36	36	36	36	43	43	40	40	43	43	43	50	43	49	49	49	49	44	26	52	50	50	55	53	7
+    -	-	-	-	-	PERSON-B	-	-	-	-	PER_DESC-B	-	-	-	-	-	-	CARDINAL-B	PER_DESC-B	-	-	-	-	-	-	-	-	-	-	-	-	EVENT-B	-	PERSON-B	PERSON-I	PERSON-I	-	PERSON-B	PERSON-I	PERSON-I	-	-	PER_DESC-B	-	PERSON-B	PERSON-I	PERSON-I	PERSON-I	PERSON-I	-	-	-	-	-	-	-
+    Ray
+    40
+</positive>
+<positive>
+    James	Earl	Ray	,	who	pleaded	guilty	to	assassinating	the	Rev.	Martin	Luther	King	Jr.	,	says	he	was	framed	to	cover	up	an	FBI	plot	to	kill	the	civil	rights	leader	and	wants	the	government	to	reopen	his	case	.
+    NNP	NNP	NNP	,	WP	VBD	NN	TO	VBG	DT	NNP	NNP	NNP	NNP	NNP	,	VBZ	PRP	VBD	VBN	TO	VB	RP	DT	NNP	NN	TO	VB	DT	NN	NNS	NN	CC	VBZ	DT	NN	TO	VB	PRP$	NN	.
+    NMOD	NMOD	SUB	P	NMOD	SBAR	OBJ	VMOD	PMOD	NMOD	NMOD	NMOD	NMOD	NMOD	OBJ	P	ROOT	SUB	VMOD	VC	VMOD	VMOD	VMOD	NMOD	NMOD	OBJ	VMOD	VMOD	NMOD	NMOD	NMOD	OBJ	VMOD	VMOD	NMOD	SUB	VMOD	VMOD	NMOD	OBJ	P
+    3	3	17	3	3	5	6	6	8	15	15	15	15	15	9	3	0	19	17	19	22	20	22	26	26	22	28	22	32	32	32	28	17	17	36	38	38	34	40	38	17
+    PERSON-B	PERSON-I	PERSON-I	-	-	-	-	-	-	-	PER_DESC-B	PERSON-B	PERSON-I	PERSON-I	PERSON-I	-	-	-	-	-	-	-	-	-	ORGANIZATION-B	-	-	-	-	-	-	PER_DESC-B	-	-	-	ORG_DESC-B	-	-	-	-	-
+    Ray
+    3
+</positive>
+<positive>
+    James	M.	Brown	,	chairman	of	the	Tennessee	Voters	Council	and	a	member	of	the	Dr.	Martin	Luther	King	Jr.	State	Holiday	Committee	,	called	Ray	's	parole	hearing	``	cruel	,	dangerous	and	shameful	,	''	and	said	he	would	ask	Gov.	Ned	McWherter	to	call	it	off	.
+    NNP	NNP	NNP	,	NN	IN	DT	NNP	NNPS	NNP	CC	DT	NN	IN	DT	NNP	NNP	NNP	NNP	NNP	NNP	NNP	NNP	,	VBD	NNP	POS	NN	NN	``	NN	,	JJ	CC	JJ	,	''	CC	VBD	PRP	MD	VB	NNP	NNP	NNP	TO	VB	PRP	RB	.
+    NMOD	NMOD	NMOD	P	NMOD	NMOD	NMOD	NMOD	NMOD	PMOD	NMOD	NMOD	SUB	NMOD	NMOD	NMOD	NMOD	NMOD	NMOD	NMOD	NMOD	NMOD	PMOD	P	ROOT	NMOD	NMOD	NMOD	NMOD	P	VMOD	P	AMOD	AMOD	VMOD	P	P	VMOD	VMOD	SUB	VMOD	VC	NMOD	NMOD	SUB	VMOD	VMOD	OBJ	VMOD	P
+    3	3	13	13	13	5	10	10	10	6	13	13	25	13	23	19	19	19	23	23	23	23	14	13	0	27	29	29	31	31	25	25	35	35	25	25	25	25	25	41	39	41	45	45	47	47	42	47	47	25
+    PERSON-B	PERSON-I	PERSON-I	-	PER_DESC-B	-	-	ORGANIZATION-B	ORGANIZATION-I	ORGANIZATION-I	-	-	PER_DESC-B	-	-	PER_DESC-B	PERSON-B	PERSON-I	PERSON-I	PERSON-I	ORGANIZATION-B	ORGANIZATION-I	ORGANIZATION-I	-	-	PERSON-B	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	PER_DESC-B	PERSON-B	PERSON-I	-	-	-	-	-
+    Ray
+    26
+</positive>
+<positive>
+    In	1969	,	James	Earl	Ray	pleaded	guilty	in	Memphis	,	Tenn.	,	to	the	assassination	of	civil	rights	leader	Martin	Luther	King	Jr.	Ray	later	repudiated	that	plea	.
+    IN	CD	,	NNP	NNP	NNP	VBD	VBN	IN	NNP	,	NNP	,	TO	DT	NN	IN	NN	NNS	NN	NNP	NNP	NNP	NNP	NNP	RBR	VBD	IN	NN	.
+    VMOD	PMOD	P	NMOD	NMOD	SUB	ROOT	VC	VMOD	NMOD	P	PMOD	P	VMOD	NMOD	PMOD	NMOD	NMOD	NMOD	NMOD	NMOD	NMOD	NMOD	NMOD	SUB	VMOD	NMOD	NMOD	VMOD	P
+    7	1	7	6	6	7	0	7	8	12	12	9	12	8	16	14	16	20	20	25	25	25	25	25	27	27	16	29	27	7
+    -	DATE-B	-	PERSON-B	PERSON-I	PERSON-I	-	-	-	GPE-B	-	GPE-B	-	-	-	-	-	-	-	PER_DESC-B	PERSON-B	PERSON-I	PERSON-I	PERSON-I	PERSON-I	-	-	-	-	-
+    Ray	#	Ray
+    6	#	25
+</positive>
+</QApairs>
+<QApairs id='225'>
+<question>
+    Who	is	the	Greek	God	of	the	Sea	?
+    NNP	VBZ	DT	NNP	NNP	IN	DT	NN	.
+    SUB	ROOT	NMOD	NMOD	PRD	NMOD	NMOD	PMOD	P
+    2	0	5	5	2	5	8	6	2
+    -	-	-	NATIONALITY-B	-	-	-	LOCATION-B	-
+</question>
+<positive>
+    The	planet	Neptune	is	named	for	the	Roman	god	of	the	sea	,	known	to	the	ancient	Greeks	as	Poseidon.	;	Announcement	by	telegram	;	The	six	Neptunian	moons	discovered	by	Voyager	2	were	named	Naiad	and	Galatea	,	both	water	nymphs	;	Thalassa	and	Larissa	,	both	lovers	of	Poseidon	;	Proteus	,	one	of	the	god	's	sons	;	and	Despina	,	a	daughter	.	;
+    DT	NN	NNP	VBZ	VBN	IN	DT	NNP	NN	IN	DT	NN	,	VBN	TO	DT	NN	NNP	IN	NNP	:	NN	IN	NN	:	DT	CD	JJ	NNS	VBN	IN	NNP	CD	VBD	VBN	RB	CC	NNP	,	DT	NN	NNS	:	NNP	CC	NNP	,	DT	NNS	IN	NNP	:	NNP	,	CD	IN	DT	NN	POS	NNS	:	CC	NNP	,	DT	NN	.	:
+    NMOD	NMOD	SUB	VMOD	VC	VMOD	NMOD	NMOD	PMOD	NMOD	NMOD	PMOD	P	NMOD	VMOD	NMOD	NMOD	PMOD	NMOD	PMOD	P	SUB	NMOD	PMOD	P	NMOD	NMOD	NMOD	SUB	NMOD	VMOD	PMOD	NMOD	ROOT	VC	VMOD	NMOD	NMOD	P	NMOD	NMOD	NMOD	P	NMOD	NMOD	NMOD	P	NMOD	NMOD	NMOD	PMOD	P	NMOD	P	VMOD	NMOD	NMOD	NMOD	NMOD	PMOD	P	NMOD	NMOD	P	NMOD	PMOD	P	P
+    3	3	4	34	4	5	9	9	6	9	12	10	12	12	14	18	18	15	18	19	34	34	22	23	34	29	29	29	34	29	30	31	32	0	34	35	55	55	55	42	42	55	55	46	46	55	55	49	55	49	50	55	55	55	35	55	59	59	60	56	66	66	66	66	66	56	55	34
+    -	-	LOCATION-B	-	-	-	-	PERSON-B	-	-	-	-	-	-	-	-	-	NATIONALITY-B	-	-	ORGANIZATION-B	ORGANIZATION-I	-	-	-	-	CARDINAL-B	NATIONALITY-B	-	-	-	PRODUCT-B	PRODUCT-I	-	-	PERSON-B	-	PERSON-B	-	-	SUBSTANCE-B	-	-	PERSON-B	-	PERSON-B	-	-	PER_DESC-B	-	ORGANIZATION-B	ORGANIZATION-I	ORGANIZATION-I	-	-	-	-	-	-	PER_DESC-B	-	-	PERSON-B	-	-	PER_DESC-B	-	ORGANIZATION-B
+    Poseidon.	#	Poseidon
+    20	#	51
+</positive>
+<negative>
+    In	``	Triangle	,	''	Barbara	Bloom	scribbles	triangles	and	equations	-LRB-	perhaps	relating	to	the	Greek	``	golden	mean	''	-RRB-	on	the	mat	surrounding	a	photograph	of	people	looking	at	antique	sculpture	in	a	museum	.
+    IN	``	NN	,	''	NNP	NNP	VBZ	NNS	CC	NNS	-LRB-	RB	VBG	TO	DT	NNP	``	JJ	NN	''	-RRB-	IN	DT	NN	VBG	DT	NN	IN	NNS	VBG	IN	JJ	NN	IN	DT	NN	.
+    VMOD	P	PMOD	P	P	NMOD	SUB	ROOT	NMOD	NMOD	OBJ	P	VMOD	NMOD	VMOD	NMOD	PMOD	P	NMOD	PMOD	P	P	VMOD	NMOD	PMOD	NMOD	NMOD	OBJ	NMOD	PMOD	NMOD	VMOD	NMOD	PMOD	NMOD	NMOD	PMOD	P
+    8	1	1	8	8	7	8	0	11	11	8	14	14	11	14	17	15	20	20	15	20	20	8	25	23	25	28	26	28	29	30	31	34	32	34	37	35	8
+    -	-	ORGANIZATION-B	-	-	PERSON-B	PERSON-I	-	-	-	-	-	-	-	-	-	NATIONALITY-B	-	-	-	-	-	-	-	FAC_DESC-B	-	-	-	-	PER_DESC-B	-	-	-	-	-	-	ORG_DESC-B	-
+</negative>
+<negative>
+    But	their	ranks	do	include	such	unexpected	delights	as	John	Chamberlain	's	tiny	``	Howling	Excess	,	''	a	squirming	mass	of	gold	,	silver	,	purple	and	orange	squiggles	and	Cy	Twombly	's	``	Untitled	-LRB-	Proteus	-RRB-	,	''	a	jagged	gasp	of	irregular	strokes	of	oil	stick	that	seems	to	metamorphose	-LRB-	like	the	Greek	sea	god	-RRB-	from	vegetable	to	animal	form	.
+    CC	PRP$	NNS	VBP	VBP	JJ	JJ	NNS	IN	NNP	NNP	POS	JJ	``	VBG	NN	,	''	DT	VBG	NN	IN	NN	,	NN	,	VB	CC	VB	NNS	CC	NNP	NNP	POS	``	JJ	-LRB-	NNP	-RRB-	,	''	DT	JJ	NN	IN	JJ	NNS	IN	NN	NN	WDT	VBZ	TO	VB	-LRB-	IN	DT	NNP	NN	NN	-RRB-	IN	NN	TO	VB	NN	.
+    VMOD	NMOD	SUB	ROOT	VC	NMOD	NMOD	OBJ	NMOD	NMOD	NMOD	NMOD	NMOD	P	NMOD	NMOD	P	P	NMOD	NMOD	NMOD	NMOD	PMOD	P	NMOD	P	NMOD	VMOD	VMOD	OBJ	NMOD	NMOD	NMOD	NMOD	P	NMOD	P	NMOD	P	P	P	NMOD	NMOD	OBJ	NMOD	NMOD	PMOD	NMOD	NMOD	PMOD	NMOD	SBAR	VMOD	VMOD	P	VMOD	NMOD	NMOD	NMOD	PMOD	P	VMOD	PMOD	VMOD	VMOD	OBJ	P
+    4	3	4	0	4	8	8	5	8	12	12	16	16	16	16	21	21	21	21	21	44	21	22	44	44	44	44	27	27	27	44	34	34	44	44	44	38	44	38	44	44	44	44	5	44	47	45	47	50	48	50	51	54	52	56	54	60	60	60	56	56	54	62	65	54	65	4
+    -	-	-	-	-	-	-	-	-	PERSON-B	PERSON-I	-	-	-	WORK_OF_ART-B	WORK_OF_ART-I	-	-	-	-	PER_DESC-B	-	SUBSTANCE-B	-	SUBSTANCE-B	-	-	-	-	SUBSTANCE-B	-	WORK_OF_ART-B	WORK_OF_ART-I	-	-	PERSON-B	-	ORGANIZATION-B	-	-	-	-	-	-	-	-	-	-	SUBSTANCE-B	-	-	-	-	-	-	-	-	NATIONALITY-B	-	-	-	-	-	-	-	-	-
+</negative>
+</QApairs>
+<QApairs id='73'>
+<question>
+    Where	is	the	Taj	Mahal	?
+    RB	VBZ	DT	NNP	NNP	.
+    VMOD	ROOT	NMOD	NMOD	SUB	P
+    2	0	5	5	2	2
+    -	-	-	FAC-B	FAC-I	-
+</question>
+<positive>
+    The	Uzbekistan	,	the	land	of	the	builders	of	India	's	historic	Taj	Mahal	,	offers	a	very	lucrative	mosaic	of	opportunities	to	Indian	entrepreneurs	,	businessmen	,	and	industrialists	.
+    DT	NNP	,	DT	NN	IN	DT	NNS	IN	NNP	POS	JJ	NNP	NNP	,	VBZ	DT	RB	JJ	NN	IN	NNS	TO	JJ	NNS	,	NNS	,	CC	NNS	.
+    NMOD	NMOD	P	NMOD	SUB	NMOD	NMOD	PMOD	NMOD	NMOD	NMOD	NMOD	NMOD	PMOD	P	ROOT	NMOD	AMOD	NMOD	OBJ	NMOD	PMOD	NMOD	NMOD	NMOD	P	NMOD	P	NMOD	PMOD	P
+    2	5	5	5	16	5	8	6	8	11	14	14	14	9	5	0	20	19	20	16	20	21	22	25	30	30	30	30	30	23	16
+    -	GPE-B	-	-	-	-	-	ORG_DESC-B	-	GPE-B	-	-	FAC-B	FAC-I	-	-	-	-	-	-	-	-	-	NATIONALITY-B	PER_DESC-B	-	PER_DESC-B	-	-	PER_DESC-B	-
+    India	#	Indian
+    10	#	24
+</positive>
+<positive>
+    The	UNESCO	list	of	more	than	360	sites	throughout	the	world	includes	the	Great	Barrier	Reef	in	Australia	,	the	Taj	Mahal	in	India	,	Chartres	Cathedral	in	France	,	and	Serengeti	National	Park	in	Tanzania	.
+    DT	NNP	NN	IN	JJR	IN	CD	NNS	IN	DT	NN	VBZ	DT	NNP	NNP	NNP	IN	NNP	,	DT	NNP	NNP	IN	NNP	,	NNP	NNP	IN	NNP	,	CC	NNP	NNP	NNP	IN	NNP	.
+    NMOD	NMOD	SUB	NMOD	AMOD	NMOD	AMOD	PMOD	NMOD	NMOD	PMOD	ROOT	NMOD	NMOD	NMOD	OBJ	NMOD	PMOD	P	NMOD	NMOD	NMOD	NMOD	PMOD	P	NMOD	NMOD	NMOD	PMOD	P	NMOD	NMOD	NMOD	PMOD	NMOD	PMOD	P
+    3	3	12	3	6	8	6	4	8	11	9	0	16	16	16	12	16	17	34	22	22	34	22	23	34	27	34	27	28	34	34	34	34	17	34	35	12
+    -	ORGANIZATION-B	-	-	CARDINAL-B	CARDINAL-I	CARDINAL-I	FAC_DESC-B	-	-	-	-	-	LOCATION-B	LOCATION-I	LOCATION-I	-	GPE-B	-	-	FAC-B	FAC-I	-	GPE-B	-	FAC-B	FAC-I	-	GPE-B	-	-	FAC-B	FAC-I	FAC-I	-	GPE-B	-
+    India
+    24
+</positive>
+<positive>
+    And	of	course	,	India	has	the	Taj	Mahal	.
+    CC	IN	NN	,	NNP	VBZ	DT	NNP	NNP	.
+    VMOD	VMOD	PMOD	P	SUB	ROOT	NMOD	NMOD	OBJ	P
+    6	6	2	6	6	0	9	9	6	6
+    -	-	-	-	GPE-B	-	-	FAC-B	FAC-I	-
+    India
+    5
+</positive>
+<positive>
+    Seven	people	died	and	50	were	reported	missing	because	a	low-caste	15-year-old	bridegroom	from	India	's	Taj	Mahal	town	of	Agra	wanted	to	ride	to	his	wedding	on	horseback	,	a	local	member	of	Parliament	said	today	.
+    NNP	NNS	VBD	CC	CD	VBD	VBN	VBG	IN	DT	JJ	JJ	NN	IN	NNP	POS	NNP	NNP	NN	IN	NNP	VBD	TO	VB	TO	PRP$	JJ	IN	NN	,	DT	JJ	NN	IN	NNP	VBD	NN	.
+    NMOD	SUB	VMOD	VMOD	SUB	VMOD	VC	VMOD	VMOD	NMOD	NMOD	NMOD	PMOD	NMOD	NMOD	NMOD	NMOD	NMOD	PMOD	NMOD	PMOD	VMOD	VMOD	VMOD	VMOD	NMOD	PMOD	NMOD	PMOD	P	NMOD	NMOD	SUB	NMOD	PMOD	ROOT	VMOD	P
+    2	3	22	6	6	3	6	7	7	13	13	13	9	13	16	19	19	19	14	19	20	36	24	22	24	27	25	27	28	36	33	33	36	33	34	0	36	36
+    CARDINAL-B	PER_DESC-B	-	-	CARDINAL-B	-	-	-	-	-	-	DATE-B	PER_DESC-B	-	GPE-B	-	FAC-B	FAC-I	GPE_DESC-B	-	PERSON-B	-	-	-	-	-	-	-	-	-	-	-	PER_DESC-B	-	ORGANIZATION-B	-	DATE-B	-
+    India	#	Agra
+    15	#	21
+</positive>
+</QApairs>
