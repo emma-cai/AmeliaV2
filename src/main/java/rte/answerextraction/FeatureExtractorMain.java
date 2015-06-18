@@ -15,6 +15,7 @@ import java.util.TreeMap;
 import static rte.answerextraction.FeatureExtractor.extractFeatures;
 import static rte.answerextraction.FeatureExtractor.toNumericFeature;
 import static rte.answerextraction.FeatureExtractorUtils.generateAnswerCandidates;
+import static rte.answerextraction_tmp.AnswerExtractionUtil.fromTreeMapToString;
 
 /**
  * Created by qingqingcai on 6/17/15.
@@ -37,7 +38,7 @@ public class FeatureExtractorMain {
         sparkLibSVM.setConf(context);
 
         String feapath = "data/rte/FITOFN.ser";
-        String modelpath = "data/rte/SPARKLIBSVM.model";
+        String modelpath = "data/rte/SVMSPARK.model";
 
         // loda classifier and features
         svmModel = (SVMModel) sparkLibSVM.loadModel(modelpath);
@@ -70,6 +71,7 @@ public class FeatureExtractorMain {
             double label = svmModel.predict(feaVector);
             System.out.println("\nquery = " + query);
             System.out.println("text = " + text);
+            System.out.println("candidate = " + fromTreeMapToString(ansCandNodeMap));
             System.out.println("feaMap = " + feaMap);
             System.out.println("feaVector = " + feaVector);
             System.out.println("label = " + label);

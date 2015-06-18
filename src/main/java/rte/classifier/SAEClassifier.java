@@ -1,5 +1,7 @@
 package rte.classifier;
 
+import org.apache.spark.mllib.classification.SVMModel;
+
 import java.util.HashMap;
 
 /**
@@ -19,7 +21,7 @@ public interface SAEClassifier<L, F> {
 
     public void setConf(HashMap<String, Object> contextMap);
 
-    public void saveModel(String modelpath);
+    public void saveModel(String modelpath, SVMModel svmModel);
 
     public Object loadModel(String modelpath);
 
@@ -27,11 +29,7 @@ public interface SAEClassifier<L, F> {
 
     public HashMap<Integer, String> loadFeature(String path);
 
-    public static void trainModel(String trainpath) {
-        return;
-    }
-
-    public static HashMap<String, Object> testModel(String testpath) {
+    public default Object trainModel(String trainpath) {
         return null;
     }
 }

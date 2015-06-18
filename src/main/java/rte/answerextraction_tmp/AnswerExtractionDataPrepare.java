@@ -6,10 +6,13 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.spark.mllib.classification.SVMModel;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import rte.classifier.SAEClassifier;
+import rte.classifier.SparkLibSVM;
 import rte.datastructure.DNode;
 import rte.datastructure.Graph;
 import rte.graphmatching.NodeComparer;
@@ -30,6 +33,13 @@ public class AnswerExtractionDataPrepare {
     private static List<String> POSFILTERLIST = new ArrayList<>(Arrays.asList(",", "", "``", "''"));
     private static int POSNUM = 0;
     private static int NEGNUM = 0;
+
+    private final static HashMap<String, Object> context = new HashMap() {
+        {
+            put(SAEClassifier.ITERATION, 50);
+            put(SAEClassifier.THRESHOLD, Double.MAX_VALUE);
+        }
+    };
 
     public static void generateTrainingData() {
 
@@ -65,6 +75,16 @@ public class AnswerExtractionDataPrepare {
 
         writeFeatureToExcelFile(testExcelPath, testSheetName, testDataWithFeatureList, true);
         writeFeatureToSparkLabeledPoint(testSparkPath, testDataWithFeatureList, false);
+
+        // Classifier trainer; and FITOFN and classifier serialization
+        String feaPath = "data/rte/FITOFN.ser";
+        String modelPath = "data/rte/SVMSPARK.model";
+        SparkLibSVM sparkLibSVM = new SparkLibSVM();
+        sparkLibSVM.init();
+        sparkLibSVM.setConf(context);
+        SVMModel svmModel = (SVMModel) sparkLibSVM.trainModel(trainSparkPath);
+        sparkLibSVM.saveModel(modelPath, svmModel);
+        sparkLibSVM.saveFeature(feaPath, FITOFN);
     }
 
     public static void toNumericFeature(List<RTEData> dataList) {

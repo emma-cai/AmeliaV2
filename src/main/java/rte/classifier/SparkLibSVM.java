@@ -3,16 +3,13 @@ package rte.classifier;
 import org.apache.spark.SparkConf;
 import org.apache.spark.SparkContext;
 import org.apache.spark.api.java.JavaRDD;
-import org.apache.spark.api.java.function.Function;
 import org.apache.spark.mllib.classification.SVMModel;
 import org.apache.spark.mllib.classification.SVMWithSGD;
-import org.apache.spark.mllib.evaluation.BinaryClassificationMetrics;
 import org.apache.spark.mllib.linalg.Vector;
 import org.apache.spark.mllib.regression.LabeledPoint;
 import org.apache.spark.mllib.util.MLUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import scala.Tuple2;
 
 import java.io.*;
 import java.util.HashMap;
@@ -25,7 +22,6 @@ public class SparkLibSVM<L, F> implements SAEClassifier<L, F> {
     private static final Logger LOG = LoggerFactory.getLogger(SparkLibSVM.class);
 
     static SparkContext sc;
-    static SVMModel svmModel;
     static int numIterations = 0;
     static double threshold = 0;
 
@@ -44,13 +40,14 @@ public class SparkLibSVM<L, F> implements SAEClassifier<L, F> {
     }
 
     @Override
-    public void saveModel(String modelpath) {
+    public void saveModel(String modelpath, SVMModel svmModel) {
         svmModel.save(sc, modelpath);
     }
 
     @Override
     public Object loadModel(String modelpath) {
-        return svmModel.load(sc, modelpath);
+
+        return SVMModel.load(sc, modelpath);
     }
 
     @Override
@@ -91,50 +88,28 @@ public class SparkLibSVM<L, F> implements SAEClassifier<L, F> {
         return map;
     }
 
-    public static void trainModel(String trainpath) {
+    @Override
+    public Object trainModel(String trainpath) {
+
+        SVMModel svmModel = null;
         JavaRDD<LabeledPoint> training = MLUtils.loadLabeledData(sc, trainpath).toJavaRDD().cache();
         if (threshold == Double.MIN_VALUE || threshold == Double.MAX_VALUE)
             svmModel = SVMWithSGD.train(training.rdd(), numIterations).clearThreshold();
         else
             svmModel = SVMWithSGD.train(training.rdd(), numIterations).setThreshold(threshold);
+        return svmModel;
     }
 
-    public static HashMap<String, Object> testModel(String testpath) {
-
-        HashMap<String, Object> evalMetrix = new HashMap<>();
-        if (svmModel == null)
-            throw new IllegalStateException("SVMModel is NULL!");
-        JavaRDD<LabeledPoint> test = MLUtils.loadLabeledData(sc, testpath).toJavaRDD().cache();
-        System.out.println("debug: " + test.collect().size());
-
-        // Tuple2._1() is the predictive score = W^T * X
-        // Tuple2._2() is the golden standard label
-        // By default (if call clearThreshold()), if (W^T * X) > 0, then output is positive
-        JavaRDD<Tuple2<Object, Object>> scoreAndLabels = test.map(
-                new Function<LabeledPoint, Tuple2<Object, Object>>() {
-                    public Tuple2<Object, Object> call(LabeledPoint p) {
-                        Double score = svmModel.predict(p.features());
-                        return new Tuple2<Object, Object>(score, p.label());
-                    }
-                }
-        );
-        BinaryClassificationMetrics metrics =
-                new BinaryClassificationMetrics(JavaRDD.toRDD(scoreAndLabels));
-        double auROC = metrics.areaUnderROC();
-        double auPR = metrics.areaUnderPR();
-        JavaRDD<Tuple2<Object, Object>> pr = metrics.pr().toJavaRDD().cache();  // return the precision-recall curve, which is an RDD of (recall, precision)
-        evalMetrix.put(AREAUNDERROC, auROC);
-        evalMetrix.put(AREAUNDERPR, auPR);
-        evalMetrix.put(PRCURVE, pr);
-
-        return evalMetrix;
-    }
-
-    public static double predict(Vector example) {
+    public static double predict(SVMModel svmModel, Vector example) {
 
         if (svmModel == null)
             throw new IllegalStateException("SVMModel is NULL!");
         Double score = svmModel.predict(example);
         return score;
+    }
+
+    public SparkContext getSparkContext() {
+
+        return sc;
     }
 }

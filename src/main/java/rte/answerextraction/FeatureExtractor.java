@@ -18,16 +18,6 @@ public class FeatureExtractor {
     private static List<String> POSFILTERLIST
             = new ArrayList<>(Arrays.asList(",", "", "``", "''"));
 
-    public void extractFeatures(SAData data) {
-
-
-    }
-
-    private void extractFeatures(Graph graphT, Graph graphQ) {
-
-
-    }
-
     public static HashMap<String, String> extractFeatures(
             Graph graphT, Graph graphQ, List<DNode> ansCandNodeList) {
 
@@ -66,7 +56,8 @@ public class FeatureExtractor {
         return feamap;
     }
 
-    public static Vector toNumericFeature(HashMap<Integer, String> FITOFN , HashMap<String, String> feaMap) {
+    public static Vector toNumericFeature(
+            HashMap<Integer, String> FITOFN , HashMap<String, String> feaMap) {
 
         TreeMap<Integer, Double> numericfeamap = new TreeMap<>();
 
