@@ -9,12 +9,14 @@ import org.apache.poi.ss.usermodel.Row;
 import rte.datastructure.DNode;
 import rte.datastructure.Graph;
 import rte.graphmatching.NodeComparer;
+import rte.similarityflooding.NodePair;
 
 import java.io.*;
 import java.util.*;
 
 import static rte.answerextraction.FeatureExtractor.extractFeatures;
 import static rte.answerextraction.FeatureExtractorUtils.*;
+import static rte.graphmatching.DMatching.initNodeMatches;
 
 /**
  * Created by qingqingcai on 6/18/15.
@@ -98,8 +100,10 @@ public class TrainData {
 
             String whForm = whNode.getForm();
 
+            HashMap<DNode, NavigableMap<Double, List<NodePair>>> nodeMatches
+                    = initNodeMatches(graphT, graphQ, config);
             List<TreeMap<Integer, DNode>> ListOfAnsCandNodeMap
-                    = generateAnswerCandidates(graphQ, graphT);
+                    = generateAnswerCandidates(whNode, nodeMatches);
 
             for (TreeMap<Integer, DNode> ansCandNodeMap : ListOfAnsCandNodeMap) {
 
@@ -129,7 +133,7 @@ public class TrainData {
                     addtofile = true;
                 }
                 if (addtofile) {
-                    HashMap<String, String> feamap = extractFeatures(graphT, graphQ, ansCandNodeList);
+                    HashMap<String, String> feamap = extractFeatures(graphT, graphQ, ansCandNodeList, nodeMatches);
 
                     SAEData dataWithFeature = new SAEData(id, label, ques, text, answerid, answer);
                     dataWithFeature.setFeaMap(feamap);

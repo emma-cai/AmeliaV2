@@ -5,6 +5,7 @@ import org.apache.spark.mllib.linalg.Vectors;
 import rte.datastructure.DNode;
 import rte.datastructure.Graph;
 import rte.graphmatching.NodeComparer;
+import rte.similarityflooding.NodePair;
 
 import java.util.*;
 
@@ -19,7 +20,8 @@ public class FeatureExtractor {
             = new ArrayList<>(Arrays.asList(",", "", "``", "''"));
 
     public static HashMap<String, String> extractFeatures(
-            Graph graphT, Graph graphQ, List<DNode> ansCandNodeList) {
+            Graph graphT, Graph graphQ, List<DNode> ansCandNodeList,
+            HashMap<DNode, NavigableMap<Double, List<NodePair>>> nodeH_sim_NodePairList) {
 
         List<String> ansPosList = getFieldList(ansCandNodeList, "pos", POSFILTERLIST);
         List<String> ansDepList = getFieldList(ansCandNodeList, "dep", null);
