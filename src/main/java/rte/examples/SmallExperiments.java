@@ -1,4 +1,4 @@
-package rte.answerextraction_tmp;
+package rte.examples;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;

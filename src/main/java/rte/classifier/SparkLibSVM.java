@@ -12,8 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.HashMap;
 
 /**
@@ -48,20 +46,7 @@ public class SparkLibSVM<L, F> implements SAEClassifier<L, F> {
     @Override
     public void saveModel(String modelpath, SVMModel svmModel) {
 
-//        File file = new File(modelpath);
-//        if (file.exists()) {
-//            String[] list = file.list();
-//            for (String l : list) {
-//                File f = new File(modelpath + File.separator + l);
-//                f.delete();
-//            }
-//        }
-//        file.delete();
-        String path = modelpath + File.separator + "metadata";
-        if (Files.exists(Paths.get(path))) {
-            new File(path).delete();
-        }
-     //   new File(path).mkdir();
+        rmdir(new File(modelpath));
         svmModel.save(sc, modelpath);
     }
 
@@ -129,8 +114,26 @@ public class SparkLibSVM<L, F> implements SAEClassifier<L, F> {
         return score;
     }
 
-    public SparkContext getSparkContext() {
+    /** **************************************************************
+     * Remove existing directory and sub-directories if they've existed;
+     */
+    private static void rmdir(final File folder) {
 
-        return sc;
+        // check if folder file is a real folder
+        if (folder.isDirectory()) {
+            File[] list = folder.listFiles();
+            if (list != null) {
+                for (int i = 0; i < list.length; i++) {
+                    File tmpF = list[i];
+                    if (tmpF.isDirectory()) {
+                        rmdir(tmpF);
+                    }
+                    tmpF.delete();
+                }
+            }
+            if (!folder.delete()) {
+                System.out.println("can't delete folder : " + folder);
+            }
+        }
     }
 }
