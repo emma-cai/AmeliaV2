@@ -5,6 +5,7 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import rte.datacollection.SAEData;
 import rte.datastructure.DNode;
 import rte.datastructure.Graph;
 
@@ -27,7 +28,7 @@ public class SmallExperiments {
     /** **************************************************************
      * Read RTE data from excel file
      */
-    public static void readExcel(String filepath, String sheetname, List<RTEData> data) {
+    public static void readExcel(String filepath, String sheetname, List<SAEData> data) {
 
         try {
             POIFSFileSystem fs = new POIFSFileSystem(new FileInputStream(filepath));

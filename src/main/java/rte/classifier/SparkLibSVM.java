@@ -12,6 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 
 /**
@@ -22,8 +24,12 @@ public class SparkLibSVM<L, F> implements SAEClassifier<L, F> {
     private static final Logger LOG = LoggerFactory.getLogger(SparkLibSVM.class);
 
     static SparkContext sc;
-    static int numIterations = 0;
-    static double threshold = 0;
+    static int numIterations = 50;
+    static double threshold = Double.MAX_VALUE;
+
+    public SparkLibSVM() {
+        init();
+    }
 
     @Override
     public void init() {
@@ -34,13 +40,28 @@ public class SparkLibSVM<L, F> implements SAEClassifier<L, F> {
     }
 
     @Override
-    public void setConf(HashMap<String, Object> contextMap) {
+    public void setSparkConfig(HashMap<String, Object> contextMap) {
         numIterations = (int) contextMap.get(ITERATION);
         threshold = (double) contextMap.get(THRESHOLD);
     }
 
     @Override
     public void saveModel(String modelpath, SVMModel svmModel) {
+
+//        File file = new File(modelpath);
+//        if (file.exists()) {
+//            String[] list = file.list();
+//            for (String l : list) {
+//                File f = new File(modelpath + File.separator + l);
+//                f.delete();
+//            }
+//        }
+//        file.delete();
+        String path = modelpath + File.separator + "metadata";
+        if (Files.exists(Paths.get(path))) {
+            new File(path).delete();
+        }
+     //   new File(path).mkdir();
         svmModel.save(sc, modelpath);
     }
 

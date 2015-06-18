@@ -39,11 +39,11 @@ public class FeatureExtractor {
         HashMap<String, String> feamap = new HashMap<>();
 
         // # of tokens in answer-candidate
-        String fv = Integer.toString(ansCandNodeList.size());
+        String fv = Double.toString(ansCandNodeList.size());
         feamap.put("N:a_TN", fv);
 
         // overlap of QUERY_LEMMA and TEXT_LEMMA
-        fv = Integer.toString(overlap(graphQ, ansCandNodeList));
+        fv = Double.toString(overlap(graphQ, ansCandNodeList));
         feamap.put("N:overlapN", fv);
 
         // (wh-word-form, 0/1); 0/1 -> Does answer-candidate contain number/CD?

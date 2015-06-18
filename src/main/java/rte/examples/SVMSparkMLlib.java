@@ -13,7 +13,7 @@ import org.apache.spark.mllib.classification.SVMWithSGD;
 import org.apache.spark.mllib.evaluation.BinaryClassificationMetrics;
 import org.apache.spark.mllib.regression.LabeledPoint;
 import org.apache.spark.mllib.util.MLUtils;
-import rte.answerextraction_tmp.RTEData;
+import rte.datacollection.SAEData;
 import scala.Tuple2;
 
 import java.io.FileInputStream;
@@ -39,7 +39,7 @@ public class SVMSparkMLlib {
         String testpath = "data/rte/" + testName + ".test.spark.txt";
         String testExcelPath = "data/rte/" + testName + ".test.xls";
         String testSheetName = testName;
-        List<RTEData> testDataList = readFromXML(testExcelPath, testSheetName);
+        List<SAEData> testDataList = readFromXML(testExcelPath, testSheetName);
 
 //        JavaRDD<LabeledPoint> data = MLUtils.loadLabeledData(sc, trainpath).toJavaRDD().cache();
 //        JavaRDD<LabeledPoint>[] splits = data.randomSplit(new double[] {0.6, 0.4}, 11L);
@@ -83,7 +83,7 @@ public class SVMSparkMLlib {
         final int[] testID = {0};
         scoreAndLabels.collect().forEach(tuple2 -> {
 
-            RTEData data = testDataList.get(testID[0]);
+            SAEData data = testDataList.get(testID[0]);
             System.out.println("\nid = " + data.getID() + "\n"
                     + "query = " + data.getQuery() + "\n"
                     + "answer = " + data.getAnswer() + "\n"
@@ -129,9 +129,9 @@ public class SVMSparkMLlib {
     /** **************************************************************
      * Link the prediction to original testing instance/data;
      */
-    public static List<RTEData> readFromXML(String filepath, String sheetname) {
+    public static List<SAEData> readFromXML(String filepath, String sheetname) {
 
-        List<RTEData> dataList = new ArrayList<>();
+        List<SAEData> dataList = new ArrayList<>();
 
         try {
             POIFSFileSystem fs = new POIFSFileSystem(new FileInputStream(filepath));
@@ -164,7 +164,7 @@ public class SVMSparkMLlib {
                     String quesConllx = row.getCell(5).getStringCellValue();
                     String textConllx = row.getCell(6).getStringCellValue();
 
-                    RTEData data = new RTEData(id, label, ques, text, answerid, answer);
+                    SAEData data = new SAEData(id, label, ques, text, answerid, answer);
                     data.setShortAnswerCandidate(saCand);
                     data.setFeaMap(feamap);
                     data.setLabel(label);

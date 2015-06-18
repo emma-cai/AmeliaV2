@@ -2,8 +2,9 @@ package rte.answerextraction;
 
 import org.apache.spark.mllib.classification.SVMModel;
 import org.apache.spark.mllib.linalg.Vector;
-import rte.classifier.SAEClassifier;
-import rte.classifier.SparkLibSVM;
+import rte.RteMessageHandler;
+import rte.classifier.ClassifierTrainer;
+import rte.datacollection.TrainData;
 import rte.datastructure.DNode;
 import rte.datastructure.Graph;
 
@@ -14,40 +15,51 @@ import java.util.TreeMap;
 
 import static rte.answerextraction.FeatureExtractor.extractFeatures;
 import static rte.answerextraction.FeatureExtractor.toNumericFeature;
+import static rte.answerextraction.FeatureExtractorUtils.fromTreeMapToString;
 import static rte.answerextraction.FeatureExtractorUtils.generateAnswerCandidates;
-import static rte.answerextraction_tmp.AnswerExtractionUtil.fromTreeMapToString;
 
 /**
- * Created by qingqingcai on 6/17/15.
+ * Created by qingqingcai on 6/18/15.
  */
-public class FeatureExtractorMain {
+public class AnswerExtractionSystem extends RteMessageHandler {
 
-    private final static HashMap<String, Object> context = new HashMap() {
-        {
-            put(SAEClassifier.ITERATION, 50);
-            put(SAEClassifier.THRESHOLD, Double.MAX_VALUE);
-        }
-    };
     private static SVMModel svmModel = null;
-    private static HashMap<Integer, String> FITOFN = null;
+    private static HashMap<Integer, String> FITOFN = new HashMap<>();
 
     public static void main(String[] args) {
 
-        SparkLibSVM sparkLibSVM = new SparkLibSVM();
-        sparkLibSVM.init();
-        sparkLibSVM.setConf(context);
+        String trainName = "MIT99.smallexamples";
+        String testName = "cmuwiki.smallexamples";
+        String trainInputPath = "data/rte/jacana-qa-naacl2013-data-results/train2393.cleanup.xml";
+        String modelPath = "data/rte/SVMSPARK.model";
+        String feaPath = "data/rte/FITOFN.ser";
 
-        String feapath = "data/rte/FITOFN.ser";
-        String modelpath = "data/rte/SVMSPARK.model";
+//        // Raw data precessing
+//        RawData.runRawData(new String[]{trainName, testName, trainInputPath});
+
+        // Generate features and prepare the training / testing data
+        TrainData.runTrainData(new String[]{trainName, testName});
+        FITOFN.putAll(TrainData.FITOFN);
+
+        // Run classifier
+        ClassifierTrainer.runClassifierTrainer(
+                new String[]{trainName, modelPath, feaPath}, FITOFN);
+
+        // Testing for single instance
+        runSingleTest(modelPath, feaPath);
+    }
+
+    public static void runSingleTest(String modelpath, String feapath) {
 
         // loda classifier and features
         svmModel = (SVMModel) sparkLibSVM.loadModel(modelpath);
         FITOFN = sparkLibSVM.loadFeature(feapath);
 
-        String query = "Who is Obama?";
-        String text = "Obama is the president.";
+        String query = "What book did Rachel Carson write in 1962?";
+        String text = "Rachel Carson's 1962 \"Silent Spring\" said dieldrin causes mania.";
 
         runQA(query, text);
+
     }
 
     public static void runQA(String query, String text) {

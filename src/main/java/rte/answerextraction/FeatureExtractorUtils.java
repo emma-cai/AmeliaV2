@@ -232,12 +232,12 @@ public class FeatureExtractorUtils extends RteMessageHandler {
         return subtreeDNodeSorted;
     }
 
-    static boolean isNumeric(String s) {
+    public static boolean isNumeric(String s) {
 
         return s.startsWith("N:");
     }
 
-    static boolean isCategorial(String s) {
+    public static boolean isCategorial(String s) {
 
         return s.startsWith("C:");
     }

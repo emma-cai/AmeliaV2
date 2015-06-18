@@ -1,6 +1,6 @@
 package rte.examples;
 
-import rte.answerextraction_tmp.RTEData;
+import rte.datacollection.SAEData;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,12 +20,12 @@ public class FeatureAnalysis {
         String testExcelPath = "data/rte/" + testName + ".test.xls";
         String trainSheetName = trainName;
         String testSheetName = testName;
-        List<RTEData> trainDataWithFeaturesList = SVMSparkMLlib.readFromXML(trainExcelPath, trainSheetName);
+        List<SAEData> trainDataWithFeaturesList = SVMSparkMLlib.readFromXML(trainExcelPath, trainSheetName);
 
         featureFrequency(trainDataWithFeaturesList);
     }
 
-    public static void featureFrequency(List<RTEData> dataList) {
+    public static void featureFrequency(List<SAEData> dataList) {
 
         HashMap<String, HashMap<String, List<String>>> fv_label_idList = new HashMap<>();
     //    String colTarget = "10";        // whlemma_0/1(contains CD or not)
@@ -33,7 +33,7 @@ public class FeatureAnalysis {
 
 
         int idhelp = 0;
-        for (RTEData data : dataList) {
+        for (SAEData data : dataList) {
 
             String id = data.getID() + "-" + Integer.toString(idhelp++);
             String label = data.getLabel();

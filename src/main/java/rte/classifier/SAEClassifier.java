@@ -19,7 +19,7 @@ public interface SAEClassifier<L, F> {
 
     public void init();
 
-    public void setConf(HashMap<String, Object> contextMap);
+    public void setSparkConfig(HashMap<String, Object> contextMap);
 
     public void saveModel(String modelpath, SVMModel svmModel);
 

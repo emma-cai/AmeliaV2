@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import rte.classifier.SparkLibSVM;
 import rte.datastructure.Graph;
 import rte.graphmatching.RteConfiguration;
 
@@ -40,4 +41,6 @@ public class RteMessageHandler  {
             return cachedGraphs;
         }
     }
+
+    public static SparkLibSVM sparkLibSVM = new SparkLibSVM();
 }
