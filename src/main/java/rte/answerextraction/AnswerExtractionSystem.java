@@ -28,9 +28,10 @@ public class AnswerExtractionSystem extends RteMessageHandler {
 
     public static void main(String[] args) {
 
-        String trainName = "MIT99";
-        String testName = "cmuwiki";
-        String trainInputPath = "data/rte/jacana-qa-naacl2013-data-results/train2393.cleanup.xml";
+        String trainName = "MIT99.smallexamples";
+        String testName = "cmuwiki.smallexamples";
+    //    String trainInputPath = "data/rte/jacana-qa-naacl2013-data-results/train2393.cleanup.xml";
+        String trainInputPath = "data/rte/jacana-qa-naacl2013-data-results/train-less-than-40.manual-edit.xml";
         String modelPath = "data/rte/SVMSPARK." + trainName + ".model";
         String feaPath = "data/rte/FITOFN." + trainName + ".ser";
 

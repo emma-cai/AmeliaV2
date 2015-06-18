@@ -286,8 +286,8 @@ import java.util.stream.Collectors;
 //}
 
 /**
- * Created by Maochen on 12/8/14.
- */
+* Created by Maochen on 12/8/14.
+*/
 public class StanfordPCFGParser {
 
     private static final Logger LOG = LoggerFactory.getLogger(StanfordPCFGParser.class);

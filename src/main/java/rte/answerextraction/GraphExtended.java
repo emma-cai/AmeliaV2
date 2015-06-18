@@ -10,7 +10,7 @@ import rte.parser.pcfg.StanfordPCFGParser;
  */
 public class GraphExtended extends Graph {
 
-    private static StanfordPCFGParser pcfgParser = new StanfordPCFGParser("", "", false);
+    private static StanfordPCFGParser pcfgParser = new StanfordPCFGParser("", "", true);
 
     public GraphExtended(Class<? extends DefaultWeightedEdge> aClass) {
         super(aClass);

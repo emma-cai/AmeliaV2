@@ -78,6 +78,11 @@ public class FeatureExtractorUtils extends RteMessageHandler {
                     if (!(filterList != null && !filterList.contains(form)))
                         AnsFieldList.add(form);
                     break;
+                case "named_entity":
+                    String namedent = dnode.getFeature("named_entity");
+                    if (namedent != null && !namedent.isEmpty() && !AnsFieldList.contains(namedent))
+                        AnsFieldList.add(namedent);
+                    break;
             }
 
         }

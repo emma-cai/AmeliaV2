@@ -87,6 +87,11 @@ public class TrainData {
 
             String quesConllx = data.conllxQ;
             String textConllx = data.conllxT;
+
+            if (text.toLowerCase().equals("This helps explain why Peruvian fishermen dubbed the phenomenon El Nino , which means Christ child in Spanish .".toLowerCase()))
+                System.out.println("qingqing debug ...");
+
+
             Graph graphQ = (quesConllx == null || quesConllx.isEmpty())
                     ? Graph.stringToGraph(ques) : Graph.conllxToGraph(quesConllx);
             Graph graphT = (textConllx == null || textConllx.isEmpty())

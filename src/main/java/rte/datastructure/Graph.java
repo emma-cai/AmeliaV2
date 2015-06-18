@@ -20,7 +20,7 @@ public class Graph extends SimpleGraph<Object, DefaultWeightedEdge> {
     private static String modelFile = "";
     private static String posTaggerModel = "";
 
-    private static StanfordPCFGParser pcfgParser = new StanfordPCFGParser(modelFile, posTaggerModel, false);
+    private static StanfordPCFGParser pcfgParser = new StanfordPCFGParser(modelFile, posTaggerModel, true);
 
     public static final Set<String> postagSet = NodeComparer.postagSet;
 

@@ -25,6 +25,8 @@ public class FeatureExtractor {
 
         List<String> ansPosList = getFieldList(ansCandNodeList, "pos", POSFILTERLIST);
         List<String> ansDepList = getFieldList(ansCandNodeList, "dep", null);
+        List<String> ansNEList = getFieldList(ansCandNodeList, "named_entity", null);
+        String ansNEStr = getFieldStr(ansCandNodeList, "named_entity", null, "_");
 
 //        String ansPosStr = getFieldStr(ansCandNodeList, "pos", POSFILTERLIST, "_");
 //        String ansDepStr = getFieldStr(ansCandNodeList, "dep", null, "_");
@@ -40,6 +42,9 @@ public class FeatureExtractor {
 
         HashMap<String, String> feamap = new HashMap<>();
 
+        if (ansCandNodeList.get(0).getForm().equals("El"))
+            System.out.println("qingqing debug ...");
+
         // # of tokens in answer-candidate
         String fv = Double.toString(ansCandNodeList.size());
         feamap.put("N:a_TN", fv);
@@ -54,6 +59,9 @@ public class FeatureExtractor {
 
         // (wh-word-lemma, lca-dep)
         feamap.put("C:whLemma_lcaDep", whLemma + "-" + lcaDepStr);
+
+        // (wh-word-lemma, NE)
+        feamap.put("C:whLemma_NE", whLemma + "-" + ansNEStr);
 
         return feamap;
     }
