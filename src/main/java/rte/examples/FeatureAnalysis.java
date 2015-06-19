@@ -14,8 +14,8 @@ public class FeatureAnalysis {
 
     public static void main(String[] args) {
 
-        String trainName = "MIT99";
-        String testName = "cmuwiki";
+        String trainName = "MIT99.smallexamples";
+        String testName = "cmuwiki.smallexamples";
         String trainExcelPath = "data/rte/" + trainName + ".train.xls";
         String testExcelPath = "data/rte/" + testName + ".test.xls";
         String trainSheetName = trainName;
@@ -29,7 +29,7 @@ public class FeatureAnalysis {
 
         HashMap<String, HashMap<String, List<String>>> fv_label_idList = new HashMap<>();
     //    String colTarget = "10";        // whlemma_0/1(contains CD or not)
-        String colTarget = "7";        // whlemma_lcadep
+        String colTarget = "8";        // whlemma_lcadep
 
 
         int idhelp = 0;
@@ -59,9 +59,7 @@ public class FeatureAnalysis {
 
         fv_label_idList.forEach((fv, label_idList) -> {
             System.out.println(fv + "\t" + "0" + "\t" + (label_idList.containsKey("0") ? label_idList.get("0").size() : 0));
-        //    System.out.println("\t" + (label_idList.containsKey("0") ? label_idList.get("0") : null));
             System.out.println(fv + "\t" + "1" + "\t" + (label_idList.containsKey("1") ? label_idList.get("1").size() : 0));
-        //    System.out.println("\t" + (label_idList.containsKey("1") ? label_idList.get("1") : null));
         });
     }
 }

@@ -45,8 +45,10 @@ public class FeatureExtractor {
         if (ansCandNodeList.get(0).getForm().equals("El"))
             System.out.println("qingqing debug ...");
 
+        String fv = "";
+
         // # of tokens in answer-candidate
-        String fv = Double.toString(ansCandNodeList.size());
+        fv = Double.toString(ansCandNodeList.size());
         feamap.put("N:a_TN", fv);
 
         // overlap of QUERY_LEMMA and TEXT_LEMMA
@@ -57,11 +59,32 @@ public class FeatureExtractor {
         fv = ansPosList.contains("CD") ? "1" : "0";
         feamap.put("C:whLemma_a_hasCD", whLemma + "-" + fv);
 
-        // (wh-word-lemma, lca-dep)
-        feamap.put("C:whLemma_lcaDep", whLemma + "-" + lcaDepStr);
+//        // (wh-word-lemma, lca-dep)
+//        feamap.put("C:whLemma_lcaDep", whLemma + "-" + lcaDepStr);
 
         // (wh-word-lemma, NE)
-        feamap.put("C:whLemma_NE", whLemma + "-" + ansNEStr);
+    //    feamap.put("C:whLemma_NE", whLemma + "-" + ansNEStr);
+
+        fv = "2";
+        if (whLemma.equals("who"))
+            fv = ansNEList.contains("PERSON") ? "1" : "0";
+        feamap.put("C:who_PERSON", "who_ne-" + fv);
+
+        fv = "2";
+        if (whLemma.equals("when"))
+            fv = (ansNEList.contains("DATE") || ansNEList.contains("DURATION"))
+                    ? "1" : "0";
+        feamap.put("C:when_DATE", "when_ne-" + fv);
+
+        fv = "2";
+        if (whLemma.equals("where"))
+            fv = ansNEList.contains("LOCATION") ? "1" : "0";
+        feamap.put("C:where_LOCATION", "where_ne-" + fv);
+
+        fv = "2";
+        if (whLemma.equals("how"))
+            fv = ansNEList.contains("NUMBER") ? "1" : "0";
+        feamap.put("C:how_NUMBER", "how_ne-" + fv);
 
         return feamap;
     }

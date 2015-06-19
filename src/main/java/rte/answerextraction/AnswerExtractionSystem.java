@@ -16,6 +16,7 @@ import rte.similarityflooding.NodePair;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
+import java.util.regex.Pattern;
 
 import static rte.answerextraction.FeatureExtractor.extractFeatures;
 import static rte.answerextraction.FeatureExtractor.toNumericFeature;
@@ -44,11 +45,11 @@ public class AnswerExtractionSystem extends RteMessageHandler {
 //        // Raw data precessing
 //        RawData.runRawData(new String[]{trainName, testName, trainInputPath});
 
-//        // Generate features and prepare the training / testing data
+        // Generate features and prepare the training / testing data
 //        TrainData.runTrainData(new String[]{trainName, testName});
 //        FITOFN.putAll(TrainData.FITOFN);
 
-//        // Run classifier
+        // Run classifier
 //        ClassifierTrainer.runClassifierTrainer(
 //                new String[]{trainName, modelPath, feaPath}, FITOFN);
 
@@ -57,7 +58,7 @@ public class AnswerExtractionSystem extends RteMessageHandler {
 
         // Testing in json file
         String jsonPath = "data/rte/cmuWiki.json";
-        runJSONTest(modelPath, feaPath, jsonPath, 10);
+        runJSONTest(modelPath, feaPath, jsonPath, 30, 60);
     }
 
     public static void runSingleTest(String modelpath, String feapath) {
@@ -73,7 +74,8 @@ public class AnswerExtractionSystem extends RteMessageHandler {
 
     }
 
-    public static void runJSONTest(String modelPath, String feaPath, String jsonPath, int top) {
+    public static void runJSONTest(String modelPath, String feaPath,
+                                   String jsonPath, int start, int end) {
 
         svmModel = (SVMModel) sparkLibSVM.loadModel(modelPath);
         FITOFN = sparkLibSVM.loadFeature(feaPath);
@@ -85,39 +87,35 @@ public class AnswerExtractionSystem extends RteMessageHandler {
 
             Iterator<JSONObject> iter = array.iterator();
 
-            int index = 1;
-            while (iter.hasNext() && index <= top) {
+            int index = 0;
+            while (iter.hasNext()) {
+                index++;
+                if (index < start || index > end)
+                    continue;
+
                 JSONObject obj = iter.next();
                 String query = (String) obj.get("query");
                 query = LOWERCASE ? query.toLowerCase() : query;
-                String longanswer = (String) obj.get("answer");
-                longanswer = LOWERCASE ? longanswer.toLowerCase() : longanswer;
+                String longanswerOri = (String) obj.get("answer");
+                String[] longanswerArr = longanswerOri.split(" \\| ");
                 String shortanswer = (String) obj.get("optimal_answer");
                 if (shortanswer.toLowerCase().equals("yes")
                         || shortanswer.toLowerCase().equals("no"))
                     continue;
 
-                TreeMap<String, Double> cand_confidence = runQA(query, longanswer);
-                System.out.println("\nquery = " + query);
-                System.out.println("text = " + longanswer);
-                cand_confidence.forEach((cand, conf) -> {
-                    System.out.println("candidate = " + cand);
-                    System.out.println("label = " + conf);
-                });
-
-//                // short answer evaluation
-//                public static boolean evaluateForShortAnswer(final String expected, final String actual, final String actualInOriginalSentence)   {
-//                    Pattern expectedPattern = Pattern.compile(expected.toLowerCase());
-//
-//                    // Split actual on short answer prefix, so that we are testing on just the short answer.
-//                    // If the short answer prefix is not found, we expect to throw an index out of bounds exception.
-//                    String actualShortAnswer = actual.split(IrUtils.SHORT_ANSWER_PREFIX)[1];
-//
-//                    boolean found = expectedPattern.matcher(actualShortAnswer.toLowerCase()).find();
-//                    found |= expectedPattern.matcher(actualInOriginalSentence.toLowerCase()).find();
-//
-//                    return found;
-//                }
+                for (String longanswer : longanswerArr) {
+                    longanswer = longanswer.trim();
+                    longanswer = LOWERCASE ? longanswer.toLowerCase() : longanswer;
+                    NavigableMap<Double, List<String>> conf_candList = runQA(query, longanswer);
+                    System.out.println("\n**************************************************");
+                    System.out.println("query = " + query);
+                    System.out.println("text = " + longanswer);
+                    System.out.println("optimal_answer = " + shortanswer);
+                    conf_candList.forEach((cand, conf) -> {
+                        System.out.println("---\nlabel = " + conf);
+                        System.out.println("candidate = " + cand);
+                    });
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -126,16 +124,16 @@ public class AnswerExtractionSystem extends RteMessageHandler {
         }
     }
 
-    public static TreeMap<String, Double> runQA(String query, String text) {
+    public static NavigableMap<Double, List<String>> runQA(String query, String text) {
 
         Graph graphQ = GraphExtended.stringToGraph(query);
         Graph graphT = GraphExtended.stringToGraph(text);
         return runQA(query, text, graphQ, graphT);
     }
 
-    public static TreeMap<String, Double> runQA(String query, String text, Graph graphQ, Graph graphT) {
+    public static NavigableMap<Double, List<String>> runQA(String query, String text, Graph graphQ, Graph graphT) {
 
-        HashMap<String, Double> cand_confidence = new HashMap<>();
+        TreeMap<Double, List<String>> conf_candList = new TreeMap<>();
 
         // for each (query, text) pair, generate list of SAC (short_answer_candidate)
         HashMap<DNode, NavigableMap<Double, List<NodePair>>> nodeMatches
@@ -151,35 +149,36 @@ public class AnswerExtractionSystem extends RteMessageHandler {
             HashMap<String, String> feaMap = extractFeatures(graphT, graphQ, ansCandNodeList, nodeMatches);
             Vector feaVector = toNumericFeature(FITOFN, feaMap);
             double label = svmModel.predict(feaVector);
-            cand_confidence.put(fromTreeMapToString(ansCandNodeMap), label);
-//            System.out.println("\nquery = " + query);
-//            System.out.println("text = " + text);
-//            System.out.println("candidate = " + fromTreeMapToString(ansCandNodeMap));
-//            System.out.println("feaMap = " + feaMap);
-//            System.out.println("feaVector = " + feaVector);
-//            System.out.println("label = " + label);
+            String ansCandStr = fromTreeMapToString(ansCandNodeMap);
+            List<String> candList = new ArrayList<>();
+            if (conf_candList.containsKey(label)) {
+                candList = conf_candList.get(label);
+            }
+            candList.add(ansCandStr);
+            conf_candList.put(label, candList);
+
+            System.out.println("\nquery = " + query);
+            System.out.println("text = " + text);
+            System.out.println("candidate = " + fromTreeMapToString(ansCandNodeMap));
+            System.out.println("feaMap = " + feaMap);
+            System.out.println("feaVector = " + feaVector);
+            System.out.println("label = " + label);
         }
-
-        ValueComparator bvc =  new ValueComparator(cand_confidence);
-        TreeMap<String,Double> sorted_map = new TreeMap<String,Double>(bvc);
-
-        return sorted_map;
-    }
-}
-
-class ValueComparator implements Comparator<String> {
-
-    Map<String, Double> base;
-    public ValueComparator(Map<String, Double> base) {
-        this.base = base;
+        return conf_candList.descendingMap();
     }
 
-    // Note: this comparator imposes orderings that are inconsistent with equals.
-    public int compare(String a, String b) {
-        if (base.get(a) <= base.get(b)) {
-            return -1;
-        } else {
-            return 1;
-        } // returning 0 would merge keys
+
+   // short answer evaluation
+    public static boolean evaluateForShortAnswer(final String expected, final String actual, final String actualInOriginalSentence)   {
+        Pattern expectedPattern = Pattern.compile(expected.toLowerCase());
+
+        // Split actual on short answer prefix, so that we are testing on just the short answer.
+        // If the short answer prefix is not found, we expect to throw an index out of bounds exception.
+        String actualShortAnswer = actual;
+
+        boolean found = expectedPattern.matcher(actualShortAnswer.toLowerCase()).find();
+        found |= expectedPattern.matcher(actualInOriginalSentence.toLowerCase()).find();
+
+        return found;
     }
 }

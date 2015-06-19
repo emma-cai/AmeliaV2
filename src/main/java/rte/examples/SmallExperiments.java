@@ -11,7 +11,10 @@ import rte.datastructure.Graph;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.TreeMap;
 
 /**
  * Created by qingqingcai on 6/12/15.
@@ -20,9 +23,19 @@ public class SmallExperiments {
 
     public static void main(String[] args) {
 
-        String filepath = "/Users/qingqingcai/Documents/IntellijWorkspace/AmeliaV2/data/rte/MIT99.xls";
-        String sheetname = "MIT99-trek8";
-        readExcel(filepath, sheetname, null);
+        TreeMap<Double, List<String>> map = new TreeMap<>();
+        List<String> list1 = new ArrayList<>(Arrays.asList("a", "b", "c"));
+        map.put(0.3, list1);
+
+        List<String> list2 = new ArrayList<>(Arrays.asList("a"));
+        map.put(0.2, list2);
+        map.get(0.3).add("d");
+        System.out.println(map.descendingMap());
+
+
+//        String filepath = "/Users/qingqingcai/Documents/IntellijWorkspace/AmeliaV2/data/rte/MIT99.xls";
+//        String sheetname = "MIT99-trek8";
+//        readExcel(filepath, sheetname, null);
     }
 
     /** **************************************************************
