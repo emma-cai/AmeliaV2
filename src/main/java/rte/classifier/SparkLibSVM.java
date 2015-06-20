@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.util.HashMap;
+import java.util.TreeMap;
 
 /**
  * Created by qingqingcai on 6/17/15.
@@ -57,7 +58,7 @@ public class SparkLibSVM<L, F> implements SAEClassifier<L, F> {
     }
 
     @Override
-    public void saveFeature(String path, HashMap<Integer, String> map) {
+    public void saveFeature(String path, TreeMap<Integer, String> map) {
 
         LOG.info("Serialized feature map ...");
         try {
@@ -74,14 +75,14 @@ public class SparkLibSVM<L, F> implements SAEClassifier<L, F> {
     }
 
     @Override
-    public HashMap<Integer, String> loadFeature(String path) {
+    public TreeMap<Integer, String> loadFeature(String path) {
 
         LOG.info("Deserialized feature map ...");
-        HashMap<Integer, String> map = new HashMap<>();
+        TreeMap<Integer, String> map = new TreeMap<>();
         try {
             FileInputStream fis = new FileInputStream(path);
             ObjectInputStream ois = new ObjectInputStream(fis);
-            map = (HashMap) ois.readObject();
+            map = (TreeMap) ois.readObject();
             ois.close();
             fis.close();
         } catch (FileNotFoundException e) {

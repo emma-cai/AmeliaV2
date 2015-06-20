@@ -90,7 +90,7 @@ public class FeatureExtractor {
     }
 
     public static Vector toNumericFeature(
-            HashMap<Integer, String> FITOFN , HashMap<String, String> feaMap) {
+            TreeMap<Integer, String> FITOFN , HashMap<String, String> feaMap) {
 
         TreeMap<Integer, Double> numericfeamap = new TreeMap<>();
 

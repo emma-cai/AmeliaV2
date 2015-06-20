@@ -7,7 +7,9 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import rte.RteMessageHandler;
+import rte.classifier.ClassifierTrainer;
 import rte.datacollection.SAEData;
+import rte.datacollection.TrainData;
 import rte.datastructure.DNode;
 import rte.datastructure.Graph;
 import rte.graphmatching.NodeComparer;
@@ -31,7 +33,7 @@ public class AnswerExtractionSystem extends RteMessageHandler {
 
     private static boolean LOWERCASE = false;
     private static SVMModel svmModel = null;
-    private static HashMap<Integer, String> FITOFN = new HashMap<>();
+    private static TreeMap<Integer, String> FITOFN = new TreeMap<>();
 
     public static void main(String[] args) {
 
@@ -46,17 +48,17 @@ public class AnswerExtractionSystem extends RteMessageHandler {
 //        RawData.runRawData(new String[]{trainName, testName, trainInputPath});
 
         // Generate features and prepare the training / testing data
-//        TrainData.runTrainData(new String[]{trainName, testName});
-//        FITOFN.putAll(TrainData.FITOFN);
+        TrainData.runTrainData(new String[]{trainName, testName});
+        FITOFN.putAll(TrainData.FITOFN);
 
         // Run classifier
-//        ClassifierTrainer.runClassifierTrainer(
-//                new String[]{trainName, modelPath, feaPath}, FITOFN);
+        ClassifierTrainer.runClassifierTrainer(
+                new String[]{trainName, modelPath, feaPath}, FITOFN);
 
-//        // Testing for single instance
-//        runSingleTest(modelPath, feaPath);
+        // Testing for single instance
+        runSingleTest(modelPath, feaPath);
 
-        // Testing in json file
+//        // Testing in json file
         String jsonPath = "data/rte/cmuWiki.json";
         runJSONTest(modelPath, feaPath, jsonPath, 30, 60);
     }
@@ -70,6 +72,17 @@ public class AnswerExtractionSystem extends RteMessageHandler {
         String query = "What book did Rachel Carson write in 1962?";
         String text = "Rachel Carson's 1962 \"Silent Spring\" said dieldrin causes mania.";
 
+        query = "What was the value of the monetary value of the Nobel Peace Prize in 1989?";
+        text = "Each Novel Prize is worth $469,000.";
+
+        query = "What are the similarities between beetles and grasshoppers?";
+        text = "Beetles have mouthparts similar to those of grasshoppers.";
+
+        query = "Please tell me about beetle anatomy";
+        text = "The general anatomy of beetles is quite uniform, although specific organs and appendages may vary greatly in appearance and function between the many families in the order.";
+
+        query = "Who was made commander of the Continental Army?";
+        text = "He was made commander of the Continental Army on June 15, 1775";
         runQA(query, text);
 
     }
@@ -139,9 +152,11 @@ public class AnswerExtractionSystem extends RteMessageHandler {
         HashMap<DNode, NavigableMap<Double, List<NodePair>>> nodeMatches
                 = initNodeMatches(graphT, graphQ, config);
         DNode whNode = graphQ.getFirstNodeWithPosTag(NodeComparer.WhSet);
-        whNode = whNode==null ? graphQ.getNodeById(1) : whNode;
+        whNode = (whNode==null) ? graphQ.getNodeById(1) : whNode;
+        DNode whParent = whNode.getHead();
+        whParent = (whParent==null || whParent.getId()==0) ? whNode : whParent;
         List<TreeMap<Integer, DNode>> ListOfAnsCandNodeMap
-                = generateAnswerCandidates(whNode, nodeMatches);
+                = generateAnswerCandidates(whParent, nodeMatches);
 
         // for each SAC, generate features, predict the label (0/1)
         for (TreeMap<Integer, DNode> ansCandNodeMap : ListOfAnsCandNodeMap) {

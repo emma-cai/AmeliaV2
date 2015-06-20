@@ -182,10 +182,10 @@ public class FeatureExtractorUtils extends RteMessageHandler {
     }
 
     public static List<TreeMap<Integer, DNode>> generateAnswerCandidates(
-            DNode whNode, HashMap<DNode, NavigableMap<Double, List<NodePair>>> nodeH_sim_NodePairList) {
+            DNode targetNode, HashMap<DNode, NavigableMap<Double, List<NodePair>>> nodeH_sim_NodePairList) {
 
         List<TreeMap<Integer, DNode>> answerCandidateList = new ArrayList<>();
-        Collection<List<NodePair>> tmp = nodeH_sim_NodePairList.get(whNode).values();
+        Collection<List<NodePair>> tmp = nodeH_sim_NodePairList.get(targetNode).values();
 
         for (List<NodePair> pairlist : tmp) {
             for (NodePair pair : pairlist) {
@@ -194,11 +194,8 @@ public class FeatureExtractorUtils extends RteMessageHandler {
 
                 if (answerCandidate.isEmpty())
                     continue;
-                if (answerCandidate.size() == 1) {
-                    String dep = answerCandidate.entrySet().iterator().next().getValue().getDepLabel();
-                    if (!dep.contains("nn") && !dep.contains("subj") && !dep.contains("obj"))
-                        continue;
-                }
+                if (check(answerCandidate) == false)
+                    continue;
 
                 answerCandidateList.add(answerCandidate);
             }
@@ -237,14 +234,34 @@ public class FeatureExtractorUtils extends RteMessageHandler {
         return subtreeDNodeSorted;
     }
 
+    /** **************************************************************
+     * Return true if this is numeric feature;
+     */
     public static boolean isNumeric(String s) {
 
         return s.startsWith("N:");
     }
 
+    /** **************************************************************
+     * Return true if this is categorial feature;
+     */
     public static boolean isCategorial(String s) {
 
         return s.startsWith("C:");
+    }
+    /** **************************************************************
+     * Check if the candidate answer node list is valid or not;
+     */
+    public static boolean check(TreeMap<Integer, DNode> ansCandNodeList) {
+
+        // If only one node contained, it must be either in SubjSet or ObjSet;
+        if (ansCandNodeList.size() == 1) {
+            String dep = ansCandNodeList.entrySet().iterator().next().getValue().getDepLabel();
+
+            if (!NodeComparer.SubjSet.contains(dep) && !NodeComparer.ObjSet.contains(dep))
+                return false;
+        }
+        return true;
     }
 
     public static void main(String[] args) {
